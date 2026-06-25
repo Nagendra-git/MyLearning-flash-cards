@@ -1,0 +1,46 @@
+<p>Association represents a relationship between two independent classes.</p>
+
+<h4>Aggregation(Weak HAS-A Realtionship)</h4>
+<p>Aggregation in java represents a weak HAS-A Realtionship where one class contains a reference of another class.</p>
+<p>This is Weak HAS-A Realtionship beacuse child object is created outside the parent object</p>
+<div class="code-block">
+    <div class="code-header">Java code</div>
+    <pre><code>Aggregation:
+        class Employee{
+            int id;
+            Address address;//Aggregation
+        } 
+        class Address{
+            int id;
+        }
+        
+        class Mian{
+            main(){
+                Address add = new Address(100);//outside
+                Employee emp = new Employee(200, add);
+            }
+        } 
+    </code></pre>
+</div>
+
+<h4>Composition(Strong HAS-A Realtionship)</h4>
+<p>Composition in java represents a Strong HAS-A Realtionship where one class contains a reference of another class.</p>
+<p>This is Strong HAS-A Realtionship beacuse child object is created inside the parent object</p>
+<div class="code-block">
+    <div class="code-header">Java code</div>
+    <pre><code>Aggregation:
+        class Employee{
+            int id;
+            Address address;
+            Employee(int id){
+                this.id = id,
+                this.address = new Address(100)//inside
+            }
+        }  
+        class Mian{
+            main(){
+                Employee emp = new Employee(200);
+            }
+        } 
+    </code></pre>
+</div>
