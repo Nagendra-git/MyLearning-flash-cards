@@ -24,23 +24,45 @@ function FlashcardModal({ topic, onClose }) {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>✕</button>
+        <button className="modal-close" onClick={onClose}>
+          ✕
+        </button>
 
-        <h3>{topic.label}</h3>
+        <div
+          className="flashcard"
+          onClick={() => setShowAnswer(!showAnswer)}
+        >
 
-        <div className="flashcard" onClick={() => setShowAnswer(!showAnswer)}>
-          <p className="flashcard-label">
-            {showAnswer ? "Answer" : "Question"}
-          </p>
-          <h4>{showAnswer ? currentCard.answer : currentCard.question}</h4>
+          {!showAnswer ? (
+            <h4>{currentCard.question}</h4>
+          ) : (
+            <div className="answer-content">
+              <p>{currentCard.answer}</p>
+
+              {currentCard.pseudoCode && (
+                <div className="code-block">
+                <div className="code-header">
+                    Pseudo Code
+                </div>
+
+                <pre>
+                    <code>{currentCard.pseudoCode}</code>
+                </pre>
+            </div>
+            )}
+            </div>
+          )}
+
           <span className="flip-hint">(click card to flip)</span>
         </div>
 
         <div className="flashcard-controls">
           <button onClick={handlePrev}>⬅ Previous</button>
+
           <span className="card-counter">
             {currentIndex + 1} / {topic.data.length}
           </span>
+
           <button onClick={handleNext}>Next ➡</button>
         </div>
       </div>
