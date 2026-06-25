@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Java Arrays — Interview Cheat Sheet</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:              #f7f6f3;
+      --surface:         #ffffff;
+      --surface-alt:     #f1f0ec;
+      --border:          #e2e0d8;
+      --border-strong:   #c9c7be;
+      --text:            #1a1917;
+      --text-muted:      #6b6960;
+      --text-hint:       #9b9990;
+
+      --blue-bg:         #e6f1fb;
+      --blue-text:       #0c447c;
+      --blue-border:     #85b7eb;
+
+      --amber-bg:        #faeeda;
+      --amber-text:      #412402;
+      --amber-border:    #ef9f27;
+      --amber-body:      #633806;
+
+      --green-bg:        #eaf3de;
+      --green-text:      #27500a;
+      --green-border:    #97c459;
+
+      --purple-bg:       #eeedfe;
+      --purple-text:     #3c3489;
+
+      --teal-bg:         #e1f5ee;
+      --teal-text:       #085041;
+      --teal-border:     #5dcaa5;
+
+      --warn-bg:         #faeeda;
+      --warn-text:       #412402;
+      --warn-body:       #633806;
+      --warn-border:     #ef9f27;
+
+      --radius-sm:  6px;
+      --radius-md:  10px;
+      --radius-lg:  14px;
+
+      --mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+      --sans: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:            #1a1917;
+        --surface:       #242320;
+        --surface-alt:   #2e2d2a;
+        --border:        #38362f;
+        --border-strong: #4a4840;
+        --text:          #f0ede8;
+        --text-muted:    #a8a49d;
+        --text-hint:     #6b6960;
+
+        --blue-bg:       #0c2540;
+        --blue-text:     #85b7eb;
+        --blue-border:   #185fa5;
+
+        --amber-bg:      #2e1e06;
+        --amber-text:    #fac775;
+        --amber-border:  #854f0b;
+        --amber-body:    #ef9f27;
+
+        --green-bg:      #162b05;
+        --green-text:    #97c459;
+        --green-border:  #3b6d11;
+
+        --purple-bg:     #1c1840;
+        --purple-text:   #afa9ec;
+
+        --teal-bg:       #042820;
+        --teal-text:     #5dcaa5;
+        --teal-border:   #0f6e56;
+
+        --warn-bg:       #2e1e06;
+        --warn-text:     #fac775;
+        --warn-body:     #ef9f27;
+        --warn-border:   #854f0b;
+      }
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ── Header ── */
+    .header {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 2px solid var(--border-strong);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .header h1 span { color: var(--blue-text); }
+    .header .meta {
+      font-size: 12px;
+      color: var(--text-hint);
+      font-family: var(--mono);
+    }
+
+    /* ── Section ── */
+    .section { margin-bottom: 2rem; }
+    .section-label {
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-hint);
+      margin-bottom: 0.6rem;
+      padding-bottom: 5px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 0.85rem 1.1rem;
+      margin-bottom: 8px;
+      transition: border-color 0.15s ease;
+    }
+    .card:hover { border-color: var(--border-strong); }
+
+    .card-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .card-body {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ── Warning / pitfall cards ── */
+    .trick-card {
+      background: var(--warn-bg);
+      border: 1px solid var(--warn-border);
+      border-radius: var(--radius-lg);
+      padding: 0.85rem 1.1rem;
+      margin-bottom: 8px;
+    }
+    .trick-card .card-title { color: var(--warn-text); }
+    .trick-card .card-body  { color: var(--warn-body); }
+    .trick-card code {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: var(--warn-border);
+      color: var(--warn-text);
+    }
+
+    /* ── Tags / badges ── */
+    .tag {
+      display: inline-block;
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 99px;
+      line-height: 1.6;
+    }
+    .tag-blue   { background: var(--blue-bg);   color: var(--blue-text); }
+    .tag-green  { background: var(--green-bg);  color: var(--green-text); }
+    .tag-purple { background: var(--purple-bg); color: var(--purple-text); }
+    .tag-teal   { background: var(--teal-bg);   color: var(--teal-text); }
+    .tag-amber  { background: var(--amber-bg);  color: var(--amber-text); }
+
+    /* ── Inline code ── */
+    code {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      padding: 1px 5px;
+      border-radius: var(--radius-sm);
+      color: var(--text);
+    }
+
+    /* ── Warn icon ── */
+    .warn-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      background: var(--warn-border);
+      color: var(--warn-text);
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 50%;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    /* ── Grids ── */
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    @media (max-width: 620px) {
+      .grid2, .grid3 { grid-template-columns: 1fr; }
+    }
+
+    /* ── Complexity table ── */
+    .complexity-table { width: 100%; border-collapse: collapse; }
+    .complexity-table tr { border-bottom: 1px solid var(--border); }
+    .complexity-table tr:last-child { border-bottom: none; }
+    .complexity-table td {
+      padding: 6px 4px;
+      font-size: 13px;
+      color: var(--text-muted);
+      vertical-align: middle;
+    }
+    .complexity-table td:first-child { color: var(--text); }
+    .complexity-table td:last-child {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--blue-text);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    /* ── Print ── */
+    @media print {
+      body { background: white; padding: 1rem; }
+      .card, .trick-card { break-inside: avoid; }
+      .section { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <h1>Java <span>Arrays</span> — Interview Cheat Sheet</h1>
+    <div class="meta">Core concepts · Pitfalls · Edge cases</div>
+  </div>
+
+  <!-- FUNDAMENTALS -->
+  <div class="section">
+    <div class="section-label">Fundamentals</div>
+
+    <div class="card">
+      <div class="card-title"><span class="tag tag-blue">memory</span> Array storage in memory</div>
+      <div class="card-body">
+        Arrays are objects stored on the <strong>heap</strong>, even for primitives like <code>int[]</code> or <code>char[]</code>.
+        The reference variable lives on the stack (or as a field of another object) and points to a contiguous memory block.
+        Size is fixed at creation and stored in the object's metadata.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="tag tag-blue">core</span> Why index starts at 0, not 1</div>
+      <div class="card-body">
+        An array index is a <em>memory offset</em>. Element at index <code>i</code> lives at address
+        <code>base + i × elementSize</code>. The first element is 0 bytes from the base, so its offset = 0.
+        Starting at 1 would force an unnecessary subtraction on every single access — wasted CPU work with no benefit.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="tag tag-blue">core</span> Default values of array elements</div>
+      <div class="card-body">
+        <code>int / long / short / byte</code> → <code>0</code> &nbsp;·&nbsp;
+        <code>float / double</code> → <code>0.0</code> &nbsp;·&nbsp;
+        <code>char</code> → <code>'\u0000'</code> &nbsp;·&nbsp;
+        <code>boolean</code> → <code>false</code> &nbsp;·&nbsp;
+        Object references (<code>String[]</code>, custom types) → <code>null</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARRAY TYPES -->
+  <div class="section">
+    <div class="section-label">Array types</div>
+    <div class="grid3">
+      <div class="card">
+        <div class="card-title">1D array</div>
+        <div class="card-body"><code>int[] arr = new int[5];</code><br>Single row of elements.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">2D rectangular</div>
+        <div class="card-body"><code>int[][] arr = new int[3][4];</code><br>Array of arrays — all rows same length.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Jagged array</div>
+        <div class="card-body"><code>int[][] arr = new int[3][];</code><br>Each row can have a different length. Java 2D arrays are not true matrices.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="tag tag-blue">memory</span> 2D array memory layout</div>
+      <div class="card-body">
+        Java has no native matrix type. A 2D array is an <em>array of references</em>, each pointing to a separate 1D array on the heap.
+        <code>arr.length</code> = number of rows; <code>arr[i].length</code> = number of columns in row <code>i</code>.
+        This is why jagged arrays are possible.
+      </div>
+    </div>
+  </div>
+
+  <!-- TIME COMPLEXITY -->
+  <div class="section">
+    <div class="section-label">Time complexity</div>
+    <div class="card">
+      <table class="complexity-table">
+        <tr><td>Access by index</td><td>O(1)</td></tr>
+        <tr><td>Search — unsorted (linear)</td><td>O(n)</td></tr>
+        <tr><td>Search — sorted (binary search)</td><td>O(log n)</td></tr>
+        <tr><td>Insert / delete at end</td><td>O(1) amortized</td></tr>
+        <tr><td>Insert / delete at beginning / middle</td><td>O(n) — shifts required</td></tr>
+        <tr><td>Sort — <code>Arrays.sort()</code></td><td>O(n log n)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- SORTING -->
+  <div class="section">
+    <div class="section-label">Sorting internals</div>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title"><span class="tag tag-blue">primitives</span> Dual-Pivot Quicksort</div>
+        <div class="card-body">
+          Used by <code>Arrays.sort()</code> for primitive arrays.<br>
+          O(n log n) average. <strong>Not stable</strong>. In-place.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="tag tag-green">objects</span> TimSort / MergeSort</div>
+        <div class="card-body">
+          Used by <code>Arrays.sort()</code> for object arrays.<br>
+          O(n log n). <strong>Stable</strong> — preserves relative order of equal elements. Important when using Comparators.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COPYING -->
+  <div class="section">
+    <div class="section-label">Copying arrays</div>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title"><code>Arrays.copyOf(arr, n)</code></div>
+        <div class="card-body">New array, can resize. Pads with defaults if larger than source.</div>
+      </div>
+      <div class="card">
+        <div class="card-title"><code>Arrays.copyOfRange(arr, from, to)</code></div>
+        <div class="card-body">Copies a sub-range into a new array. <code>to</code> is exclusive.</div>
+      </div>
+      <div class="card">
+        <div class="card-title"><code>System.arraycopy(...)</code></div>
+        <div class="card-body">Fastest — native method. Copies between existing arrays with precise control over positions and length.</div>
+      </div>
+      <div class="card">
+        <div class="card-title"><code>arr.clone()</code></div>
+        <div class="card-body">Shallow copy only. For <code>Object[]</code>, copies references, not the objects themselves.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="tag tag-amber">important</span> Shallow copy vs deep copy</div>
+      <div class="card-body">
+        <strong>Shallow</strong> (<code>clone()</code>, <code>Arrays.copyOf()</code>) — copies array structure but elements still point to the <em>same objects</em>.
+        Mutating an object via one array affects the other.<br>
+        <strong>Deep</strong> — requires manually cloning each contained object so copies are fully independent.
+      </div>
+    </div>
+  </div>
+
+  <!-- PITFALLS -->
+  <div class="section">
+    <div class="section-label">Tricky pitfalls &amp; interview traps</div>
+
+    <div class="trick-card">
+      <div class="card-title"><span class="warn-icon">!</span> <code>Arrays.asList()</code> on a primitive array</div>
+      <div class="card-body">
+        <code>Arrays.asList(new int[]{1,2,3})</code> returns a <code>List&lt;int[]&gt;</code> with <strong>one element</strong> (the whole array),
+        not <code>List&lt;Integer&gt;</code>. Autoboxing doesn't work on arrays — only on individual primitives.
+        Fix: use <code>Integer[]</code> instead of <code>int[]</code>.
+      </div>
+    </div>
+
+    <div class="trick-card">
+      <div class="card-title"><span class="warn-icon">!</span> <code>Arrays.asList()</code> returns a fixed-size list</div>
+      <div class="card-body">
+        <code>add()</code> or <code>remove()</code> throws <code>UnsupportedOperationException</code>.
+        It is a live view backed by the original array — calling <code>set()</code> mutates the source array too.
+        Wrap with <code>new ArrayList&lt;&gt;(Arrays.asList(...))</code> to get a mutable list.
+      </div>
+    </div>
+
+    <div class="trick-card">
+      <div class="card-title"><span class="warn-icon">!</span> Array covariance → <code>ArrayStoreException</code></div>
+      <div class="card-body">
+        <code>Integer[]</code> is-a <code>Object[]</code> compiles fine. But at runtime:
+        <code>Object[] o = new String[3]; o[0] = 42;</code> throws <code>ArrayStoreException</code>.
+        The JVM checks the actual underlying array type on every write, even through a wider reference.
+      </div>
+    </div>
+
+    <div class="trick-card">
+      <div class="card-title"><span class="warn-icon">!</span> <code>ArrayIndexOutOfBoundsException</code> is unchecked</div>
+      <div class="card-body">
+        Extends <code>RuntimeException</code> — the compiler doesn't force you to catch it.
+        Thrown at runtime when index &lt; 0 or &gt;= <code>arr.length</code>. Must guard manually with bounds checks or use proper iteration.
+      </div>
+    </div>
+
+    <div class="trick-card">
+      <div class="card-title"><span class="warn-icon">!</span> <code>Object[]</code> can hold mixed types — but it's unsafe</div>
+      <div class="card-body">
+        <code>Object[] arr</code> can hold <code>String</code>, <code>Integer</code>, and custom objects together (all extend Object).
+        Loses type safety — requires casting on retrieval and risks <code>ClassCastException</code>.
+      </div>
+    </div>
+
+    <div class="trick-card">
+      <div class="card-title"><span class="warn-icon">!</span> <code>NegativeArraySizeException</code></div>
+      <div class="card-body">
+        <code>new int[-1]</code> compiles cleanly but throws <code>NegativeArraySizeException</code> at runtime.
+        A subtle edge case — especially in dynamic-size calculations where a variable could go negative.
+      </div>
+    </div>
+  </div>
+
+  <!-- OFTEN MISSED -->
+  <div class="section">
+    <div class="section-label">Often-missed points</div>
+
+    <div class="card">
+      <div class="card-title"><span class="tag tag-purple">equals &amp; toString</span> Arrays don't override them</div>
+      <div class="card-body">
+        <code>arr1 == arr2</code> checks reference equality, not content.
+        <code>arr1.equals(arr2)</code> also checks reference (inherited from <code>Object</code>).<br>
+        Use <code>Arrays.equals(arr1, arr2)</code> for 1D content comparison.
+        Use <code>Arrays.deepEquals(arr1, arr2)</code> for nested / 2D arrays.<br>
+        <code>arr.toString()</code> prints garbage like <code>[I@1b6d3586</code> — use <code>Arrays.toString(arr)</code> or <code>Arrays.deepToString()</code>.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="tag tag-teal">utility</span> <code>Arrays.fill(arr, val)</code></div>
+      <div class="card-body">
+        Fills all elements with a value in O(n). Useful for resetting arrays or pre-populating with sentinel values like <code>-1</code> or <code>Integer.MAX_VALUE</code>.
+        Use <code>Arrays.fill(arr, from, to, val)</code> to fill a range.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="tag tag-green">binary search</span> <code>Arrays.binarySearch()</code></div>
+      <div class="card-body">
+        Works only on <strong>sorted</strong> arrays. Returns the index if found, or a <em>negative</em> value
+        <code>-(insertion point) - 1</code> if not found. Behavior is undefined on unsorted arrays — no exception is thrown.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="tag tag-amber">varargs</span> Varargs are arrays under the hood</div>
+      <div class="card-body">
+        <code>void foo(int... nums)</code> — <code>nums</code> is just an <code>int[]</code> at runtime.
+        You can pass individual values or an explicit array — both are equivalent. Be careful: passing <code>null</code> to a varargs method assigns <code>null</code> to the array reference.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="tag tag-blue">streams</span> <code>Arrays.stream()</code></div>
+      <div class="card-body">
+        <code>Arrays.stream(arr)</code> produces an <code>IntStream</code> / <code>Stream&lt;T&gt;</code> for functional-style ops (<code>sum()</code>, <code>filter()</code>, <code>map()</code>).
+        For 2D arrays: flatten with <code>Arrays.stream(arr).flatMapToInt(Arrays::stream).toArray()</code>.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="tag tag-blue">core</span> Size is immutable — not the contents</div>
+      <div class="card-body">
+        Once created, the <em>length</em> of an array cannot change. But the <em>elements</em> can be freely reassigned (unless the array reference is <code>final</code>, which only fixes the reference, not the contents).
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
