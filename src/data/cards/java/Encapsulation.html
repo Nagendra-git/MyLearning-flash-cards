@@ -1,0 +1,22 @@
+<p>Encapsulation means hiding data and providing controlled access to it through getter and setter methods.</p>
+<div class="code-block">
+    <div class="code-header">Java code</div>
+    <pre><code>Encapsulation:
+        class Student{
+            private String name;
+            public getName(){
+                return name;
+            }
+            public setName(String name){
+                this.name = name;
+            }
+        }
+        class Main{
+            main(){
+                Student std = new Student();
+                std.setName("Nagendra");
+                println(std.getName());
+            }
+        }
+    </code></pre>
+</div>

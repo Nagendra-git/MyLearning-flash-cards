@@ -1,0 +1,53 @@
+<p>Polymorphism is the ability of an object or method to take multiple forms.</p>
+
+<h4>Compile-Time Polymorphism</h4>
+<pre>
+    Same method name with different parameters.
+    Achived by Method Overloading.
+</pre>
+<div class="code-block">
+    <div class="code-header">Java code</div>
+    <pre><code>Method Overloading:
+            class Calculator{
+                int add(int a, int b ){
+                    retrun a+b;
+                }
+                int add(int a, int b, int c){
+                    return a+b+c;
+                }
+            }
+            class Main{
+                Calculator cla = new Calculator();
+                sysout(cal.add(10,20));
+                sysout(cal.add(10,20,30));
+            }
+    </code></pre>
+</div>
+
+<h4>Run-Time Polymorphism</h4>
+<pre>
+    Parent reference referring to child object.
+    Acchived by method overriding.
+</pre>
+<div class="code-block">
+    <div class="code-header">Java code</div>
+    <pre><code>Method overriding:
+        class Animal{
+            void sound(){
+                sysout("Animal make sound");
+            }
+        }
+        class Dog extends Animal{
+            @Override
+            void sound(){
+                sysout("Dog barks");
+            }
+        }
+        class Main(){
+            main(){
+                Animal a = new Dog();//upcasting
+                a.sound();
+            }
+        }
+    </code></pre>
+</div>
