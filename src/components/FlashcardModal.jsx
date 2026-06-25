@@ -32,25 +32,13 @@ function FlashcardModal({ topic, onClose }) {
           className="flashcard"
           onClick={() => setShowAnswer(!showAnswer)}
         >
-
           {!showAnswer ? (
             <h4>{currentCard.question}</h4>
           ) : (
-            <div className="answer-content">
-              <p>{currentCard.answer}</p>
-
-              {currentCard.pseudoCode && (
-                <div className="code-block">
-                <div className="code-header">
-                    Pseudo Code
-                </div>
-
-                <pre>
-                    <code>{currentCard.pseudoCode}</code>
-                </pre>
-            </div>
-            )}
-            </div>
+            <div
+              className="answer-content"
+              dangerouslySetInnerHTML={{ __html: currentCard.answerHtml }}
+            />
           )}
 
           <span className="flip-hint">(click card to flip)</span>

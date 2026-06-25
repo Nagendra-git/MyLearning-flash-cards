@@ -1,0 +1,43 @@
+<h4>Abstract Class</h4>
+<p>Any class declared with the <code>abstract</code> keyword is considered an abstract class. Both the class and abstract methods must use the abstract keyword. By using an abstract class, we can achieve 0% to 100% abstraction.</p>
+<ol>
+  <li>An abstract class cannot be instantiated.</li>
+  <li>Constructors are allowed in abstract classes.</li>
+  <li>An abstract class does not necessarily need abstract methods.</li>
+  <li>Final methods cannot be abstract because abstract methods are meant to be overridden.</li>
+  <li>Objects cannot be created directly for an abstract class.</li>
+  <li>Static methods can be defined in an abstract class.</li>
+</ol>
+
+<div class="code-block">
+    <div class="code-header">Pseudo code</div>
+    <pre><code>Abstract Class:
+
+abstract class Test
+    abstract void test();
+
+class Test1 extends Test
+    void test()
+        print("Something")
+
+</code></pre>
+
+</div>
+
+<h4>Interface</h4>
+<p>An interface is similar to a class but is used to achieve 100% abstraction. By default, all methods are considered abstract (before Java 8), so there is no need to use the abstract keyword.</p>
+<ol>
+  <li>If a class implements an interface but does not provide implementations for all interface methods, the class must be declared abstract.</li>
+</ol>
+
+<div class="code-block">
+  <div class="code-header">Pseudo Code</div>
+  <pre><code>Interface:
+
+interface Test
+    void test();
+
+class Test1 implements Test
+    void test()
+        print("Something")</code></pre>
+</div>
