@@ -114,6 +114,30 @@
   margin-bottom: 1rem;
 }
 
+.answer-content h4 {
+  margin: 1rem 0 0.5rem;
+  color: var(--accent-color);
+}
+
+.answer-content ol,
+.answer-content ul {
+  margin: 0 0 1rem 1.2rem;
+  padding: 0;
+}
+
+.answer-content li {
+  margin-bottom: 0.4rem;
+}
+
+.answer-content code {
+  background: #1e1e1e;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 0.9em;
+}
+
+.code-block,
 .pseudo-block {
   margin-top: 1rem;
 
@@ -124,6 +148,7 @@
   overflow: hidden;
 }
 
+.code-header,
 .pseudo-header {
   padding: 10px 14px;
 
@@ -137,6 +162,7 @@
   border-bottom: 1px solid #444;
 }
 
+.code-block pre,
 .pseudo-block pre {
   margin: 0;
   padding: 16px;
@@ -181,4 +207,8 @@
 .card-counter {
   color: var(--text-muted);
   font-size: 0.95rem;
+}
+
+.answer-text {
+  white-space: pre-line;
 }

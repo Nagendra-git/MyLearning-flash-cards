@@ -1,0 +1,82 @@
+<p>Acquiring properties & behaviors is known as inheritance. There are 5 types of inheritance.</p>
+<ol>
+  <li>Single Inheritance</li>
+    <div class="code-block">
+        <div class="code-header">Pseudo code</div>
+        <pre><code>Single Inheritance:
+            class Animal
+                method eat()
+                    print "Animal is eating"
+
+            class Dog extends Animal
+                main()
+                    Dog d = new Dog()
+                    d.eat()
+        </code></pre>
+    </div>
+  <li>Multilevel Inheritance</li>
+    <div class="code-block">
+        <div class="code-header">Pseudo code</div>
+        <pre><code>Multilevel Inheritance:
+            class Animal
+                method eat()
+
+            class Dog extends Animal
+                method bark()
+
+            class Puppy extends Dog
+                main()
+                Puppy p = new Puppy()
+                p.eat()
+                p.bark()   
+        </code></pre>
+    </div>
+  <li>Hierarchical Inheritance</li>
+    <div class="code-block">
+        <div class="code-header">Pseudo Code</div>
+        <pre><code>Hierarchical Inheritance:
+            class Animal
+                method eat()
+
+            class Dog extends Animal
+
+            class Cat extends Animal
+                main()
+                Dog d = new Dog()
+                Cat c = new Cat()
+                d.eat()
+                c.eat()
+        </code></pre>
+    </div>
+  <li>Multiple Inheritance (through interfaces)</li>
+    <div class="code-block">
+        <div class="code-header">Pseudo code</div>
+        <pre><code>Multiple Inheritance (Using Interfaces):
+            interface Fly
+                method fly()
+
+            interface Swim
+                method swim()
+
+            class Duck implements Fly, Swim
+                main()
+                Duck d = new Duck()
+                d.fly()
+                d.swim()
+        </code></pre>
+    </div>
+  <li>Hybrid Inheritance</li>
+</ol>
+
+<div class="code-block">
+  <div class="code-header">Pseudo Code</div>
+  <pre><code>Hybrid Inheritance:
+    class Animal
+
+    interface Fly
+
+    class Bird extends Animal implements Fly
+        main()
+        Bird b = new Bird()
+    </code></pre>
+</div>
