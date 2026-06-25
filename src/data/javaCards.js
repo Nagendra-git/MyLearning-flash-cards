@@ -3,6 +3,7 @@ import abstractClassInterfaceHtml from "./cards/java/AbstractClassInterface.html
 import associationHtml from "./cards/java/Association.html?raw";
 import encapsulationHtml from "./cards/java/Encapsulation.html?raw";
 import polymorphismHtml from "./cards/java/Polymorphism.html?raw";
+import arraysHtml from "./cards/java/Arrays.html?raw";
 
 const javaCards = [
   {
@@ -24,6 +25,10 @@ const javaCards = [
   {
     question : "Polymorphism",
     answerHtml : polymorphismHtml
+  },
+  {
+    question: "Arrays",
+    answerHtml: arraysHtml
   }
 ];
 
