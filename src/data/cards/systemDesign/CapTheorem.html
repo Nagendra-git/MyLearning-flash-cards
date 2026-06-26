@@ -1,0 +1,73 @@
+<h4>CAP Theorem</h4>
+<p>CAP Theorem states that a distributed system can guarentee only two out of the 
+    following three properties at the same time.
+    <pre>
+        C -> Consistency
+        A -> Availability
+        P -> Partition Tolerance
+    </pre>
+</p>
+<h5>Partition Tolerance</h5>
+<p>A partition happens when servers cannot communicate due to a network failure.</p>
+<pre>
+    Example:
+        Server A  ❌------❌  Server B
+        (Network Failure) 
+    Both servers are running but cannot exchange data.
+    A good distributed system should continue working despite this network failure.
+    This property is called Partition Tolerance(P).
+</pre>
+<pre>
+The Three properties:
+    C-Consistancy:
+        Every user gets the latest data.
+        Example:
+            Update Balance → ₹8000
+                    ATM → ₹8000
+                    Mobile → ₹8000
+                    Website → ₹8000
+            Everyone sees the same value.
+    A-Availability:
+        Every request gets a response.
+        Example:
+            User opens Facebook 
+            Server replies immediately
+        Even if the data is a few seconds old.
+    P-Partition Tolerance:
+        The system continues working even if servers cannot communicate.
+        Example:
+            Server A ❌ Network ❌ Server B
+        Users can still access the application.
+CAP Combinations :
+    1. CP (Consistency + Partition Tolerance)
+        Choose:
+            ✅ Consistency
+            ✅ Partition Tolerance
+            ❌ Availability
+    Example:
+        🏦 Banking systems
+
+    If the network fails, better to show "Transaction unavailable"
+    than show the wrong account balance.
+
+    2. AP (Availability + Partition Tolerance)
+        Choose:
+            ✅ Availability
+            ✅ Partition Tolerance
+            ❌ Consistency
+    Example:
+        📱 Instagram
+
+    If you upload a photo,your friend might see it after a few seconds.
+    That's acceptable because the app remains available.
+
+3. CA (Consistency + Availability)
+    Choose:
+        ✅ Consistency
+        ✅ Availability
+        ❌ Partition Tolerance
+
+    Possible only when there is no network partition, 
+    such as in a single-server system.Not practical for 
+    large distributed systems because network failures can always occur.
+</pre>
