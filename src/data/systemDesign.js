@@ -1,5 +1,5 @@
 import systemDesignHtml from "./cards/systemDesign/SystemDesign.html?raw";
-import performanceVsScalabilityHtml from "./cards/SystemDesign/PreformanceVsScalability.html?raw";
+import performanceVsScalabilityHtml from "./cards/systemDesign/PreformanceVsScalability.html?raw";
 import latencyVsScalabilityHtml from "./cards/systemDesign/LatencyVsThroughput.html?raw";
 import availabilityVsConsistencyHtml from "./cards/systemDesign/AvailabilityVsConsistency.html?raw";
 import capTheoremHtml from "./cards/systemDesign/CapTheorem.html?raw";
