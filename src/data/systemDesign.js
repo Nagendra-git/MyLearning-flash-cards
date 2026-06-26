@@ -6,6 +6,7 @@ import capTheoremHtml from "./cards/systemDesign/CapTheorem.html?raw";
 import distributedSystemHtml from "./cards/systemDesign/DistributedSystem.html?raw";
 import consistencyPatternsHtml from "./cards/systemDesign/ConsistencyPatterns.html?raw";
 import availabilityHtml from "./cards/systemDesign/Availability.html?raw";
+import availabilityPatternsHtml from "./cards/systemDesign/AvailabilityPatterns.html?raw";
 
 const systemDesignCards = [
     {
@@ -39,6 +40,10 @@ const systemDesignCards = [
     {
         question : "Availability",
         answerHtml : availabilityHtml
+    },
+    {
+        question : "Availability Patterns",
+        answerHtml : availabilityPatternsHtml
     }
 
 ];
