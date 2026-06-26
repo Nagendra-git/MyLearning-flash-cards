@@ -1,0 +1,129 @@
+<h4>Consistency</h4>
+<p>
+    Consistency ensures that all users and servers see the same and
+    the most appropriate version of the data. <br>
+    Without Consistency, diffrent user may see diffrent data, leading to
+    incorrect or conflicting operations.
+</p>
+<pre>
+Example (E-Commerce):
+    Suppose an online store has only 1 iPhone left in stock.
+    Two users, Alice and Bob, try to buy it at the same time.
+    Without Consistency
+        Stock = 1
+        Alice buys the iPhone ✅
+        Inventory update is delayed
+        Bob still sees Stock = 1
+        Bob also buys the iPhone ✅
+        Now the system has accepted 2 orders for 1 product.
+        ❌ Incorrect inventory.
+
+    With Consistency
+        Stock = 1
+        Alice buys the iPhone ✅
+        Inventory immediately becomes 0
+        Bob tries to buy
+        System shows "Out of Stock"
+        ✅ Correct inventory.
+
+</pre>
+
+<h4>Consistency Patterns</h4>
+<pre>
+There are three types of consistency:  
+    1.Strong Consistency
+    2.Weak Consistency
+    3.Eventual Consistency
+
+Strong Consistency:
+    After data is updated, every user immediately sees the latest value.
+    There is no stale data.
+    Example
+        🏦 Banking System
+            Balance = ₹10,000
+            Transfer ₹2,000
+            Immediately,
+                ATM        → ₹8,000
+                Mobile App → ₹8,000
+                Website    → ₹8,000     
+        Everyone sees the same balance.
+
+    Advantages
+        ✅ Accurate data
+        ✅ No stale reads
+        ✅ High data integrity
+    Disadvantages
+        ❌ Higher latency
+        ❌ Lower availability
+    Used In
+        Banking
+        UPI
+        Stock Trading
+        Payment Systems
+Weak Consistency:
+    After an update, users may or may not see the latest data immediately.
+    The system doesn't guarantee that the next read reflects the recent write.
+    Example
+        🎮 Online Multiplayer Game
+        Player A shoots Player B.
+        Some players immediately see it.
+        Others see it after a short delay due to network lag.
+        The game continues.
+
+    Advantages
+        ✅ Very fast
+        ✅ High availability
+        ✅ Low latency
+    Disadvantages
+        ❌ Stale data
+        ❌ Temporary inconsistencies
+    Used In
+        Multiplayer Games
+        Live Chat
+        Real-time Collaboration
+Eventual Consistency:
+    Eventual consistency is a type of weak consistency where all copies of the data will eventually become consistent.
+    Users may temporarily see different data, but after some time, all servers synchronize.
+    Example
+        📱 Instagram
+        You upload a photo.
+        India → Photo visible immediately
+        USA → Not visible yet
+        After a few seconds...
+        USA → Photo appears
+        Eventually, everyone sees the same photo.
+
+    Advantages
+        ✅ High availability
+        ✅ Low latency
+        ✅ Scales well
+    Disadvantages
+        ❌ Temporary stale data
+        ❌ Different users may see different versions briefly
+    Used In
+        Instagram
+        Facebook
+        Twitter/X
+        YouTube
+        Amazon Product Reviews
+        Comparison Table
+Memory Trick
+    🏦 Bank = Strong Consistency
+        Everyone must see the exact balance.
+
+    🎮 Game = Weak Consistency
+        Small delays are acceptable.
+
+    📱 Instagram = Eventual Consistency
+        Posts may take a few seconds to appear everywhere.
+
+    🎯 Interview Takeaway:
+        Consistency ensures that all users see the correct version of data in a distributed system. 
+        It prevents issues like duplicate orders or incorrect account balances. 
+        There are three consistency models: 
+        Strong Consistency, where every read returns the latest data immediately; 
+        Weak Consistency, where recent updates may not be visible right away; and 
+        Eventual Consistency, where updates propagate asynchronously and all replicas become consistent over time.
+        Banking systems typically use Strong Consistency, 
+        while social media platforms often use Eventual Consistency to achieve higher availability and better scalability.
+</pre>

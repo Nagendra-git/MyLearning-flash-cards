@@ -1,0 +1,80 @@
+<h4>Availability</h4>
+<p>
+    Availability is the ability of a system to remain operational
+    and accessible to users even when failures occures.
+</p>
+<pre>
+    Example
+        Imagine using Amazon.
+        You click "Buy Now".
+        Even if one server crashes,
+        another server immediately handles your request.
+        The website keeps working.
+    ✅ High Availability
+</pre>
+<p>Why is Availability Important:</p>
+<pre>
+    Without high availability:
+        Users cannot access the application.
+        Transactions may fail.
+        Revenue is lost.
+        Customer trust decreases.
+    Examples
+        🏦 Banking → Customers cannot transfer money.
+        🛒 Amazon → Orders fail.
+        📱 WhatsApp → Messages cannot be sent.
+    Factors Affecting Availability:
+        Factor	                    Example
+        🌐 Network Failure	    Internet outage between servers
+        💻 Hardware Failure	    Hard disk or server crash
+        🐞 Software Bugs	    Application crashes
+        📈 High Traffic	            Black Friday overload
+        🔒 Security Attack	    DDoS or ransomware
+        🔗 Third-party Failure	    Payment gateway unavailable
+</pre>
+<p>Availability Metrics</p>
+<pre>
+    1.Uptime:
+        Percentage of time the system is running
+        Formula:
+            Availability = (Uptime / Total Time) × 100
+        Example:
+            System works for 364 days
+            Down for 1 day
+            Availability = 99.7%
+    2.MTBF(Mean Time Between Failure):
+        Average time the system runs before failing.
+        Higher is better
+        Example:
+            Server runs
+            20 days
+            25 days
+            30 days
+            Average = 25 days
+        MTBF = 25 days
+    3. MTTR (Mean Time To Repair):
+        Average time required to recover after a failure.
+        Lower is better.
+        Example:
+            Server crashes
+                Recovery time
+                10 minutes
+                5 minutes
+                15 minutes
+                Average = 10 minutes
+            MTTR = 10 minutes
+    4. SLA (Service Level Agreement):
+        Agreement between provider and customer.
+        Example
+            AWS promises
+                99.99% uptime
+            If AWS doesn't meet it,
+            customers may receive compensation.
+    5.Nines of Availability:
+        Availability	Downtime Per Year
+        99%	            ~3.65 days
+        99.9%	        ~8.76 hours
+        99.99%	        ~52 minutes
+        99.999%	        ~5 minutes
+        Memory Trick
+</pre>

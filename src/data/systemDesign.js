@@ -3,6 +3,9 @@ import performanceVsScalabilityHtml from "./cards/systemDesign/PreformanceVsScal
 import latencyVsScalabilityHtml from "./cards/systemDesign/LatencyVsThroughput.html?raw";
 import availabilityVsConsistencyHtml from "./cards/systemDesign/AvailabilityVsConsistency.html?raw";
 import capTheoremHtml from "./cards/systemDesign/CapTheorem.html?raw";
+import distributedSystemHtml from "./cards/systemDesign/DistributedSystem.html?raw";
+import consistencyPatternsHtml from "./cards/systemDesign/ConsistencyPatterns.html?raw";
+import availabilityHtml from "./cards/systemDesign/Availability.html?raw";
 
 const systemDesignCards = [
     {
@@ -24,6 +27,18 @@ const systemDesignCards = [
     {
         question : "CAP Theorem",
         answerHtml : capTheoremHtml
+    },
+    {
+        question : "Distribution System",
+        answerHtml : distributedSystemHtml
+    },
+    {
+        question : "Consistency Patterns",
+        answerHtml : consistencyPatternsHtml
+    },
+    {
+        question : "Availability",
+        answerHtml : availabilityHtml
     }
 
 ];
