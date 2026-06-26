@@ -1,0 +1,77 @@
+<h4>Latency</h4>
+<p>Latency is the time taken by a system to respond to a single request.</p>
+<pre>
+    It is usually measured in:
+        1.Milliseconds (ms)
+        2.Microseconds (μs)
+    Simple Formula
+        Latency = Time when response received − Time when request sent
+    Example
+        Response in 100 ms → Low latency ✅
+        Response in 3 seconds → High latency ❌
+
+    👉 Latency measures delay (speed of one request).
+</pre>
+<h4>Throughput</h4>
+<p>Throughput is the number of requests or transactions a system can process in a given 
+    amount of time.
+</p>
+<pre>
+    It is measured in:
+        1.Requests/second (RPS)
+        2.Transactions/second (TPS)
+        3.MB/s
+        4.GB/s
+    Example
+        A server can process
+            10,000 requests per second
+        Its throughput is
+            10,000 RPS
+
+    👉 Throughput measures capacity (how much work the system can do).
+</pre>
+
+<h5>Relationship Between Them</h5>
+<hr>
+<pre>
+    case 1(ideal):
+        Latency = Low
+        Throughput = High
+    Example:
+        Response in 100ms
+        Handles 20,000 requests/sec
+    ✅ Best system.
+    <hr>
+    case 2 :
+        Latency = High
+        Throughput = Low
+    Example:
+        Response in 5s
+        Handles 100 requests/sec
+    ❌ Poor system.
+    <hr>
+    case 3 :
+        Latency = Low
+        Throughput = Low
+    Example:
+        Response in 100ms
+        Handles 100 requests/sec
+    Good speed, poor capacity.
+    <hr>
+    case 4 :
+        Latency = High
+        Throughput = High
+    Example:
+        Video encoding server
+        Batch processing system
+    Processes many requests but each individual request takes longer.
+
+
+    🎯 Interview Takeaway
+    Latency is the time taken by a system to respond to a single request. 
+    It measures the delay between sending a request and receiving the response, and lower latency means faster responses.
+    Throughput is the number of requests or transactions a system can process in a given period, such as requests per second.
+    Higher throughput means the system can handle more work.
+    In simple terms, latency measures the speed of a single request, while throughput measures the system's overall processing capacity.
+    Ideally, a well-designed system has low latency and high throughput.
+</pre>

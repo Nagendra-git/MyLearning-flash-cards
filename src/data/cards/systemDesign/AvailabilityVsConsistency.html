@@ -1,0 +1,35 @@
+<h4>Availability</h4>
+<p>Availability means every request recevied a response, even if the response contains
+    outdated(stale) data.
+</p>
+<pre>
+    The system is alway's available to the users.
+    Example:-
+    Suppose you're using Instagram.
+    You open your profile.
+    Even if one server is down, another server still shows your profile.
+    Maybe your latest post isn't visible for a few seconds.
+    ✅ The app still responds.
+    This is High Availability.
+</pre>
+<h4>Consistency</h4>
+<p>Consistency means every user always sees the latest and most up-to-date data.</p>
+<pre>
+    Whenever data changes, everyone sees the same value immediately.
+    Example:
+    Suppose your bank account balance is 10,000.
+    your transfer 2,000.
+    Immediately after the transaction,
+        1.ATM ->8,000
+        2.Mobile App -> 8,000
+        3.Internet Banking -> 8,000
+    ✅ Everyone sees the same updated balance.
+    This is strong Consistency.
+
+    🎯 Interview Takeaway
+    Availability means the system always responds to user requests, even if it temporarily return stale data.
+    Consistency means every user always sees the most recent and correct data.
+    CAP Theorem states that in a distribution system, during a network partition, you can guarantee either Consistency or Availability, but not both simultaneously.
+    Therefore the distribution systems typically choose either CP, like Banking systems where Consistency is critical, or AP, like social media platforms
+    where continuous Availability is more important than immediate Consistency.
+</pre>

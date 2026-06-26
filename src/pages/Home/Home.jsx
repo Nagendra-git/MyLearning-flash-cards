@@ -1,12 +1,14 @@
 import { useState } from "react";
 import javaCards from "../../data/javaCards";
 import FlashcardModal from "../../components/FlashcardModal";
-import AlgorithmCards from "../../data/algorithmsCards"
+import AlgorithmCards from "../../data/algorithmsCards";
+import SystemDesignCards from "../../data/systemDesign";
 import "../../styles/Home.css";
 
 const topics = [
   { key: "java", label: "Java Cards", data: javaCards },
-  { key: "algorithm", label: "Alagorithm Cards", data: AlgorithmCards}
+  { key: "algorithm", label: "Alagorithm Cards", data: AlgorithmCards},
+  { key: "systemdesign", label: "System Design Cards", data: SystemDesignCards},
 ];
 
 function Home() {
