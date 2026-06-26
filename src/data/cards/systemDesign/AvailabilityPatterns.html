@@ -1,0 +1,120 @@
+<h4>Availability Patterns</h4>
+<pre>
+    To improve avilability, companies use two main Patterns:
+    1. Failover
+    2. Replication
+</pre>
+<h5>1.Failover Pattern</h5>
+<pre>
+    Failover means automatically switching to another server when the primary server fails.
+    1.Active-Active
+        Both servers are active.
+        Both handle requests.
+                Users
+                  │
+            Load Balancer
+            ┌─────────┐
+            ▼         ▼
+        Server A   Server B
+        Active     Active
+
+        Advantages
+            High availability
+            High performance
+            Load balancing
+            No idle server
+        Disadvantages
+            More expensive
+            More complex
+        Example
+            Google
+            Netflix
+            Amazon
+    2.Active-Passive
+        Only one server handles requests.
+        The second waits for failure.
+          Users
+             │
+             ▼
+        Primary Server
+           Active
+             │
+        (Failure)
+             ▼
+      Secondary Server
+          Standby
+
+    Advantages
+        Simple
+        Less expensive
+    Disadvantages
+        Standby server is unused
+        Small failover delay
+    Example 
+        Banking systems
+</pre>
+
+<h5>2.Replication Pattern</h5>
+<pre>
+    Replication means storing multiple copies of data on different servers.
+    Purpose
+        Prevent data loss
+        Improve availability
+        Improve read performance
+    1.Master-Master Replication:
+        Both servers can
+        Read
+        Write
+            Server A ⇄ Server B
+            Read/Write  Read/Write
+    Whenever one server updates data,
+    the other is updated.
+
+    Advantages
+        High availability
+        No single point of failure
+        Faster writes
+    Disadvantages
+        Conflict resolution is difficult
+        More complex
+    Example
+    Global databases
+    Multi-region applications
+
+    2.Master-Slave Replication:
+        One server writes.
+        Others only read.
+            Master
+            Read + Write
+                 │
+          ┌──────┴──────┐
+          ▼             ▼
+        Slave 1        Slave 2
+        Read Only      Read Only
+        Whenever Master updates,
+        Slaves copy the data.
+    Advantages  
+        Faster read operations
+        Simpler
+        Good for reporting
+    Disadvantages
+        Master is a single write point
+        Write bottleneck
+    Example
+        MySQL Replication
+        Read-heavy applications
+
+    Easy Memory Trick
+        🖥️ Failover = Backup Server
+        "If one server dies, another takes over."
+        📄 Replication = Backup Data
+        "If one copy of data is lost, another copy is available."
+    🎯 Interview Takeaway:
+        Availability is the ability of a system to remain operational and accessible even when failures occur. 
+        High availability is achieved by minimizing downtime using techniques such as failover and replication. 
+        In failover, if the primary server fails, another server automatically takes over. 
+        Active-Active failover keeps both servers active and sharing traffic, while Active-Passive uses a standby server that becomes active only after a failure. 
+        Replication improves availability by maintaining multiple copies of data. 
+        In Master-Master replication, both servers handle reads and writes, whereas in Master-Slave replication, only the master handles writes and the slaves primarily serve read requests. 
+        Together, these patterns help build scalable, fault-tolerant, and highly available distributed systems.
+</pre>
