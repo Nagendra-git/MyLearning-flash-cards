@@ -1,6 +1,6 @@
 import systemDesignHtml from "./cards/systemDesign/SystemDesign.html?raw";
 import performanceVsScalabilityHtml from "./cards/systemDesign/PreformanceVsScalability.html?raw";
-import latencyVsScalabilityHtml from "./cards/systemDesign/LatencyVsThroughput.html?raw";
+import latencyVsThroughputHtml from "./cards/systemDesign/LatencyVsThroughput.html?raw";
 import availabilityVsConsistencyHtml from "./cards/systemDesign/AvailabilityVsConsistency.html?raw";
 import capTheoremHtml from "./cards/systemDesign/CapTheorem.html?raw";
 import distributedSystemHtml from "./cards/systemDesign/DistributedSystem.html?raw";
@@ -18,8 +18,8 @@ const systemDesignCards = [
         answerHtml: performanceVsScalabilityHtml
     },
     {
-        question : "Latency Vs Scalability",
-        answerHtml : latencyVsScalabilityHtml
+        question : "Latency Vs Throughput",
+        answerHtml : latencyVsThroughputHtml
     },
     {
         question : "Availability Vs Consistency",

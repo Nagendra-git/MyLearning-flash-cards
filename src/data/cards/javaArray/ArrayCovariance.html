@@ -1,0 +1,11 @@
+<h4>Array Covariance</h4>
+<p>Java specific</p>
+<pre>
+    Java allows this:
+    Object[] arr = new String[5];
+    **String IS-A Object
+    But 
+    arr[0] = new Integer(10);
+    throws ArrayStoreException
+    The runtime knows the actual array is a String[], so it prevents storing an Integer.
+</pre>

@@ -1,0 +1,75 @@
+<h4>Arrays Store Values or References</h4>
+<p>
+    The rule is simple: <br>
+    1.Primitive arrys stores the actual values.<br>
+    2.Object arrays store references(memory addresses) to objects.
+</p>
+<pre>
+    Case 1: Primitive Array
+    int[] nums = {10,20,30};
+    Memory:
+    Stack                    Heap
+    nums  ------------->  +----+----+----+
+                        | 10 | 20 | 30 |
+                        +----+----+----+
+
+    Each element stores the actual integer.
+    System.out.println(nums[0]);
+    CPU reads
+    10
+    There is no extra lookup.
+
+    Case 2: Object Array
+    class Student{
+        int id;
+         Student (int id){
+            this.id = id;
+         }
+    }
+    Student[] student = new Student[2];
+    student[0] = new Student(101);
+    student[1] = new Student(102);
+
+    Memory:
+
+    Stack
+
+    students
+        |
+        |
+        V
+
+        Heap
+
+        Array
++---------+---------+
+| 2000    | 3000    |
++---------+---------+
+
+        2000
+    +------+
+    |101   |
+    +------+
+
+    3000
+    +------+
+    |102   |
+    +------+
+
+    Notice carefully.
+    The array doesn't contain Student objects.
+    It contains
+    2000
+    3000
+    which are addresses (references).
+    One object may occupy
+    50 bytes
+    Another may occupy
+    120 bytes
+    Objects don't all have the same size.
+    Arrays, however, require each slot to have a fixed size so that the address calculation
+    Base + (Index × ElementSize)
+    works efficiently.
+    A reference has a fixed size (for example, commonly 4 or 8 bytes depending on the JVM and configuration), so every array slot can be the same size.
+    
+</pre>
