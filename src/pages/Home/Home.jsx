@@ -3,12 +3,14 @@ import javaCards from "../../data/javaCards";
 import FlashcardModal from "../../components/FlashcardModal";
 import AlgorithmCards from "../../data/algorithmsCards";
 import SystemDesignCards from "../../data/systemDesign";
+import javaArrayCards from "../../data/javaArrayCards";
 import "../../styles/Home.css";
 
 const topics = [
   { key: "java", label: "Java Cards", data: javaCards },
   { key: "algorithm", label: "Alagorithm Cards", data: AlgorithmCards},
   { key: "systemdesign", label: "System Design Cards", data: SystemDesignCards},
+  { key: "javaarrays", label: "Java Arrays", data: javaArrayCards},
 ];
 
 function Home() {

@@ -1,0 +1,22 @@
+<h4>Array Indexing</h4>
+<pre>
+Why Does Index Start at 0?
+Suppose we want the first element.
+Current formula:
+    Address = Base Address(Addres stored in the stack memory) + (Index × Size of each element)
+    offset = Index * Size of the element.
+    Address = Base + (0 × 4)
+         = Base
+         = 1000     
+Offset:
+    Offset is the number of bytes from the base address to the required element.
+This is why arrays provide O(1) random access—the address of any element can be computed directly without traversing the array.
+
+🎯 Interview Takeaway:
+Arrays use 0-based indexing because the index represents the offset from the base address. 
+The address of an element is calculated as:
+Address = Base Address + (Index × ElementSize)
+With 0-based indexing, the first element has an offset of 0 bytes, so no adjustment is needed.
+If arrays started at 1, every access would require (Index - 1), adding an unnecessary operation. 
+Zero-based indexing makes address calculation simpler and more efficient.
+</pre>
