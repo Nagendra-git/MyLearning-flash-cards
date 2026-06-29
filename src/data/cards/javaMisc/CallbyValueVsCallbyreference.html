@@ -1,0 +1,79 @@
+<h4>Call by Value and Call by Reference in Java</h4>
+<pre>
+    🎯 Interview Takeaway:
+    Java is strictly pass by value. 
+    For objects, Java passes a copy of the object reference, 
+    not the object itself and not the reference variable itself.
+</pre>
+
+<h4>What is Pass by Value?</h4>
+<pre>
+    A copy of the variable's value is passed to the method.
+    chnages made inside the method do not affect the original variable.
+    Example with primitive:
+        public class Main{
+            static void change(int x){
+                x = 100;
+            }
+            public static void main(String[] args){
+                int a =10;
+                change(a);
+                sysout(a)//10
+            }
+        }
+        <hr>
+    Memory
+    Main Method
+    a = 10
+      │
+      ▼
+    change(a)
+    x = 10   ← Copy of value
+    Changing x does not affect a.   
+</pre>
+<h4>What is Pass By Reference</h4>
+<pre>
+    In pass by reference, the actual variable itself is passed.
+        change(a);
+            ↓
+        a becomes 100
+    But Java does not do this.
+</pre>
+<h4>What happens with Objects?</h4>
+<pre>
+        class Employee {
+            String name = "Nagendra";
+        }
+        public class Main {
+            static void change(Employee e) {
+                e.name = "Rahul";
+            }
+            public static void main(String[] args) {
+                Employee emp = new Employee();
+                change(emp);
+                System.out.println(emp.name);//Rahul
+            }
+        }
+
+        What Actually Happens?
+        The value of the reference is copied.
+        Suppose:
+            Heap
+            Employee Object
+            ---------------
+            name = Nagendra
+
+        Main method:
+            emp
+             │
+             ▼
+        Employee Object
+
+        When calling
+        change(emp);
+        Java copies the reference value.
+        Both emp and e point to the same object, but e is still a copy of the reference.
+
+        ✅ Modifying the object's fields (e.id, e.name) affects the original object because both references point to the same object.
+        ❌ Reassigning the reference variable (e = new Employee()) does not affect the caller because only the local copy of the reference changes.
+</pre>

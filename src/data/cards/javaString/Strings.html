@@ -1,0 +1,60 @@
+<h4>Java Strings</h4>
+<pre>
+    A String is a sequence of characters.
+    String name = "Nagendra";
+    Strings are objects of the String calss.
+</pre>
+<h4>Immutable</h4>
+<pre>
+    Once a string object is crated,its valsue can't be changes.
+    String s = "Hello";
+    s.concat("world");
+    sysout(s);//Hello
+    Because concat() create a new String insted of modifying the existing one.
+    s=s.concat("world");//Hello world
+
+    Why did java make String Immutable?
+    Reasons:
+        1.Security
+        2.Thread-safe
+        3.Hashcode caching
+        4.String pool
+        5.Performance
+        6.Used as HashMap keys
+</pre>
+<h4>Strings Stored</h4>
+<pre>
+    Two places
+    Stack
+      ↓
+    reference variable
+
+    Heap
+      ↓
+    Actual String Object
+
+    Example
+    String s = "Java";
+    Stack
+    s
+    │
+    ▼
+    Heap
+    "Java"
+</pre>
+<h4>String Constant Pool(SCP)</h4>
+<p>
+    The Java String Constant Pool (SCP) is a dedicated memory region inside the Java Heap that stores unique string literals.
+    Its primary purpose is to optimize memory consumption and improve application performance by preventing the creation of duplicate string objects in memory. 
+    Because strings are immutable in Java, the Java Virtual Machine (JVM) can safely share a single string instance among multiple variables.
+    Note :- To Save memory
+</p>
+<h4>Creation of String</h4>
+<pre>
+    Method 1:
+        String s = "Hello";
+    Stored in String pool.
+    Method 2:
+    String s = new String("Hello");
+    Creates a new object in Heap.
+</pre>

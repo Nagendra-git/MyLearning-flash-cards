@@ -4,6 +4,9 @@ import FlashcardModal from "../../components/FlashcardModal";
 import AlgorithmCards from "../../data/algorithmsCards";
 import SystemDesignCards from "../../data/systemDesign";
 import javaArrayCards from "../../data/javaArrayCards";
+import javaStringCards from "../../data/javaStringCards";
+import javaObjectCards from "../../data/javaObjectCards";
+import javaMiscCards from "../../data/javaMiscCards";
 import "../../styles/Home.css";
 
 const topics = [
@@ -11,6 +14,9 @@ const topics = [
   { key: "algorithm", label: "Alagorithm Cards", data: AlgorithmCards},
   { key: "systemdesign", label: "System Design Cards", data: SystemDesignCards},
   { key: "javaarrays", label: "Java Arrays", data: javaArrayCards},
+  { key: "javaStrings", label: "Java Strings", data : javaStringCards},
+  { key: "javaObject", label: "Java Object", data : javaObjectCards},
+  { key: "javaMisc", label: "Java Misc", data : javaMiscCards},
 ];
 
 function Home() {

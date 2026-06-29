@@ -1,0 +1,24 @@
+<h4>toString()</h4>
+<p>Returns the String representation of an Object.</p>
+<pre>
+    Default Implimentations:
+    Employee emp = new Employee();
+    sysout(emp);//Employee@5acf9800
+    Internally:
+        sysout(emp); -> sysout(emp.toString());
+</pre>
+<h4>Override toString()</h4>
+<pre>
+    class Employee{
+        int id =101;
+        String name = "Nagendra";
+        @Override
+        public String toString(){
+            return id+" "+name;
+        }
+    }
+    o/p :- 101 Nagendra
+
+    🎯 Interview Takeaway:
+        To provide a meaningful representation of an object instead of the default ClassName@hashCode.
+</pre>
