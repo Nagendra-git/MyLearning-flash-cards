@@ -1,0 +1,39 @@
+<h4>REQUIRED_NEW Propegation</h4>
+<pre>
+    Rule : Always Create a NEW transaction.
+    If another transaction exists.
+    Suspend it.
+</pre>
+<h4>Example</h4>
+<pre>
+    @Trasactional
+    publi void placeOrder{
+        paymentService.payment();
+        auditService.audit();
+    }
+
+    @Transactional(propegation = Propegation.REQUIRED_NEW)
+    public void audit(){
+
+    }
+
+    BEGIN T1 -> payment() ->Suspend T1 -> BEGIN T2 ->audit()
+    ->Commit T2 ->Resume T1 ->Commit T1
+
+    Note :- There are two Transactions.
+</pre>
+<h4>Why use REQUIRED_NEW</h4>
+<pre>
+    Suppose Order fails.
+    But audit log should always be saved.
+    order ->fails ->Rollback
+    Audit -> Saved Sucessfully
+    Because it has its own transaction.
+</pre>
+<h4>REQUIRED vs REQUIRES_NEW</h4>
+<pre>
+REQUIRED	                        REQUIRES_NEW
+Join existing	                    Always new transaction
+One transaction	                    Multiple transactions
+Parent rollback rolls back child    Independent transaction
+</pre>

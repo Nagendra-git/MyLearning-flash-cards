@@ -1,0 +1,51 @@
+<h4>Transaction Propagation</h4>
+<pre>
+    Transaction Propagation defines how a transactional method should behave 
+    when it is called by another transactional method.
+    In simple workd:
+        If the transaction is already exists, should this method join it, create a new one,
+        or Execute without one?
+</pre>
+<h4>Why do we need Propagation</h4>
+<pre>
+    Imagine an Order Service.
+
+    @Service
+    public class OrderService{
+
+        @Transactional
+        public void placeOrder(){
+            pamentService.processPayment();
+            inventoryService.updateStock();
+            auditService.saveLog();
+        }
+    }
+    Now Suppose:
+        1.placeOrder() already has a Transaction.
+        2.processPayment() is also a @Transactional.
+    Question:
+        Should processPayment()
+            1. Join the existing Transaction?
+            2. Create a new Transaction?
+            3. Ignore the Transaction?
+        That's exactly what Propegation decides.
+</pre>
+<h4>Default Propagation</h4>
+<pre>
+    @Transactional
+    is equvalent to
+    @Transactional(propagation = Propagation.REQUIRED)
+
+    REQUIRED is the Default Propegation.
+</pre>
+<h4>Spring Supports 7 Propagation Types</h4>
+<pre>
+    Propagation	        Description
+    REQUIRED	        Join existing transaction or create a new one
+    REQUIRES_NEW	Suspend current transaction and create a new one
+    SUPPORTS	        Join existing transaction if present, otherwise run without one
+    MANDATORY	        Must have an existing transaction
+    NOT_SUPPORTED	Run without a transaction
+    NEVER	        Must not have a transaction
+    NESTED	        Execute within a nested transaction (savepoint)
+</pre>

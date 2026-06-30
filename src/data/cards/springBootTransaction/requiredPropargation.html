@@ -1,0 +1,30 @@
+<h4>REQUIRED Propegation</h4>
+<pre>
+    This is default.
+    Rule:
+        If a transction exists ->Join it.
+        If not -> create one.
+    REQUIRED always prefers an existing transaction.
+</pre>
+<h4>Example</h4>
+<pre>
+    @Service                        
+    public class OrderService{          client
+        @Trasactional                      ↓
+        public void placeOrder(){       placeOrder()
+            paymentService.pay(){          ↓
+                                        BEGIN Transaction T1
+            }                              ↓
+        }                               pay()
+    }                                      ↓
+                                        Join T1
+    @Service                               ↓
+    public class paymentService{        Commit T1
+        @Trasactional
+        public void pay(){
+
+        }
+    }
+
+    Note :-One Transaction
+</pre>
