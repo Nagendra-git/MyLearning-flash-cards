@@ -1,6 +1,7 @@
 .home-page {
   max-width: 600px;
   margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .home-page p {
@@ -10,20 +11,27 @@
 .topic-list {
   list-style: none;
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;      /* allow buttons to drop to new rows */
+  gap: 0.75rem;
   padding: 0;
-  margin: 1.5rem 0;
+  margin: 2rem 0 1.5rem; /* pushes the row down from the intro text */
+  justify-content: center; /* optional: centers the buttons */
+}
+
+.topic-list li {
+  flex: 0 1 auto;
 }
 
 .topic-btn {
   background: var(--surface-color);
   color: var(--text-color);
   border: 1px solid var(--border-color);
-  padding: 0.5rem 1.2rem;
+  padding: 0.6rem 1.2rem;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
   font-size: 0.95rem;
+  white-space: nowrap;   /* keep each label on one line */
   transition: background 0.2s ease, border-color 0.2s ease;
 }
 
