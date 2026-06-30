@@ -1,0 +1,50 @@
+<h4>Spring Boot Transaction</h4>
+<pre>
+    A transaction is a single unit of work that consists of one
+    or more database operations.
+    It follow the rule:
+        Either all operations succeed, or none of them succeed.
+</pre>
+<h4>ACID Properties</h4>
+<pre>
+    A - Atomicity
+        All or Nothing. If any part fails, the whole transaction is rolled back.
+    C - Consistency
+        Database should always remains valid. It should move one valid state to another.
+    I - Isolation
+        Do it like you are alone Multiple transactions shouldn't interfere with each other.
+    D - Durability
+        Written in Stone once the transaction is commited, the changes are permanent, even if the system crashes.
+</pre>
+<h4>@Transactional</h4>
+<pre>
+    Execute this method inside a database transaction.
+
+    @Service
+    public class bankService{
+
+        @Transactional
+        public void transfer(){
+            withdraw();
+            deposit();
+        }
+    }
+
+    you don't need to write JDBC transaction code like;
+    connection.setAutoCommit(false);
+    connection.commit();
+    connection.rollback();
+    Spring does it for you.
+</pre>
+<h4>Transaction Life Cycle</h4>
+<pre>
+    client ->proxy(AOP) -> BEGIN Transaction -> Method Executes ->commit/rollback
+
+    The Spring transaction infrastructure (through a PlatformTransactionManager) 
+    manages commit and rollback automatically.
+
+    🎯 Interview Takeaway:
+    A transaction is a safety mechanism that guarantees your database is never left in a partially updated state. 
+    Spring's @Transactional annotation wraps your business method in a transaction 
+    so that all database changes are committed together on success or rolled back together if the transaction fails.
+</pre>

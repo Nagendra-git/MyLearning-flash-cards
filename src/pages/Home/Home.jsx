@@ -7,6 +7,7 @@ import javaArrayCards from "../../data/javaArrayCards";
 import javaStringCards from "../../data/javaStringCards";
 import javaObjectCards from "../../data/javaObjectCards";
 import javaMiscCards from "../../data/javaMiscCards";
+import springBootTransactionalCards from "../../data/springBootTransactionalCards";
 import "../../styles/Home.css";
 
 const topics = [
@@ -17,6 +18,7 @@ const topics = [
   { key: "javaStrings", label: "Java Strings", data : javaStringCards},
   { key: "javaObject", label: "Java Object", data : javaObjectCards},
   { key: "javaMisc", label: "Java Misc", data : javaMiscCards},
+  { key: "springBootTransaction", label: "String Boot Transaction", data : springBootTransactionalCards},
 ];
 
 function Home() {
