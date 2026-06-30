@@ -7,6 +7,13 @@ import mandatoryPropagationHTML from "./cards/springBootTransaction/mandatoryPro
 import notSupportPropagationHTML from "./cards/springBootTransaction/notSupportPropagation.html?raw";
 import neverPropagationHTML from "./cards/springBootTransaction/neverPropagation.html?raw";
 import nestedPropagationHTML from "./cards/springBootTransaction/nestedPropagation.html?raw";
+import transactionIsolationHTML from "./cards/springBootTransaction/transactionIsolation.html?raw";
+import dirtyReadConcurrencyHTML from "./cards/springBootTransaction/dirtyReadConcurrency.html?raw";
+import nonRepeatableReadHTML from "./cards/springBootTransaction/nonRepeatableRead.html?raw";
+import phontomReadHTML from "./cards/springBootTransaction/phontomRead.html?raw";
+import isolationLevelsHTML from "./cards/springBootTransaction/isolationLevels.html?raw";
+import roleBackRulesHTML from "./cards/springBootTransaction/roleBackRules.html?raw";
+import transactionMiscHTML from "./cards/springBootTransaction/transactionMisc.html?raw";
 
 const springBootTransactionalCards = [
     {
@@ -45,6 +52,35 @@ const springBootTransactionalCards = [
         question : "NESTED Propagation",
         answerHtml : nestedPropagationHTML
     },
+    {
+        question : "Transaction Isolation",
+        answerHtml : transactionIsolationHTML
+    },
+    {
+        question : "Dirty Read",
+        answerHtml : dirtyReadConcurrencyHTML
+    },
+    {
+        question : "Non-repeatable Read",
+        answerHtml : nonRepeatableReadHTML
+    },
+    {
+        question : "Phantom Read",
+        answerHtml : phontomReadHTML
+    },
+    {
+        question : "Isolation Levels",
+        answerHtml : isolationLevelsHTML
+    },
+    {
+        question : "RollBack Rules",
+        answerHtml : roleBackRulesHTML
+    },
+    {
+        question : "Transaction Misc",
+        answerHtml : transactionMiscHTML
+    },
+
 ];
 
 export default springBootTransactionalCards;

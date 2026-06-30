@@ -1,0 +1,29 @@
+<h4>Non-repeatable Read</h4>
+<p>
+    A transaction reads the same row twice and gets different values 
+    because another transaction committed an update in between.
+</p>
+<h4>Example</h4>
+<pre>
+    Initial Database
+        Balance = 5000
+    Transaction 1                        Transaction 2
+    BEGIN                                BEGIN
+    Read Balance                         updateBalance = 3000
+    5000                                 commit
+    Read Balance
+    3000
+    The same row returned different values.
+    This is a Non-repeatable Read.
+</pre>
+<h4>Real-Life Example</h4>
+<pre>
+    you open your bank statements.
+    Balance is 5000.
+    Before refreshing,
+    someone transfer money.
+    you check again.
+    Balance become 3000
+    same query.
+    Different results.
+</pre>

@@ -1,0 +1,32 @@
+<h4>Dirty Read Concurrency</h4>
+<p>
+    A Dirty Read occurs when one transaction reads data that has been modified
+    by another transaction but not yet commited. <br>
+    If the other transaction roll back, the first transaction has read invalid data. 
+</p>
+<h4>Example:</h4>
+<pre>
+    Initial Database
+        Account balance : 5000;
+    Trasaction 1                    Transaction 2
+    Begin                              Begin
+    update balance : 4000           Read balance
+    (Not commited yet)              results : 4000
+
+    Now Suppose                     But T2 already read
+    T1 fails - roll back            4000
+    D.B Account balance : 5000      The value never actually existed permanently.
+    This is called Dirty Read.
+</pre>
+<h4>Real Life Example</h4>
+<pre>
+    Imagine an ATM.
+    You start withdrawing money.
+    The ATM temporarily reduces your balance.
+    Before the transaction finishes,
+    another user see the reduced balance.
+    Later,
+    the withdrawal fails.
+    Your balance returns to the original value.
+    The second user saw incorrect data.
+</pre>

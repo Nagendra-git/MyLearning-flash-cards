@@ -1,0 +1,38 @@
+<h4>Rollback Rules</h4>
+<pre>
+    If any exception happens it will roleback.
+    But which exceptions triggers Rollback?
+    Default Rule:
+        Spring roll backs for only for upchecked exceptions.
+        ✅ Rollback
+            RuntimeException
+            NullPointerException
+            ArithmeticException
+            IllegalArgumentException
+        No Rollback(Checked Exceptions)
+            IOException
+            SQLException
+            Exception
+        Unless configured.
+</pre>
+<h4>rollbackFor and noRollbackFor</h4>
+<pre>
+    rollbackFor:
+        To rollback on checked exceptions
+    Example:
+        @Transactional(
+            rollbackFor = IOException.class
+        )
+        public void saveOrder() throws IOException{
+            orderService.saveOrder();
+            throw new IOException();
+        }
+        It will roll back.
+
+    noRollbackFor:
+        Sometimes, you don't want rollback.
+        @Transactional(
+            noRollbackFor = RuntimeException.class
+        )
+        // Transaction ->COMMIT
+</pre>
