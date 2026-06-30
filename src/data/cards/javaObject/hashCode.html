@@ -1,0 +1,19 @@
+<h4>hashCode()</h4>
+<pre>
+    Returns an integer representing the object's hash code.
+    Employee e1 = new Employee();
+    sysout(e1.hashCode());//12345678
+</pre>
+<h4>Why is it Important?</h4>
+<pre>
+    Collection like HashMap and HashSet use it for fast lookup.
+    If you Override equals(), you should Override hashCode().
+
+    @Override
+    public int hashCode(){
+        return integer.hashcode(id);
+    }
+    
+    🎯 Interview Takeaway:
+        Equals Object must have the same hash code.
+</pre>
