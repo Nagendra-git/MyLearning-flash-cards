@@ -1,0 +1,167 @@
+<h4>Multi-Tread Transaction</h4>
+<pre>
+    Tread 1                         Tread 2
+    Thread Local                    Thread Local
+    -------------                   -------------
+    Connection = C1                 Nothing
+    Transaction = T1
+    Hibernate Session
+    Persistence Context
+    Thread-2 cannot see Thread-1's ThreadLocal.
+    This is why transactions are thread-bound.
+</pre>
+<h4>What happens when you create another thread?</h4>
+<pre>
+    @Transactional
+    public void process() {
+        repository.save(parent);
+        executor.submit(() -> {
+            repository.save(child);
+        });
+    }
+    main Tread:           Thread-2
+    Transaction 1         No Transaction
+        ↓                   ↓
+    save parent           save child
+    Will child use T1? - No
+    Because Thread-2 has a different ThreadLocal.
+</pre>
+<h4>Why can't Spring share the transaction?</h4>
+<pre>
+    Because the transaction contains:
+        JDBC Connection
+        Hibernate Session
+        Persistence Context
+        Locks
+        Transaction State
+    These objects are not thread-safe.
+    Imagine:           At the same time   
+    Thread-1           Thread-2
+    UPDATE Account     DELETE Account
+    using the same JDBC connection.
+    The JDBC connection is not designed to be used concurrently by multiple threads.
+    So Spring intentionally prevents sharing.
+</pre>
+<h4>TransactionTemplate</h4>
+<pre>
+    executor.submit(() -> {
+        transactionTemplate.execute(status -> {
+            repository.save();
+            return null;
+        });
+    });
+    Execution           Thread-2
+    Thread-1            TransactionTemplate
+    Transaction T1          ↓
+                        Begin T2
+                            ↓
+                          Save
+                            ↓
+                        Commit T2
+    Question:
+    Does TransactionTemplate reuse T1?
+        No.
+        It starts T2.
+
+    Then why use TransactionTemplate?
+        Because sometimes you need programmatic transaction management instead of @Transactional.
+        For example:
+        transactionTemplate.execute(status -> {
+            repository.save();
+        return null;
+        });
+    This creates a transaction for the current thread.
+    It does not share another thread's transaction.
+</pre>
+
+<pre>
+    🎯 Interview Takeaway:
+    You cannot have a single local Spring/JDBC transaction span multiple threads 
+    and still guarantee "commit all or rollback all".
+    That's because a local transaction is bound to one thread and one database connection.
+</pre>
+<h4>So how do real systems solve this?</h4>
+<pre>
+    There are three common approaches.
+    1.Don't Split the Transaction (Single Tread and One Transaction).
+        This is the preferred solution whenever possible.
+</pre>
+<h4>2.Distributed Transaction (Two-Phase Commit / XA)</h4>
+<pre>
+    If you truly need multiple participants to commit or 
+    roll back together (possibly across different databases or services), 
+    use a distributed transaction coordinator.
+    Conceptually:
+        Coordinator
+            ↓
+            DB1
+            ↓
+            DB2
+            ↓
+            DB3
+    Phase 1 (Prepare):
+    DB1 Ready? YES
+    DB2 Ready? YES
+    DB3 Ready? YES
+    Phase 2 (Commit):
+    Commit DB1
+    Commit DB2
+    Commit DB3
+    If any participant says "No" during prepare:
+    Rollback DB1
+    Rollback DB2
+    Rollback DB3
+    This provides atomicity across multiple participants.
+    Examples:
+        XA Transactions
+        JTA Transaction Manager
+        Narayana
+        Atomikos
+    Drawbacks
+        Slow
+        Complex
+        Rare in modern microservices
+        Not typically used just to coordinate multiple Java threads
+</pre>
+<h4>3: Saga Pattern (Modern Microservices)</h4>
+<pre>
+    Instead of one giant transaction, each step has its own transaction.
+    Example:
+    Create Order
+        ↓
+    Reserve Inventory
+        ↓
+    Process Payment
+    Suppose:
+        Order
+        Committed   
+        Inventory
+    Committed
+        Payment
+        Failed
+    Instead of rolling back the original transactions directly, 
+    execute compensating transactions:
+        Cancel Inventory
+            ↓
+        Cancel Order
+    This is the Saga Pattern.
+    Examples:
+        Uber
+        Amazon
+        Netflix
+    Each service owns its own transaction.
+
+    Interview Cheat Sheet
+Requirement	                                        Recommended Solution
+One database, atomic updates	                    Single thread + @Transactional
+Parallel CPU work, one database commit	            CompletableFuture for computation, then one transaction to persist
+Multiple databases/services requiring atomic commit	Distributed transaction (XA/JTA)
+Microservices	                                    Saga Pattern
+
+⭐ Most Important Interview Takeaway 
+A local Spring transaction is not designed to coordinate multiple threads. 
+If you need all-or-nothing semantics, the safest solution is usually not to parallelize the transactional database work.
+Parallelize computation, then persist the final results in a single transaction. 
+If atomicity must span multiple independent participants, use a distributed transaction or 
+a Saga pattern, depending on the architecture.
+</pre>
