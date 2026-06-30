@@ -1,0 +1,27 @@
+<h4>equals()</h4>
+<pre>
+    Default behaviour compares object reference.
+    Employee e1 = new Employee(101);
+    Employee e2 = new Employee(102);
+    sysout(e1.equals(e2))//false (Because they are two different objects)
+</pre>
+<h4>Override equals()</h4>
+<pre>
+    class Employee{
+        int id;
+        Employee(int id){
+            this.id = id;
+        }
+
+        @Override
+        public boolean equals(Object obj){
+            if(this == obj)
+                return true;
+            if(!(obj instanceOf Employee))
+                return false;
+            Employee other = (Employee) obj;
+            return this.id = other.id;
+        }
+    }
+    System.out.println(e1.equals(e2)); //true
+</pre>

@@ -1,0 +1,39 @@
+<h4>clone()</h4>
+<pre>
+    Create a copy of an Object.
+
+    class Employee implements Cloneable {
+        int id = 10;
+
+        @Override
+        protected Object clone() throws ClassNotSupportedException{
+            return super.clone();
+        }
+    }
+
+    Employee e1 = new Employee();
+    Employee e2 = (Employee)e1.clone();
+    System.out.println(e1 == e2);      // false
+    System.out.println(e1.id == e2.id); // true
+    Both objects have same values but different references.
+    🎯 Interview Takeaway:
+        By default, clone() performs a shallow copy.
+</pre>
+<h4>Why Impliments Cloneable</h4>
+<p>
+    Because it is a marker interface(no methods). It tells JVM that the object supports cloning.
+    Otherwise, clone() throws ClassNotSupportedException.
+</p>
+<h4>Why is clone() protected?</h4>
+<p>To prevent arbitrary cloning of objects. A class must explicitly expose cloning by overriding clone().</p>
+<pre>
+    🎯Interview Cheat Sheet
+        ✔ clone() belongs to the Object class.
+        ✔ clone() is protected.
+        ✔ clone() returns Object.
+        ✔ The class must implement the Cloneable marker interface.
+        ✔ Otherwise, CloneNotSupportedException is thrown.
+        ✔ By default, clone() performs a shallow copy.
+        ✔ Override clone() (and often make it public) if you want clients to clone your objects.
+        ✔ Deep copy requires manually cloning mutable reference fields.
+</pre>
