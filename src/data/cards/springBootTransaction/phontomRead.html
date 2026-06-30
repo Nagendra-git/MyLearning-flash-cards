@@ -1,0 +1,27 @@
+<h4>Phantom Read</h4>
+<p>
+    A transaction executes the same query twice and get addtional or fewer rows 
+    because another transaction inserted or deleted rows. <br>
+    Notice: This is about rows, not updated values.
+</p>
+<h4>Example</h4>
+<pre>
+    Employee -> 3 records
+    Transaction 1                          Transaction 2
+    1. returns -> 3                        instert one more record
+    2. returns -> 4
+    A new row appeared.
+    That extra row is called a Phantom Row.
+</pre>
+<h4>Real Life Example</h4>
+<pre>
+    You search:
+        Orders placed today
+            Result
+            15 Orders
+        Another customer places a new order.
+        You run the same query again.
+            Result
+            16 Orders
+        The new row is the Phantom.
+</pre>

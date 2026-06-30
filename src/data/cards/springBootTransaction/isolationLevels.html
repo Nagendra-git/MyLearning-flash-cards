@@ -1,0 +1,103 @@
+<h4> Isolation Levels</h4>
+<pre>
+    Spring supports four Isolation levels.
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+</pre>
+<h4>1.READ_UNCOMMITTED</h4>
+<pre>
+    Allows
+        Dirty Read ✅
+        Non-repeatable Read ✅
+        Phantom Read ✅
+
+    Nothing is prevented.
+    Example:
+    T1              T2
+    update salary   read updated salary
+    (Not commited)  Allowed
+
+    Use case:
+    Very Rarely
+    Performance is high.
+    Consistancy is lowest.
+</pre>
+<h4>2. READ_COMMITTED</h4>
+<pre>
+    Prevents:
+        Dirty Read ❌
+    Allows
+        Non-repeatable Read ✅
+        Phantom Read ✅
+        This is the default isolation level in databases such as PostgreSQL and Oracle.
+    Example:
+    T1              T2
+    update salary   read updated salary
+    (Not commited)  Not Allowed
+    Only after commited.
+</pre>
+<h4>3. REPEATABLE_READ</h4>
+<pre>
+    Prevents:
+        Dirty Read ❌
+        Non-repeatable Read ❌
+    Allows
+        Phantom Read ✅
+        This is the default isolation level for MySQL InnoDB.
+    Example:
+    T1              T2
+    Read Balance    Update Balance
+    5000            commit
+    read again
+    5000
+    The same row remains consistent throughout T1.
+</pre>
+<h4>4. SERIALIZABLE</h4>
+<pre>
+    Highest isolation.
+        Prevents
+            Dirty Read ❌
+            Non-repeatable Read ❌
+            Phantom Read ❌
+            Transactions execute as if they were one after another.
+    Example:
+    T1              T2
+    select *        Cann't Insert
+    From Employee   Wait....
+    Until T1 finishes.
+    Performance is slower.
+    Consistency is highest.
+</pre>
+<h4>Summary Table</h4>
+<table border="1" cellpadding="8" cellspacing="0">
+    <tr>
+        <th>Isolation Level</th>
+        <th>Dirty Read</th>
+        <th>Non-repeatable Read</th>
+        <th>Phantom Read</th>
+    </tr>
+    <tr>
+        <td>READ_UNCOMMITTED</td>
+        <td>✅ Allowed</td>
+        <td>✅ Allowed</td>
+        <td>✅ Allowed</td>
+    </tr>
+    <tr>
+        <td>READ_COMMITTED</td>
+        <td>❌ Prevented</td>
+        <td>✅ Allowed</td>
+        <td>✅ Allowed</td>
+    </tr>
+    <tr>
+        <td>REPEATABLE_READ</td>
+        <td>❌ Prevented</td>
+        <td>❌ Prevented</td>
+        <td>✅ Allowed*</td>
+    </tr>
+    <tr>
+        <td>SERIALIZABLE</td>
+        <td>❌ Prevented</td>
+        <td>❌ Prevented</td>
+        <td>❌ Prevented</td>
+    </tr>
+</table>
+<p><strong>*</strong> Phantom reads are prevented in some databases (e.g., InnoDB in MySQL) using next-key locking, but according to the SQL standard they are allowed under REPEATABLE_READ.</p>

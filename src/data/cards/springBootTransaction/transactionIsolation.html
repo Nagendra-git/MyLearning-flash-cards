@@ -1,0 +1,22 @@
+<h4>YTrasaction Isolation</h4>
+<pre>
+    Isolation determines how one transaction is affected 
+    by changes made by other concurrent transactios.
+    Imagine two users accessing the same bank account simultaneously.
+    Transaction T1          Transaction T2
+    Read Balance            Read Balance
+    Update Balance          Update Balance
+
+    Without proper isolation, they may read incomplete or inconsistent data.
+    Isolation prevent these issues.
+</pre>
+<h4>Three Concurrency Problems</h4>
+<pre>
+    1.Dirty Read.
+    2.Non-repeatable Read.
+    3.Phantom Read.
+    Easy Way to Remember
+        Dirty Read → You read uncommitted data.
+        Non-repeatable Read → The same row's value changes between reads.
+        Phantom Read → The result set changes because rows are inserted or deleted. 
+</pre>

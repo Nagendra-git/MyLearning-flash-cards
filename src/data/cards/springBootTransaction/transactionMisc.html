@@ -1,0 +1,159 @@
+<h4>Transaction Misc</h4>
+<pre>
+    Which exception triggers roleback Default?
+        RuntimeException and Errors.
+    Not checked Exception.
+</pre>
+<h4>Spring Proxy</h4>
+<pre>
+    Who starts the transaction?
+        Not your method.
+        Spring creates another object called a Proxy.
+        Your class knows nothing about transactions.
+        The Proxy manages everything.
+    InternalFlow :
+        bankService.transferMoney();
+    Actually becomes
+        Proxy.transferMoney()
+            ↓
+        transactionManager.begin()
+            ↓
+        realObject.transferMoney()
+            ↓
+        transactionManager.commit()
+</pre>
+<h4>Why Proxy?</h4>
+<pre>
+    Because Spring uses AOP (Aspect-Oriented Programming).
+    The Proxy adds additional behavior
+    without modifying your code.
+    Examples
+        Logging
+        Security
+        Transactions
+        Caching
+</pre>
+<h4>3. Self Invocation Problem</h4>
+<pre>
+    Problem:
+        @Service
+        public class EmployeeService {
+            @Transactional
+            public void saveEmployee() {
+                saveAudit();
+            }
+            @Transactional(
+            propagation = Propagation.REQUIRES_NEW
+            )
+            public void saveAudit() {
+
+            }
+        }
+        Note :- does not go through Spring Proxy.
+
+        solution 1 :- move to another service.
+        solution 2 :-Inject the proxied bean into itself 
+        (less common and generally discouraged because it complicates the design):
+        @Service
+        public class OrderService {
+            @Autowired
+            private OrderService self;
+            public void placeOrder() {
+                self.payment();
+            }
+            @Transactional
+            public void payment() {
+            }
+        }
+</pre>
+<h4>Misc</h4>
+<pre>
+    private methods(No) ->Because Spring Proxy cannot intercept private methods.
+    Why doesn't self invocation work? -> bypasses the Spring Proxy.
+    Who actually starts the transaction? -> PlatformTransactionManager.
+    static methods ->Static methods are not invoked on a proxied object instance,
+                     so Spring's proxy-based transaction advice cannot intercept them.
+</pre>
+<h4>Interview Cheat sheet </h4>
+<table border="1" cellpadding="8" cellspacing="0">
+    <tr>
+        <th>Topic</th>
+        <th>Remember</th>
+    </tr>
+    <tr>
+        <td>Default Rollback</td>
+        <td>RuntimeException and Errors</td>
+    </tr>
+    <tr>
+        <td>Checked Exception</td>
+        <td>no rollback by default</td>
+    </tr>
+    <tr>
+        <td>rollbackFor</td>
+        <td>Roll back for checked Exceptions</td>
+    </tr>
+    <tr>
+        <td>noRollbackFor</td>
+        <td>Prevents rollback for specific exceptions</td>
+    </tr>
+    <tr>
+        <td>Who starts Transaction?</td>
+        <td>Spring proxy -> PlatformTransactionManager</td>
+    </tr>
+    <tr>
+        <td>self Invocation</td>
+        <td>Bypasses proxy</td>
+    </tr>
+    <tr>
+        <td>private method</td>
+        <td>@Transactional ignored</td>
+    </tr>
+    <tr>
+        <td>final method</td>
+        <td>Doesn't work with CGLIB proxies</td>
+    </tr>
+    <tr>
+        <td>static method</td>
+        <td>Doesn't work</td>
+    </tr>
+    <tr>
+        <td>Best Practice</td>
+        <td>Put @Transactional on public service methods</td>
+    </tr>
+
+</table>
+<h4>What is a CGLIB Proxy?</h4>
+<pre>   
+    CGLIB (Code Generation Library) is a library that creates a subclass of your class at runtime.
+    Spring uses this subclass (proxy) to add extra behavior like:
+            Transactions (@Transactional)
+            Logging
+            Security
+            Caching
+
+    class BankService {
+        public void transferMoney() {
+            System.out.println("Transfer");
+        }
+    }
+    class BankServiceProxy extends BankService {
+        @Override
+        public void transferMoney() {
+            beginTransaction();
+            super.transferMoney();
+            commitTransaction();
+        }
+    }
+    Note: This is a simplified illustration. 
+    CGLIB generates the subclass dynamically at runtime; 
+    it doesn't literally create this source code.
+
+    When Does Spring Use CGLIB?
+Situation	                            Proxy Used
+Bean implements an interface	        JDK Dynamic Proxy (by default)
+Bean has no interface	                CGLIB Proxy
+Class-based proxy explicitly requested	CGLIB Proxy
+
+In modern Spring Boot applications, 
+CGLIB is commonly used because class-based proxies are often enabled by default.
+</pre>
