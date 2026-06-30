@@ -1,0 +1,27 @@
+<h4>NEVER Propagation</h4>
+<pre>
+    Rule:
+    There must not be an active transaction.
+    If one exists, spring throws an exception.
+</pre>
+<h4>Example</h4>
+<pre>
+    @Service
+    public class CacheService{
+        @Transactional(propagation = Propagation.NEVER)
+        public void clearCache(){
+            sysout("Clear Cache")
+        }
+    }
+    Called from:
+    @Transactional
+    public void placeOder(){
+        cacheService.clearCache();
+    }
+    Result: IllegalTransactionStateException
+
+    Real-world Use:
+    Suppose a legacy system or library explicitly forbids being called inside a transaction. 
+    NEVER protects against accidental misuse.
+
+</pre>

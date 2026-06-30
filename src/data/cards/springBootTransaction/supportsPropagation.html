@@ -1,0 +1,32 @@
+<h4>SUPPORTS Transactional</h4>
+<pre>
+    Rule:
+    If Transaction exit - Join
+    Otherwise - Run without Transaction
+</pre>
+<h4>Example</h4>
+<pre>
+    @Service
+    public class ReportService {
+
+        @Transactional(propagation = Propagation.SUPPORTS)
+        public void generateReport() {
+            System.out.println("Generating Report");
+        }
+    }
+    Note:- Usually used for read operations.
+    
+    case 1:
+    @Transactional
+        public void processOrder() {
+            reportService.generateReport();
+        }
+        Existing Transaction
+            ↓
+          Join
+    Case 2:
+        reportService.generateReport();
+        No Transaction
+            ↓
+        Execute Normally.
+</pre>

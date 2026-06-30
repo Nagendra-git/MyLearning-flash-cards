@@ -1,0 +1,31 @@
+<h4>NOT_SUPPORTS Propagation</h4>
+<pre>
+    Rule: 
+    Run without a Transaction.
+    If the Transaction exist, suspend it.
+</pre>
+<h4>Example</h4>
+<pre>
+    @Service
+    public class ReportService{
+        @Transactional(propagation = Propagation.NOT_SUPPORTS)
+        public void GenerateReport(){
+            sysout("Generating Report");
+        }
+    }
+
+    Called From:
+    @Transactional
+    public void placeOrder(){
+        saveOrder();
+        reportService.GenerateReport();
+        updateInventory();
+    }
+    Flow:-
+    Start T1 -> saveOrder() ->suspend T1->Generate Report (No Transaction)
+    ->Resume T1-> updateInventory -> Commit T1
+
+    Real-world Use
+    Generating a report doesn't modify data. 
+    Holding a database transaction open while generating a large report would unnecessarily lock resources.
+</pre>
