@@ -1,0 +1,38 @@
+<h4>MANDATORY Propagation</h4>
+<pre>
+    Rule:
+        Existing transaction must exists.
+    Otherwise:
+        IllegalTransactionStateException.
+
+    @Service
+    public class paymentService{
+        @Transactional(propagation = propagation.MANDATORY)
+        public void deductAmount(){
+            sysout("Deduct amount.")
+        }
+    }
+</pre>
+<h4>Usages</h4>
+<pre>
+    Correct Usage
+    @Service                                Start T1
+    public class OrderService{                  ↓
+                                            deductAmount()
+        @Transactional                          ↓
+        public void placeOrder(){              use T1
+            paymentService.deductAmount();      ↓
+        }                                     Commit
+    }
+
+    Wrong Usage
+    paymentService.deductAmount(); // IllegalTransactionStateException
+
+    Real-world Usecase:-
+        Suppose your company has a rule:
+            Money can only be deducted as part of an Order Transaction.
+</pre>
+<p>
+    Calling deductAmount() directly could leave the system inconsistent if something fails later. 
+    MANDATORY enforces that it is always part of an existing transaction.
+</p>

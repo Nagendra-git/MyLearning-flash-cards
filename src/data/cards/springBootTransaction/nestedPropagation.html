@@ -1,0 +1,29 @@
+<h4>NESTED Propagation</h4>
+<pre>
+    Rule:
+    Create a savepont inside the current transaction.
+</pre>
+<h4>Example</h4>
+<pre>
+    @Service                                            T1 Started
+    public class OrderService{                              ↓
+                                                        Save Order
+        @Transactional                                      ↓
+        public void placeOrder() {                      Create Savepoint
+            saveOrder();                                    ↓
+            paymentService.processPayment();            Process Payment
+            updateInventory();                              ↓
+        }                                               Exception
+    }                                                       ↓
+                                                        Rollback to Savepoint
+    @Service                                                ↓
+    public class PaymentService {                       Continue T1
+        @Transactional(propagation = Propagation.NESTED)    ↓
+        public void processPayment() {                  Update Inventory
+            throw new RuntimeException();                   ↓
+        }                                               Commit T1
+    }
+    Note: Whether you continue after a nested failure depends on how you handle the exception. 
+    Also, NESTED requires transaction manager and database support for savepoints (for example, 
+    it works with DataSourceTransactionManager; support with JPA depends on the underlying setup).
+</pre>
