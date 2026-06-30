@@ -14,6 +14,7 @@ import phontomReadHTML from "./cards/springBootTransaction/phontomRead.html?raw"
 import isolationLevelsHTML from "./cards/springBootTransaction/isolationLevels.html?raw";
 import roleBackRulesHTML from "./cards/springBootTransaction/roleBackRules.html?raw";
 import transactionMiscHTML from "./cards/springBootTransaction/transactionMisc.html?raw";
+import multiTreadTransactionHtml from "./cards/springBootTransaction/multiTreadTransaction.html?raw";
 
 const springBootTransactionalCards = [
     {
@@ -79,6 +80,10 @@ const springBootTransactionalCards = [
     {
         question : "Transaction Misc",
         answerHtml : transactionMiscHTML
+    },
+    {
+        question : "Transaction on Async",
+        answerHtml : multiTreadTransactionHtml
     },
 
 ];
