@@ -12,12 +12,12 @@ import "../../styles/Home.css";
 
 const topics = [
   { key: "java", label: "Java Cards", data: javaCards },
-  { key: "algorithm", label: "Alagorithm Cards", data: AlgorithmCards},
-  { key: "systemdesign", label: "System Design Cards", data: SystemDesignCards},
   { key: "javaarrays", label: "Java Arrays", data: javaArrayCards},
   { key: "javaStrings", label: "Java Strings", data : javaStringCards},
   { key: "javaObject", label: "Java Object", data : javaObjectCards},
   { key: "javaMisc", label: "Java Misc", data : javaMiscCards},
+  { key: "algorithm", label: "Alagorithm Cards", data: AlgorithmCards},
+  { key: "systemdesign", label: "System Design Cards", data: SystemDesignCards},
   { key: "springBootTransaction", label: "String Boot Transaction", data : springBootTransactionalCards},
 ];
 

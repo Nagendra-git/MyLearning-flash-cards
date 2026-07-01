@@ -1,0 +1,211 @@
+<h4>Background Jobs</h4>
+<p>
+    A Background Jobs is a task that executes outside the user's request-reponse cycle. <br>
+    Insted of making the user wait, we acknowledge the request immediately and perform the heavy work later.
+</p>
+<pre>
+    Normal Request Flow:
+              (request)                (Process everything)    
+        User      ->        Apllication         ->        Response
+    User waits until everything finishes.
+
+    Background Job Flow:
+        User  -> application  ->Queue -> Background workers 
+    User gets an immediate response while processing continues in the background.
+</pre>
+<h4>When Should You Use Background Jobs?</h4>
+<pre>
+    Use them when:
+        1. User doesn't need the result immediately.
+        2. Tasks takes a long time.
+        3. Task is CPU intensive.
+        4. Task is I/O intensive.
+        5. Task can fail and be retried.
+        6. Task can run asynchronously.
+</pre>
+<h4>Types of Background Jobs</h4>
+<pre>
+    1. CPU-Intensive Jobs
+        Heavy computation.
+        Examples
+            AI inference
+            ML training
+            Video encoding
+            Encryption
+            Financial calculations
+        These consume CPU.
+    2. I/O-Intensive Jobs
+        Waiting on external systems.
+        Examples
+            Database updates
+            File uploads
+            Reading large files
+            API calls
+            Storage operations
+        These mostly wait on network or disk.
+    3. Batch Jobs
+        Run on a schedule.
+        Examples
+            Every night:
+            12 AM
+            Update Reports
+            Generate Analytics
+            Clean Logs
+            Backup Database
+    4. Long run Workflow
+            can take a minute or hours.
+        order plcaed -> Payment ->Inventory ->Packing ->Shipping ->Delivery
+        Each step can be handled by separate background jobs.
+    5. Sensitive Processing
+        Some tasks required Stonger security.
+        website -> queue ->Secure worker ->Decrypt data ->Store Securly
+        Keeps sensitive processing isolated.
+</pre>
+<h4>How Are Background Jobs Triggered?</h4>
+<pre>
+    Two main ways:
+    1. Event Driven (Most Common):
+        user -> application -> queue ->worker
+        The queue acks as a buffer.
+
+    Why Queue?
+    without queue:
+        10000 request -> worker(Crash)
+    with queue:
+        1000 request -> queue ->(worker 1, worker 2 ,...)
+    The queue smooths traffic spikes.
+    This is called Queue-Based Load Leveling.
+
+    2.Schedule Driven:
+        Runs automatically.
+        Every midninght ->generate report
+        Every hour -> Cleanup Logs
+        Every Sunday -> Data base backup.
+    Usually implimented using cron jobs or scheduler service.
+</pre>
+<h4>Best Practices for Scheduled Jobs</h4>
+<pre>
+    Make Jobs Idempotent
+        This is extremely important.
+        A job should produce the same result even if it runs multiple times.
+        Running multiple times produces the same result.
+        <hr>
+    Prevent Multiple Instances
+        Job1(running) ->Job2(starts) ->Duplicate processing
+    Solutions:
+        Distributed lock
+        Leader election
+        Job coordination
+        Idempotent processing
+        <hr>
+    Fire and Forget:
+        Background jobs should usually be:
+            submit job -> Return success immediately ->process later
+        The caller doesn't wait. 
+</pre>
+<h4>How Does the Caller Know the Job Finished?</h4>
+<pre>
+    Several patterns are commonly used.
+        1. Status Endpoint (Polling):
+            This is the Asynchronous Request-Reply pattern.
+        2. Reply Queue:
+            client ->Request queue ->Worker -> Replay Queue ->client
+            Common in message-driven systems like Kafka or RabbitMQ.
+        3. Event Notification
+            Worker publishes an event.
+            worker ->Event ->Notification service ->Email service ->Analytics ->Audit
+            One event can notify many consumers.
+        4. Webhook Callback
+                Client provides a callback URL.
+                worker ->HTTP post ->Client callback URL
+                Frequently used by payment gateways and third-party APIs.
+        5. Shared Database  
+            Worker writes status.
+                Jobs Table
+            JobId   Status  Progress
+            UI periodically checks:
+                SELECT status FROM jobs WHERE id=123
+            Simple but less efficient because of polling.
+</pre>
+<h4>Best Practices for Background Jobs</h4>
+<pre>
+    Keep user-facing requests fast by offloading slow work.
+    Use a message queue to decouple producers from workers.
+    Design jobs to be idempotent so retries don't create duplicate effects.
+    Retry transient failures (network timeouts, temporary service outages) with exponential backoff.
+    Use a Dead Letter Queue (DLQ) for messages that repeatedly fail instead of retrying forever.
+    Scale workers independently based on queue length and throughput.
+    Monitor queue depth, processing time, success rate, failure rate, and retry count.
+    Avoid sharing mutable state between workers to reduce race conditions.
+    Use distributed locks only when truly necessary; prefer idempotent designs.
+    Track job status if users need progress or completion information.
+    Break very large tasks into smaller independent jobs for better scalability.
+    Make jobs restartable so they can recover safely after crashes.
+    Secure background workers with least-privilege access, especially when handling sensitive data.
+</pre>
+<h4>Summary Table</h4>
+<table border="1" cellpadding="8" cellspacing="0">
+    <tr>
+        <th>Concept</th>
+        <th>Key Point</th>
+    </tr>
+    <tr>
+        <td>Background Job</td>
+        <td>Runs asynchronously outside the request-response cycle</td>
+    </tr>
+    <tr>
+        <td>Main Goal</td>
+        <td>Improve responsiveness and scalability</td>
+    </tr>
+    <tr>
+        <td>Suitable For</td>
+        <td>Email, reports, image/video processing, workflows, indexing</td>
+    </tr>
+    <tr>
+        <td>Not Suitable For</td>
+        <td>Login, OTP, payment authorization, synchronous validation</td>
+    </tr>
+    <tr>
+        <td>Triggers</td>
+        <td>Event-driven or schedule-driven</td>
+    </tr>
+    <tr>
+        <td>Event-Driven</td>
+        <td>User action, queue message, storage change, API call</td>
+    </tr>
+    <tr>
+        <td>Schedule-Driven</td>
+        <td>Cron jobs, timers, periodic tasks</td>
+    </tr>
+    <tr>
+        <td>Queue Benefit</td>
+        <td>Buffers traffic spikes and decouples services</td>
+    </tr>
+    <tr>
+        <td>Idempotency</td>
+        <td>Safe to execute the same job multiple times</td>
+    </tr>
+    <tr>
+        <td>Fire-and-Forget</td>
+        <td>Return immediately; process later</td>
+    </tr>
+    <tr>
+        <td>Completion Patterns</td>
+        <td>Polling, reply queue, events, webhooks, shared storage</td>
+    </tr>
+    <tr>
+        <td>Reliability</td>
+        <td>Retries, DLQ, monitoring, restartable jobs</td>
+    </tr>
+    <tr>
+        <td>Scalability</td>
+        <td>Scale worker instances independently from the application</td>
+    </tr>
+</table>
+<pre>
+    🎯 Interview Takeaway:
+        Background jobs make distributed systems more responsive, scalable, and resilient 
+        by moving long-running or resource-intensive work out of the synchronous request path. 
+        They are almost always paired with message queues, idempotent processing, 
+        retries, and observability in production systems.
+</pre>

@@ -1,0 +1,196 @@
+<h4>Domain Name System (DNS)</h4>
+<p>DNS is a distributed and hierarchical naming system that translates human-readable domain names into IP addresses.</p>
+<pre>
+    Example:
+        google.com ->142.250.xxx.xxx
+    Instead of remembering IP addresses, users type domain names.
+</pre>
+<h4>Why Do We Need DNS?</h4>
+<pre>
+    Imagine every website required users to remember its IP address.
+    This would be immposible to maintain.
+    DNS acts like the Internet's phone book.
+</pre>
+<h4>Why Can't We Use Domain Names Directly?</h4>
+<pre>
+    Computers communicate using IP addresses.
+    DNS performs this translation.
+</pre>
+<h4>DNS Lookup Flow</h4>
+<pre>
+    Suppose the user enters:
+        https://www.google.com
+    The browser performs the following steps:
+    Browser -> Local DNS Cache -> OS Cache ->Router Cache ->ISP DNS Resolver ->
+    Root DNS Server ->TLD Server (.com) -> Authoritative DNS Server ->IP Address
+    ->Browser connects to Google
+</pre>
+<h4>Step-by-Step DNS Resolution</h4>
+<pre>
+    Step 1: Browser Cache:
+        The browser first checks whether it already knows the IP.
+        Browser Cache
+            google.com -> 142.250.xxx.xxx
+        If found, no network request is needed.
+    
+    Step 2: Operating System Cache:
+        If the browser doesn't have it:
+            chrome ->Windows DNS Cache
+        The operating system may already know the answer.
+
+    Step 3: Router Cache:
+        Some home or office routers cache DNS responses.
+        pc -> wi-fi router -> Cached Ip.
+    
+    Step 4: ISP DNS Resolver (Recursive Resolver)
+        If not found anywhere:
+            Browser -> ISP DNS Resolver
+        Examples:
+            Google Public DNS (8.8.8.8)
+            Cloudflare (1.1.1.1)
+        The resolver now finds the answer on behalf of the client. 
+    Recursive Resolver  
+            A Recursive Resolver performs the entire lookup process and returns the final IP to the client.
+        Client -> Recursive Resolver -> Internet DNS Hierarchy -> IP Address
+        The client makes only one request.
+    step 5: Root DNS Server
+        The resolver doesn't know where google.com is.
+            It first contacts a Root DNS Server.
+        It does not return the IP.
+    step 6: Top-Level Domain (TLD) Server
+            Now the resolver asks:
+                .com Server ->Where is google.com?
+            The TLD server replies:
+            Ask Google's authoritative server.
+            Again, it doesn't return the IP.
+    step 7 :Authoritative DNS Server
+            Finally:
+                Resolver -> Google Authoritative DNS    
+            It responds:google.com ->142.250.xxx.xxx
+            Now the resolver returns this IP to the browser.
+</pre>
+<h4>What is an Authoritative DNS Server?</h4>
+<pre>
+    This server stores the official DNS records for a domain.
+        Example:
+        google.com ->A Record ->142.250.xxx.xxx
+    It provides the definitive answer for that domain.
+</pre>
+<h4>DNS Records</h4>
+<pre>
+    1. A Record (Most Important) -> Maps a domain to an IPv4 address(142.250.xxx.xxx)
+    2. AAAA Record ->Maps a domain to an IPv6 address.(2404:6800:4009::200e)
+    3. CNAME Record ->Creates an alias for another domain.
+                        ww.google.com (google.com)
+                        Useful when multiple names point to the same service.
+    4.MX Record ->Specifies the mail server. (Used for email delivery.)
+                    google.com ->Mail Srever
+    5. NS Record ->Specifies the authoritative name servers for the domain.
+                    example.com -> ns1.example.com
+    6. TXT Record ->Stores arbitrary text.
+                        Common uses:
+                                SPF
+                                DKIM
+                                Domain verification
+</pre>
+<h4>What is DNS Caching?</h4>
+<pre>
+    Once an IP is found:
+        google.com -> 142.250.xxx.xxx
+    It is cached so future lookups are faster.  
+    Benefits:
+        Faster response times
+        Reduced DNS traffic
+        Lower latency
+        Reduced load on authoritative servers
+</pre>
+<h4>What is TTL (Time To Live)?</h4>
+<pre>
+    Every DNS record has a TTL.
+        Example:TTL = 300 seconds   
+        Meaning:
+            Cache this result
+            for 5 minutes.
+        After expiration, a fresh DNS lookup is performed.
+</pre>
+<h4>Summary Table</h4>
+<table border="1" cellpadding="8" cellspacing="0">
+    <tr>
+        <th>Concept</th>
+        <th>Key Point</th>
+    </tr>
+    <tr>
+        <td>DNS</td>
+        <td>Translates domain names to IP addresses</td>
+    </tr>
+    <tr>
+        <td>Recursive Resolver</td>
+        <td>Performs the complete lookup for the client</td>
+    </tr>
+    <tr>
+        <td>Root Server</td>
+        <td>Directs queries to the appropriate TLD server</td>
+    </tr>
+    <tr>
+        <td>TLD Server</td>
+        <td>Directs queries to the correct authoritative server</td>
+    </tr>
+    <tr>
+        <td>Authoritative Server</td>
+        <td>Returns the official DNS record</td>
+    </tr>
+    <tr>
+        <td>Browser Cache</td>
+        <td>First place checked for cached DNS entries</td>
+    </tr>
+    <tr>
+        <td>OS Cache</td>
+        <td>System-level DNS cache</td>
+    </tr>
+    <tr>
+        <td>TTL</td>
+        <td>Defines how long a DNS record remains cached</td>
+    </tr>
+    <tr>
+        <td>A Record</td>
+        <td>Domain → IPv4 address</td>
+    </tr>
+    <tr>
+        <td>AAAA Record</td>
+        <td>Domain → IPv6 address</td>
+    </tr>
+    <tr>
+        <td>CNAME</td>
+        <td>Domain alias → another domain</td>
+    </tr>
+    <tr>
+        <td>MX</td>
+        <td>Mail server information</td>
+    </tr>
+    <tr>
+        <td>NS</td>
+        <td>Authoritative name servers</td>
+    </tr>
+    <tr>
+        <td>TXT</td>
+        <td>Verification and email security metadata</td>
+    </tr>
+    <tr>
+        <td>DNS Caching</td>
+        <td>Improves performance and reduces server load</td>
+    </tr>
+    <tr>
+        <td>DNS Round Robin</td>
+        <td>Basic load balancing by rotating returned IPs</td>
+    </tr>
+</table>
+<pre>
+    🎯 Interview Takeaway:
+        DNS is hierarchical: Client → Recursive Resolver → Root → TLD → Authoritative Server.
+        Caching and TTL are critical for performance and reducing lookup traffic.
+        Recursive resolvers hide the complexity of the lookup process from clients.
+        Authoritative servers provide the final, trusted answer.
+        DNS is highly distributed to ensure scalability, fault tolerance, and high availability.
+        DNS-based load balancing is simple but limited because it lacks real-time health and load awareness, 
+        so modern systems often combine DNS with dedicated load balancers.
+</pre>
