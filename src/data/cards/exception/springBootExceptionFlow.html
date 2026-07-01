@@ -1,0 +1,33 @@
+<h4>Spring Boot Exception Flow</h4>
+
+<pre>
+Complete Flow:
+
+Client Request ->DispatcherServlet->Controller->Service->Repository->
+throw new UserNotFoundException() ->① JVM creates Exception Object ->
+② JVM searches current method for try-catch -> ③ No catch found ->
+④ Exception Propagation begins ->⑤ Stack Unwinding(Service → Controller → DispatcherServlet) ->
+⑥ Spring Exception Resolution(HandlerExceptionResolver) ->⑦ Finds @RestControllerAdvice->
+⑧ Finds matching @ExceptionHandler ->⑨ Executes handler method ->⑩ Returns ResponseEntity ->
+HTTP Response (404/400/500)
+
+JVM Responsibilities
+✅ Creates exception object
+✅ Searches try-catch
+✅ Performs exception propagation
+✅ Performs stack unwinding
+
+Spring Responsibilities
+✅ Finds @RestControllerAdvice
+✅ Finds matching @ExceptionHandler
+✅ Converts exception into HTTP response
+
+Memory Trick
+JVM handles Exceptions → Spring handles HTTP Responses
+
+🎯 Interview Answer (30 Seconds)
+        When an exception is thrown from the Service layer, the JVM creates the exception object and searches for a matching try-catch. 
+        If none is found, it propagates the exception up the call stack while performing stack unwinding. 
+        Once it reaches Spring's DispatcherServlet, Spring locates the matching @ExceptionHandler inside @RestControllerAdvice 
+        and converts the exception into an appropriate HTTP response.
+</pre>

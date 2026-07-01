@@ -1,0 +1,87 @@
+<h4>Exception Flow</h4>
+<p>
+    Exceptions propagate up the call stack, the JVM unwinds the stack while searching for a handler, 
+    and exception chaining preserves the root cause for debugging.
+</p>
+<pre>
+    Exception Flow is the journey of an exception from the point where it occurs until it is:
+    Handled by a catch block, or Causes the JVM to terminate the program.
+    Think of it like a courier delivering a package:
+                Exception Occurs
+                    │
+                    ▼
+            Exception Object Created
+                    │
+                    ▼
+            Search for catch block
+                    │
+              ┌─────┴─────┐
+              │           │
+            Found?      Not Found
+              │           │
+              ▼           ▼
+            Handle    Propagate
+              │           │
+              ▼           ▼
+            Continue   Caller Method
+</pre>
+<h4>Exception Propagation</h4>
+<p>When a method does not handle an exception, the exception is automatically passed to its caller.
+This is called Exception Propagation.</p>
+<pre>
+    Memory Rule
+        Unhandled exception always moves upward in the method call hierarchy.
+    Call Stack
+        The Call Stack is a stack maintained by the JVM that stores active method calls.
+        Every new method call is pushed onto the stack.
+        When a method completes, it is popped.
+    Stack Unwinding:
+        When an exception occurs, the JVM removes stack frames one by one while searching for a matching catch block.
+        This process is called Stack Unwinding.
+    Note: Because the inner try had no matching catch, the exception propagated to the outer catch.
+</pre>
+<h4>Exception Chaining</h4>
+<pre>
+    Sometimes we don't want to expose low-level exceptions.
+    Instead, we wrap them inside another exception.
+    This is called Exception Chaining.
+    Why use Exception Chaining?
+        Without chaining
+            DatabaseException
+            The original database error is lost.
+        With chaining
+            DatabaseException -> SQLException -> Original SQL Error
+        Much easier to debug.
+</pre>
+<h4>getCause()</h4>
+<pre>
+    Every exception can store another exception as its cause.
+    try {
+    saveEmployee();
+    }catch(SQLException ex){
+        throw new RuntimeException(
+            "Database Failure",
+            ex
+        );
+    }
+    ex.getMessage();
+    ex.getCause();
+    ex.printStackTrace();
+    Prints the complete chain of exceptions and stack traces.
+</pre> 
+<h4>Best Practices</h4>
+<pre>
+    ✅ Let exceptions propagate to the layer that can handle them meaningfully.
+    ✅ Wrap low-level exceptions into business exceptions.
+    ✅ Preserve the original cause.
+    ❌ Never swallow exceptions.[catch(Exception e)]
+    ❌ Don't expose database exceptions directly to API clients.
+    
+🎯 30-Second Interview Answer
+            When an exception occurs, the JVM creates an exception object and searches for a matching catch block in the current method. 
+            If none is found, the exception propagates to the caller. During this process, 
+            the JVM performs stack unwinding by removing method frames from the call stack until it finds a suitable handler. 
+            If the exception remains unhandled, the JVM prints the stack trace and terminates the program. 
+            In enterprise applications, low-level exceptions are often wrapped using exception chaining, 
+            and the original cause is preserved using getCause().
+</pre>

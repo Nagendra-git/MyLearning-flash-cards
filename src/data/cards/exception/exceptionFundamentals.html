@@ -1,0 +1,66 @@
+<h4>Exception Fundamentals</h4>
+<p>
+    An Exception is an event that occurs during program execution that interrupts the normal flow of the program. <br>
+    Exception handling allows the application to recover gracefully instead of crashing.
+</p>
+<pre>
+    Why do we need Exception Handling?
+    Without Exception Handling:
+        Apllication ->Exception ->Program Terminates.
+    With Exception Handling:
+        Application ->Exception ->Catch Exception -> Continue execution.
+    Benifits:
+        1. Prevent application crashes.
+        2. Providing meaningful error messages.
+        3. Recover from failures.
+        4. Keep code maintainable. 
+    An exception is created, propagated, handled if a matching catch exist,
+    or ultimately terminates the program if left unhandled.
+</pre>
+<h4>Exception Hierarchy</h4>
+ <pre>   
+        Object
+          │
+        Throwable
+          ├───────────────┐
+          │               │
+        Error       Exception
+                        │
+                RuntimeException
+</pre>
+<h4>Throwable</h4>
+<pre>
+    Root class of all errors and exceptions.
+    Everything that can be thrown must extend Throwable.
+</pre>
+<h4>Error vs Exception</h4>
+<table border="1" cellpadding="8" cellspacing="0">
+        <tr>
+            <th>Error</th>
+            <th>Exception</th>
+        </tr>
+        <tr>
+            <td>Serious JVM problem, Usually we don't handle these.</td>
+            <td>Problems that Apllication can handle.</td>
+        </tr>
+        <tr>
+            <td>Examples: OutOfMemoryError, StackOverflowError</td>
+            <td>Example: IOException, SQLException, NullPointerException</td>
+        </tr>
+</table>
+<h4>Real-world examples</h4>
+<pre>
+    ATM System
+    Withdraw Money -> Balance Available -> Withdraw Success
+    If database connection fails -> Exception -> Show
+    "Unable to process transaction."
+    instead of
+    Application Crashc
+
+    🎯 Interview Takeaway:
+        An exception is an object that represents an abnormal condition occurring during program execution. 
+        It interrupts the normal flow of the application. 
+        Java provides an exception handling mechanism using try, catch, finally, throw, 
+        and throws to handle recoverable problems gracefully instead of terminating the application. 
+        All exceptions inherit from Throwable, which also includes Error for JVM-level failures.
+</pre>
