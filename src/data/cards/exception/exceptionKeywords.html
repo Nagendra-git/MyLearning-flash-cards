@@ -1,0 +1,68 @@
+<h4>Exception Keywords</h4>
+<pre>
+    Overview
+    | Keyword   | Purpose                                     |
+    | --------- | ------------------------------------------- |
+    | `try`     | Wraps code that may throw an exception      |
+    | `catch`   | Handles the exception                       |
+    | `finally` | Executes cleanup code                       |
+    | `throw`   | Explicitly throws an exception              |
+    | `throws`  | Declares that a method may throw exceptions |
+
+    Try:-
+        A try block must be followed by at least one of:
+            catch
+            finally
+    Catch:
+        A catch block handles an exception thrown from the associated try block.
+        Multi-catch [catch(IOException | SQLException ex)]
+    finally:
+        The finally block executes whether an exception occurs or not.
+        It is mainly used for cleanup.
+    Does finally always execute?
+        Usually yes.
+            Exceptions:
+                System.exit(0)
+                JVM crash
+                Power failure
+    throw:
+        throw is used to explicitly create and throw an exception object.
+        throw always throws one exception object.
+    throws: 
+        throws declares that a method may throw one or more exceptions.
+        It does not throw the exception itself.
+</pre>
+<h4>throw vs throws</h4>
+<pre>
+    | `throw`                     | `throws`                             |
+    | --------------------------- | ------------------------------------ |
+    | Throws an exception         | Declares possible exceptions         |
+    | Inside method body          | In method signature                  |
+    | Throws one exception object | Can declare multiple exception types |
+    | Creates an exception object | Does not create an object            |
+
+</pre>
+<h4>Best Practice</h4>
+<pre>
+    ✅ Keep only risky code inside try.
+    ✅ Catch specific exceptions.
+    ✅ Use finally only for cleanup.
+    ✅ Prefer try-with-resources for files, streams, 
+        and database resources instead of manually closing them in finally.
+    ✅ Throw meaningful custom exceptions.
+
+    🎯 30-Second Interview Answer
+            try contains code that may throw an exception. 
+            If an exception occurs, the JVM searches for a matching catch block to handle it. 
+            The finally block executes regardless of whether an exception occurs and is used for cleanup. 
+            The throw keyword is used to explicitly create and throw an exception object, 
+            while the throws keyword declares in a method signature that the method may propagate one or 
+            more exceptions to its caller.
+
+    💡 Memory Trick
+        try      → Risky code
+        catch    → Handle the problem
+        finally  → Always clean up
+        throw    → Throw an exception now
+        throws   → Tell the caller this method may throw exceptions
+</pre>

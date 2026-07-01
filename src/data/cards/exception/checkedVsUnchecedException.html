@@ -1,0 +1,152 @@
+<h4>Checked vs Unchecked Exceptions</h4>
+<pre>
+    Java divides exceptions into two categories.
+    Throwable
+        │
+        ├── Error
+        │
+        └── Exception
+                │
+                ├── Checked Exceptions
+                │      ├── IOException
+                │      ├── SQLException
+                │      └── ClassNotFoundException
+                │
+                └── RuntimeException (Unchecked)
+                        ├── NullPointerException
+                        ├── ArithmeticException
+                        ├── IllegalArgumentException
+                        ├── NumberFormatException
+                        └── IndexOutOfBoundsException
+</pre>
+<h4>Compile-Time vs Runtime</h4>
+<table border="1" cellpadding="8" cellspacing="0">
+        <tr>
+            <th>Checked Exception</th>
+            <th>Unchecked Exception</th>
+        </tr>
+        <tr>
+            <td>Checked by compiler</td>
+            <td>Checked by JVM at runtime</td>
+        </tr>
+        <tr>
+            <td>Must handle or declare</td>
+            <td>No need to handle explicitly</td>
+        </tr>
+        <tr>
+            <td>Represents recoverable conditions</td>
+            <td>Represents programming bugs</td>
+        </tr>
+        <tr>
+            <td>Extends Exception (excluding RuntimeException)</td>
+            <td>Extends RuntimeException</td>
+        </tr>
+</table>
+<h4>Why are RuntimeExceptions Unchecked?</h4>
+<pre>
+    Runtime exceptions usually indicate programming mistakes.
+    String s = null;
+    s.length();
+    int a = 10 / 0;
+    int[] arr = new int[5];
+    arr[10] = 100;
+    These are coding errors that should be fixed, not forced to be caught.
+    Imagine if Java forced this:
+        try {
+            s.length();
+        }
+        catch(NullPointerException e){
+        }
+    Every line of code would need a try-catch, making programs unreadable.
+    Therefore, Java leaves it to the developer to write correct code instead of forcing exception handling.
+</pre>
+<h4>Why are Checked Exceptions Checked?</h4>
+<pre>
+    Checked exceptions usually represent external problems beyond your control.
+        Examples:
+            File not found
+            Database connection lost
+            Network timeout
+            Printer unavailable
+        Example:
+            FileReader reader = new FileReader("data.txt");
+            Can the compiler know if the file exists?
+            No.
+            So Java forces you to decide:
+            Handle it Or propagate it
+</pre>
+<h4>Common Checked Exceptions</h4>
+<pre>
+    | Exception              | When it occurs           |
+    | ---------------------- | ------------------------ |
+    | IOException            | File operations          |
+    | FileNotFoundException  | File missing             |
+    | SQLException           | Database access          |
+    | ClassNotFoundException | Reflection/Class loading |
+    | InterruptedException   | Thread interruption      |
+</pre>
+<h4>Common Unchecked Exceptions</h4>
+<pre>
+    | Exception                      | Cause                     |
+    | ------------------------------ | ------------------------- |
+    | NullPointerException           | Accessing a null object   |
+    | ArithmeticException            | Divide by zero            |
+    | IllegalArgumentException       | Invalid method argument   |
+    | NumberFormatException          | Invalid number conversion |
+    | ArrayIndexOutOfBoundsException | Invalid array index       |
+    | IndexOutOfBoundsException      | Invalid collection index  |
+    | ClassCastException             | Invalid type casting      |
+
+</pre>
+<h4>Real-World Examples</h4>
+<pre>
+    Checked Exception
+        Open Bank Statement PDF -> File Missing -> IOException
+        The user may choose another file or retry.
+        The application can recover.
+    Unchecked Exception
+        Developer writes
+        account.getBalance() -> account is null ->NullPointerException
+        This is a programming bug.
+        The user cannot fix it.
+
+</pre>
+<h4>When Should We Use Checked Exceptions?</h4>
+<pre>
+    Use Checked Exceptions when:
+        The caller can recover.
+        The caller should decide what to do.
+    Examples:
+        Reading a file
+        Calling a database
+        Calling an external API
+        Sending an email
+        Reading configuration files
+    Example:
+        public void uploadFile() throws IOException
+        The caller can retry or show an error message.
+</pre>
+<h4>When Should We Use Runtime Exceptions?</h4>
+<pre>
+    Use Runtime Exceptions when:
+        The error is caused by incorrect code.
+        Recovery isn't expected.
+        It represents a business rule violation.
+    Examples:
+        throw new IllegalArgumentException("Age cannot be negative");
+                    or
+        throw new UserNotFoundException("User not found");
+    🎯 30-Second Interview Answer
+        Java exceptions are classified into checked and unchecked exceptions. 
+        Checked exceptions are verified by the compiler and must be handled or 
+        declared because they usually represent recoverable conditions like file or database failures. 
+        Unchecked exceptions extend RuntimeException and represent programming errors or business rule violations, 
+        such as NullPointerException or IllegalArgumentException. 
+        In Spring Boot, custom runtime exceptions are commonly used with a global exception handler 
+        to produce clean and consistent API responses.
+    💡 Memory Trick
+        Checked  = Outside my control → Recover → Handle
+                    (File, DB, Network)
+        Unchecked = My coding mistake or business rule → Fix Code
+                    (Null, Divide by Zero, Invalid Input)
+</pre>

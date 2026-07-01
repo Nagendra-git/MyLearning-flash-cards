@@ -1,0 +1,85 @@
+<h4>Handling Exceptions</h4>
+<pre>
+    1. Multiple Catch
+        Use multiple catch blocks when different exceptions require different handling.
+        try {
+            // risky code
+        } catch (IOException e) {
+            // Handle file error
+        } catch (SQLException e) {
+            // Handle database error
+        }
+        <hr>
+    2. Multi-Catch (Java 7+)
+        Use one catch block when multiple exceptions have the same handling logic.
+        try {
+            // risky code
+        } catch (IOException | SQLException e) {
+            log.error("Operation failed", e);
+        }
+        <hr>
+    3. Catch Order
+        Always catch specific exceptions first and generic exceptions last.
+        ✅ Correct
+            catch (FileNotFoundException e) { }
+            catch (IOException e) { }
+            catch (Exception e) { }
+        ❌ Wrong
+            catch (Exception e) { }
+            catch (IOException e) { } // Unreachable
+        Rule: Child Exception → Parent Exception
+    <hr>
+    4. Generic Exception
+        Exception catches almost all checked and runtime exceptions.
+            catch (Exception e) {
+                log.error("Unexpected error", e);
+            }
+        Use it only as the last catch block or in a global exception handler.
+    <hr>
+    5. Best Practices
+        ✅ Catch the most specific exception possible.
+        ✅ Log the exception with the stack trace.
+        ✅ Throw custom business exceptions when appropriate.
+        ✅ Preserve the original exception (throw new CustomException(..., e)).
+        ✅ Use try-with-resources for resource cleanup.
+    <hr>
+    6. Anti-Patterns
+        ❌ Swallowing Exceptions
+                catch (Exception e) {
+                    }
+            The exception is lost, making debugging difficult.
+
+        ❌ Catching Exception Everywhere
+                catch (Exception e) {
+                // Everything
+                }
+            Hides the real problem and makes error handling unclear.
+
+        ❌ Using Exceptions for Normal Flow
+                try {
+                map.get(key);
+                } catch (Exception e) {
+                // key not found
+                }
+            Instead, check the condition directly.
+        ❌ Ignoring the Original Cause
+                catch (SQLException e) {
+                throw new RuntimeException("Database Error");
+                    }
+                Better:
+                catch (SQLException e) {
+                throw new DatabaseException("Database Error", e);
+                }
+
+This preserves the root cause.
+    Memory Trick
+        Different Handling → Multiple Catch 
+        Same Handling → Multi-Catch
+        Specific → Generic
+        Log → Wrap → Propagate
+    🎯 30-Second Interview Answer
+            When handling exceptions, always catch the most specific exception first because Java matches catch blocks from top to bottom. 
+            Use multiple catch blocks when each exception needs different handling, and use multi-catch when the handling logic is the same. 
+            Avoid catching Exception unless it's the last catch block or part of a global exception handler. 
+            Never swallow exceptions, always log them, preserve the original cause, and let exceptions propagate if the current layer cannot handle them.
+</pre>
