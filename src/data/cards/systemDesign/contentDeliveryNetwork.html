@@ -1,0 +1,176 @@
+<h4>Content Delivery Network (CDN)</h4>
+<p>
+    A Content Delivery Network (CDN) is a globally distributed network of servers that store copies(cached version)
+    of static Content closer to users, reducing latency and improve the performance. <br>
+    Instead of every user requesting Content from the origin server, they are served from the nearest CDN edge server whenever possible.
+</p>
+<h4>What Does a CDN Store?</h4>
+<pre>
+    Typically static content such as:
+            Images
+            CSS files
+            JavaScript
+            Videos
+            Audio
+            Fonts
+            PDF files
+            Software downloads
+    Some modern CDNs can also cache dynamic content using configurable rules.
+</pre>
+<h4>What is an Edge Server?</h4>
+<pre>
+    An edge server is a CDN server located close to end users.
+</pre>
+<h4>How Does a CDN Know the Nearest Server?</h4>
+<pre>
+    DNS plays an important role.
+    User -> DNS -> Nearest CDN Edge ->Return IP 
+    The DNS resolver returns the IP address of the closest CDN server based on factors like user location.
+</pre>
+<h4>CDN Caching Process</h4>
+<pre>
+    User Request -> CDN Cache -> Hit? -> Yes -> Serve Content -> OR ->
+    Miss -> Origin -> Download -> Store -> Serve
+</pre>
+<h4>Cache Expiration (TTL)</h4>
+<pre>
+    Every cached file has a Time To Live (TTL).
+    Example:
+        Image ->TTL (24 Hours)
+    After TTL expires:
+        Next Request ->CDN ->Fetch New Copy ->Update Cache
+</pre>
+<h4>Cache Invalidation</h4>
+<pre>
+    Sometimes content changes before TTL expires.
+        Example:
+            Old Logo -> New Logo
+            If the CDN keeps serving the old logo, users won't see the update.
+        Solutions:
+            Purge Cache
+                Remove the cached object immediately.
+                Delete Cache -> Next Request-> Origin
+            Versioning (Best Practice)
+                Instead of replacing:
+                    logo.png
+                    Use:
+                        logo-v2.png (or) logo.png?v=2
+    This forces the CDN to fetch the new content without waiting for TTL expiration.
+</pre>
+<h4>Benefits of CDN</h4>
+<pre>
+    1.Low latency.
+    2.Reduce Origin Load.
+    3.Higher availability.
+    4.Better Scalability.
+</pre>
+<h4>Summary Table</h4>
+<table border="1" cellpadding="8" cellspacing="0">
+    <tr>
+        <th>Concept</th>
+        <th>Key Point</th>
+    </tr>
+    <tr>
+        <td>CDN</td>
+        <td>Distributed network that caches content near users</td>
+    </tr>
+    <tr>
+        <td>Edge Server</td>
+        <td>CDN server located close to end users</td>
+    </tr>
+    <tr>
+        <td>Origin Server</td>
+        <td>Original source of the content</td>
+    </tr>
+    <tr>
+        <td>Cache Hit</td>
+        <td>Content served directly from the CDN cache</td>
+    </tr>
+    <tr>
+        <td>Cache Miss</td>
+        <td>CDN fetches content from the origin server</td>
+    </tr>
+    <tr>
+        <td>TTL</td>
+        <td>Determines how long cached content remains valid</td>
+    </tr>
+    <tr>
+        <td>Cache Invalidation</td>
+        <td>Removes stale content before TTL expires</td>
+    </tr>
+    <tr>
+        <td>Versioning</td>
+        <td>Best practice for deploying updated static assets</td>
+    </tr>
+    <tr>
+        <td>Benefits</td>
+        <td>Lower latency, reduced origin load, higher scalability, better availability</td>
+    </tr>
+    <tr>
+        <td>DNS Role</td>
+        <td>Directs users to the nearest CDN edge location</td>
+    </tr>
+</table>
+<pre>
+    Real-World Example
+        When you open Netflix:
+            Your browser resolves the domain using DNS.
+            DNS directs you to the nearest CDN edge server.
+            If the movie segments are cached (cache hit), they are streamed immediately.
+            If not (cache miss), the CDN fetches them from the origin server, caches them, and delivers them to you.
+            Subsequent viewers in the same region are served directly from the CDN, 
+            resulting in faster playback and reduced load on the origin infrastructure.
+</pre>
+<h4>Pull CDN (Origin Pull)</h4>
+<p>
+    In a Pull CDN, the CDN automatically fetches content from the origin server when a user requests it for the first time. <br>
+    The developer doesn't manually upload files to the CDN.
+</p>
+<pre>
+    Example:You deploy an application on AWS.
+        Origin: https://myapp.com
+        CDN: https://cdn.myapp.com
+        When someone requests:
+        cdn.myapp.com/logo.png
+        The CDN automatically downloads it from:
+        myapp.com/logo.png
+        No manual upload is required.
+    Advantages:
+        Very easy to configure
+        No manual uploads
+        Automatically caches popular files
+        Origin remains the single source of truth
+        Ideal for websites with frequently changing content
+    Disadvantages
+        First request is slower (cache miss)
+        Origin server is contacted when the cache expires
+        Sudden cache misses can temporarily increase origin traffic
+</pre>
+<h4>Push CDN</h4>
+<p>
+    In a Push CDN, the developer uploads files directly to the CDN before users request them. <br>
+    The origin server is usually not contacted during normal content delivery.
+</p>
+<pre>
+    Example :
+        A company uploads:
+            Videos
+            Software downloads
+            Mobile app packages
+            Game assets     
+        directly to the CDN.
+        Users always download from the CDN.
+    Advantages:
+        No first-request delay
+        Faster delivery from the first request
+        Reduced load on the origin server
+        Good for very large static files
+    Disadvantages
+        Manual upload or deployment step required
+        Content updates require another upload
+        Storage management is your responsibility
+🎯 Interview Takeaway:
+    Remember this simple phrase:
+        Pull CDN = "User requests → CDN pulls from Origin."
+        Push CDN = "Developer pushes → CDN already has the content."
+</pre>

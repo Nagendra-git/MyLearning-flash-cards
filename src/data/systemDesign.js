@@ -7,7 +7,9 @@ import distributedSystemHtml from "./cards/systemDesign/DistributedSystem.html?r
 import consistencyPatternsHtml from "./cards/systemDesign/ConsistencyPatterns.html?raw";
 import availabilityHtml from "./cards/systemDesign/Availability.html?raw";
 import availabilityPatternsHtml from "./cards/systemDesign/AvailabilityPatterns.html?raw";
-
+import backgroundJobsHtml from "./cards/systemDesign/BackgroundJobs.html?raw";
+import domainNameSystemHtml from "./cards/systemDesign/domainNameSystem.html?raw";
+import contentDeliveryNetworkHtml from "./cards/systemDesign/contentDeliveryNetwork.html?raw";
 const systemDesignCards = [
     {
         question : "System Design",
@@ -44,6 +46,18 @@ const systemDesignCards = [
     {
         question : "Availability Patterns",
         answerHtml : availabilityPatternsHtml
+    },
+    {
+        question : "Background Jobs",
+        answerHtml : backgroundJobsHtml
+    },
+    {
+        question : "Domain Name System (DNS)",
+        answerHtml : domainNameSystemHtml
+    },
+    {
+        question : "Content Delivery Network (CDN)",
+        answerHtml : contentDeliveryNetworkHtml
     }
 
 ];
