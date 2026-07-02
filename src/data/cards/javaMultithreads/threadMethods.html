@@ -1,0 +1,84 @@
+<h4>Thread Methods</h4>
+<pre>
+    1.start():
+        Thread t = new Thread(task);
+        t.start();
+        Creates a new thread.
+    2.run():
+        t.run();
+        Runs on the current thread.
+        No new Thread is created.
+    What happens if we call run() directly?
+    The method executes like a normal method call on the current thread. No new thread is created.
+
+    Can We Start a Thread Twice?
+    Thread t = new Thread(task);
+    t.start();
+    t.start();
+    throws IllegalThreadStateException;
+    Why?
+    A Thread has this life cycle:
+    New -> Runnable ->Terminated
+    once Terminated, it cann't return to the NEW state.
+    Create a new Thread Object instead.
+
+    3.yield():
+        yield() tells the scheduler.
+            I am willing to let another Runnable therad execute.
+        Thread.yield();
+        Note:
+            It is only a hint.
+            The scheduler may ignore it.
+        Use cases:
+            Rarely used in modern applications.
+            Mostly appears in interview questions or legacy code.
+    
+    4.sleep():
+        Pauses the current thread for a specific duration.
+        Thread.sleep(1000);
+        Running -> TIMED_WAITING ->Running.
+        Characteristics:
+            Does not release locks.
+            throws InterruptedException.
+        Example :
+            sysout("start");
+            Thread.sleep(3000);
+            sysout("End");
+    5.join():
+        Makes one thread waits to another thread to finish.
+        Thread t = new Thread(task);
+        t.start();
+        t.join();
+        sysout("Completed.")
+        Main Thread ->join() ->Wait ->Worker Thread finishes ->Main Continues.
+        Uses :
+            wait for background processing.
+            File downloads
+            Report Generation.
+</pre>
+<h4>Interrupting Threads</h4>
+<pre>
+    Interrupt requests a thread to stop what it's doing.
+    thread.interrupt();
+    It does not forcibly stope the thread.
+    The thread must cooperate by checking its interrupt status or responding to interruption.
+    Example:
+        while(!Thread.currentThread().isInterrupted()){}
+</pre>
+<h4>InterruptedException</h4>
+<pre>
+    Thrown when a thread is interrupt while waiting, sleeping, or joining.
+    Thread.sleep(5000);
+    thread.interrupt();
+    InterruptedException.
+    try {
+    Thread.sleep(5000);
+        } catch (InterruptedException e) {
+        Thread.currentThread().interrupt(); // restore interrupt status
+    }
+</pre>
+<h4>Why restore the interrupt?</h4>
+<pre>
+    Catching InterruptedException clears the interrupt flag. 
+    Restoring it allows higher-level code to detect that interruption was requested.
+</pre>

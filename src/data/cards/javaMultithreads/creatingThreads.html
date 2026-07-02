@@ -1,0 +1,49 @@
+<h4>Thread Creation</h4>
+<pre>
+    1.Extending Thread:
+        One way to create a thread is by extending the Thread class and overriding its run() method.
+        class Mythread extends Thread{             Thread Object Created
+            @Override                                       │
+            public void run(){                              ▼
+                sysout("Thread is running ...");        start()
+            }                                               │
+            p.s.v.m(){                                      ▼
+                Mythread t = new Mythread();            JVM creates a new thread
+                t.start();                                  │
+            }                                               ▼
+        }                                              run() executes
+        o/p : Thread is running ....                        
+        Advantages:
+            1.Simple to Understand.
+            2.Direct access to Thread methods.
+        Disadvantages:
+            1.Java Supports only single inheritance.
+            2.Your calss cannot extends other calss.
+            3.Less Flexibility.
+        When should we extend Thread?
+        Rarely. Prefer Runnable because it allows your calss to extend another class and seperates
+        the task form the thread.
+
+    2. Implimenting Runnable:
+        Runnable is a functional interface containg one abstract method.
+            void run();
+        Example:                                Task (Runnable)
+        class Task implements Runnable{             │
+            @Override                               ▼
+            public void run(){                  Thread Object
+                sysout("Task running....");         │
+            }                                       ▼
+            p.s.v.m(){                              start()
+                Thread t = new Thread(new Task());  │
+                t.start();                          ▼
+            }                                       run()
+        }
+        o/p : Task running....
+        Advantages:
+            Better design
+            supports inheritance
+            Reusable tasks
+    Interview Tip
+        Runnable represents the work.
+        Thread represents the worker.
+</pre>

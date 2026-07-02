@@ -1,0 +1,123 @@
+<h4>Therad Misc</h4>
+<pre>
+    User Thread:
+        Normal Application Thread.
+        The JVM waits for all user threads to finish before exiting.
+        Example:
+            Request Handling, Business logic, Data base operations.
+    Daemon Thread:
+        Background service thread.
+        Example: Garbage Collector, JVM housekeeping tasks.
+        The JVM exits when only deamon threads remains.
+        Thread t = new Thread(task);
+        t.setDaemon(true);
+    Main Thread:
+        Every java application starts with one thread called the main thread.
+            public static void main(String[] args)
+        This thread is created by the JVM and executes the main() method.
+</pre>
+<h4>Thread Scheduler</h4>
+<pre>
+    The Thread Scheduler is part of the JVM and OS.
+    It decides which runnable thread gets CPU time nect.
+    Important points:
+        1. Scheduling behaviour is not guaranteed by java.
+        2. Thread priorities are only hints to the Scheduler.
+        3. Different OS may Schedule threads differently.
+</pre>
+<h4>Context Switching</h4>
+<pre>
+    A Context Switch occurs when the CPU stops executing one thread and start executing another.
+    Steps:
+        1. Save the current thread's state(registers, program counter, stack pointer).
+        2. Load the next thread's saved state.
+        3. Resume execution of the new thread.
+    Example:
+        CPU
+        Thread A (5 ms)
+            ↓   
+        Thread B (5 ms)
+            ↓
+        Thread C (5 ms)
+    Too many Context switches reduce performance because the CPU spends time Switching
+    Instead of doing useful work.
+</pre>
+<h4>CPU Core vs Thread</h4>
+<pre>
+    CPU Core:
+        A physical processing unit capable of executing instructions.
+        Example:
+            Quad-core CPU = 4 physical cores.
+    Thread:
+        A sequence of executable instructions managed by the OS.
+        A CPU core executes one hardware thread at a time (or more with technologies like Hyper-Threading).
+        Example:
+            4-Core CPU
+            Core 1 → Thread A
+            Core 2 → Thread B
+            Core 3 → Thread C
+            Core 4 → Thread D
+        If there are more runnable threads than aviable cores, the OS uses Context Switching.
+</pre>
+<h4>Concurrency vs Parallelism</h4>
+<pre>
+    Concurrency:
+        Multiple tasks make progress during the same time period, but not necessarily at the exact same time.
+        Example:
+        Task A
+          ↓
+        Task B
+          ↓
+        Task A
+          ↓
+        Task B
+    Parallelism:
+        Multiple tasks execute at the exact same time on different CPU core.
+        Core 1 → Task A
+        Core 2 → Task B
+    Difference
+    | Concurrency            | Parallelism                     |
+    | ---------------------- | ------------------------------- |
+    | Logical overlap        | Physical simultaneous execution |
+    | May use one core       | Requires multiple cores         |
+    | Uses context switching | Uses multiple cores             |
+</pre>
+<h4>Multitasking vs Multithreading</h4>
+<pre>
+    Multitasking:
+        The OS runs multiple processes concurrently.
+        Example:
+            Browser, Media Player, IDE
+        Each is a seperate process.
+    Multithreading:
+        A single process runs multiple threads concurrently.
+        Example:
+            A web server process:
+                Request Thread, Logging Thread, Background cleanup Thread.
+    Difference:
+    | Multitasking       | Multithreading    |
+    | ------------------ | ----------------- |
+    | Multiple processes | Multiple threads  |
+    | Managed by OS      | Managed by JVM/OS |
+    | Separate memory    | Shared memory     |
+    | Higher overhead    | Lower overhead    |
+</pre>
+<h4>Race Condition (Introduction)</h4>
+<pre>
+    A Race Condition occurs when multiple threads access and modify shared data concurrently,
+    and the final result depends on the timing of their execution.
+    int counter = 0;
+    // Thread A
+    counter++;
+    // Thread B
+    counter++;
+    
+    Why?
+    Because counter++ is not an atomic operation. It involves:
+    Read the current value.
+    Increment it.
+    Write the new value back.
+    If two threads interleave these steps, one update can overwrite the other.
+    Race conditions are one of the primary reasons we use synchronization mechanisms like synchronized, 
+    locks, and atomic classes.
+</pre>

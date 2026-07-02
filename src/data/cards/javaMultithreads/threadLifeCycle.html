@@ -1,0 +1,57 @@
+<h4>Thread Life Cycle</h4>
+<pre>
+            NEW
+            |
+           start()
+            |
+            V
+         RUNNABLE
+          /     \
+         /       \
+ BLOCKED WAITING TIMED_WAITING
+         \       /
+          \     /
+         RUNNABLE
+            |
+       run() completes
+            |
+            V
+         TERMINATED
+
+    1. NEW:
+        Thread Object Created.
+            Thread t = new Thread();
+        This thread has not started yet.
+    2. RUNNABLE:
+        After :
+            t.start()
+        The thread is eligible to run and waits for CPU scheduling.
+    3.BLOCKED:
+        Waiting to acquire a monitor lock.
+        Example:
+            Thread A
+            synchronized(lock)
+            Thread B
+            waiting for same lock
+    4.WAITING:
+        Waiting indefinately for another thread.
+        Example:
+            wait(), join(), LockSupport.park()
+    5.TIMED_WAITING:
+        Waiting for specific duration.
+            Example: sleep(1000), join(2000), wait(500)
+    6.TERMINATED:
+        Execution has finished.
+</pre>
+<h4>Thread States Explained</h4>
+<pre>
+| State         | Meaning                    |
+| ------------- | -------------------------- |
+| NEW           | Created                    |
+| RUNNABLE      | Ready or running           |
+| BLOCKED       | Waiting for a monitor lock |
+| WAITING       | Waiting indefinitely       |
+| TIMED_WAITING | Waiting with a timeout     |
+| TERMINATED    | Finished                   |
+
+</pre>

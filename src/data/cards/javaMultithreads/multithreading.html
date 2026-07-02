@@ -1,0 +1,62 @@
+<h4>Multithreading</h4>
+<pre>
+    Multithreading is a process of executing multiple threads simultaneously within a single program.
+    Why needed?
+    Without Multithreading:
+        Receive request ->Read datbase ->send email ->generate Report -> return Response.
+        Everything happens sequentially.
+    With Multithreading:
+        Thread 1 ->datbase
+        Thread 2 ->email        ->Combine Result ->Return Response.
+        Thread 3 ->Report
+    Benefits :
+        1.Better CPU Utilization.
+        2.Faster Response time.
+        3.Higher throughput.
+        4.Improved user experience.
+</pre>
+<h4>Advantages of Multithreading</h4>
+<pre>
+    Better Responsiveness:
+        The UI remains responsive while background work continues.
+        Example:
+            Downloading a file while browsing.
+    Resource sharing:
+        Thread share:
+            heap, cache, database connection, object.
+        No need to duplicate resources.
+    Improved CPU Utilization:
+        Modern CPUs have multiple cores.
+        Multithreading keeps them busy.
+    Faster Execution:
+        Independent tasks can execute concurrently.
+        Example:
+            1.Image processing
+            2.vedio encoding
+            3.parallel file processing.
+    Low memory usage:
+        Creating threads is cheaper than Creating processes because threads share the process's memory.
+</pre>
+<h4>Disadvantages of Multithreading</h4>
+<pre>
+    Race Conditions:
+        Two threads update the same variable simultaneously.
+        balance = 1000
+        Thread A withdraws 100
+        Thread B withdraws 200
+        Expected = 700
+        Possible Result = 900
+    Dead Locks:
+        Two thread's wait forever for each other's locks.
+        Thread A                  Thread B
+        Local Account           Lock order
+            ↓                       ↓
+        Waiting for order       waiting for Account
+        Neither can proceed.
+    Starvation:
+        A low-priority threads never gets cpu time because higher-prirority threads keep running.
+    Debugging complexity:
+        concurrent bugs may occur only occassionally, making them difficult to reproduce and fix.
+    Context Switching Overhead:
+        Frequent Switching between threads adds cpu Overhead.
+</pre>
