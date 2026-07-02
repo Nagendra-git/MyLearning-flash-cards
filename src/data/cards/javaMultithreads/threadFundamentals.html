@@ -1,0 +1,85 @@
+<h4>Thread Fundamentals</h4>
+<h4>Process</h4>
+<pre>
+    A process is an independent program that is currently executing. It has its own memory space, resources, and
+    execution environment provided  by the operating system. <br>
+    A process is a smallest unit of resource allocation by the operating system.
+    Example:
+        When you open:
+            Chrome, Intelij IDEA, Spotify, Microsoft Word.
+        Each runs as a seperate process.
+
+Operating System
++----------------------+
+| Chrome Process       |
+|  Heap                |
+|  Threads             |
+|  Files               |
++----------------------+
++----------------------+
+| IntelliJ Process     |
+|  Heap                |
+|  Threads             |
++----------------------+
++----------------------+
+| Spotify Process      |
++----------------------+
+
+Each process has:
+    seperate memory
+    seperate heap
+    seperate resources
+    OneorMore Threads.
+
+Charecteristics:
+    1.Independent execution.
+    2.Own Address Space.
+    3.Own Heap memory.
+    4.Own System space.
+    5.Failure of one process does not affect another.
+🎯 Interview Takeaway:
+        A process is an independent execution program with its own memory sapce, resource, and one or more threads.
+</pre>
+<h4>Thread</h4>
+<pre>
+    A Thread is the samllest unit of execution inside a process.
+    Threads share the process's resource while executing different tasks concurrently.
+    Example:
+        Chrome Process:
+                Thread 1 → UI
+                Thread 2 → Network
+                Thread 3 → Rendering
+                Thread 4 → JavaScript Engine
+                Shared Heap
+        All threads share:
+            Heap, Files, Database connections, Objects
+        Each thread has its own:
+            Program Counter (PC), Stack, Registers
+    Why threads:
+        Suppose an online shopping application performs:
+            Loading products
+            Downloading images
+            Playing notifications
+            Receiving chat messages
+        The application becomes unresponsive.
+        Using multiple threads:
+            All tasks can progress concurrently, improving responsiveness.
+</pre>
+<h4>Process vs Thread</h4>
+<pre>
+| Feature        | Process               | Thread                      |
+| -------------- | --------------------- | --------------------------- |
+| Definition     | Independent program   | Smallest execution unit     |
+| Memory         | Own memory            | Shared process memory       |
+| Heap           | Separate              | Shared                      |
+| Stack          | Own                   | Own                         |
+| Communication  | IPC required          | Shared memory               |
+| Creation Cost  | High                  | Low                         |
+| Switching Cost | High                  | Low                         |
+| Isolation      | Strong                | Weak                        |
+| Crash          | Doesn't affect others | Can crash the whole process |
+
+Interview Tip
+    Process = Resource container
+    Thread = Execution unit
+</pre>

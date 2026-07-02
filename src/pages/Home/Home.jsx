@@ -9,6 +9,7 @@ import javaObjectCards from "../../data/javaObjectCards";
 import javaMiscCards from "../../data/javaMiscCards";
 import springBootTransactionalCards from "../../data/springBootTransactionalCards";
 import exceptionMiscCards from "../../data/exceptionMiscCards";
+import javaMultiThredingCards from "../../data/javaMultithreding";
 import "../../styles/Home.css";
 
 const topics = [
@@ -17,6 +18,7 @@ const topics = [
   { key: "javaStrings", label: "Java Strings", data : javaStringCards},
   { key: "javaObject", label: "Java Object", data : javaObjectCards},
   { key: "javaMisc", label: "Java Misc", data : javaMiscCards},
+  { key: "javaMultithreding", label: "Java Multithreding", data: javaMultiThredingCards},
   { key: "exceptionMisc", label: "Exception Misc", data : exceptionMiscCards},
   { key: "algorithm", label: "Alagorithm Cards", data: AlgorithmCards},
   { key: "systemdesign", label: "System Design Cards", data: SystemDesignCards},

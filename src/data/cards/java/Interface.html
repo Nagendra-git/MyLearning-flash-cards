@@ -1,0 +1,142 @@
+<h4>Interface</h4>
+<p>
+    An Interface is a blueprint of a class that contains static contents and abstarct methods.
+    Interfaces are used to achive abstarction. An Interface contains only abstact methods and variables.
+    It cannot be intantiated and represents IS-A Relationship.
+    Programming to an Interface, not an Implementation.
+</p>
+<h4>Features of Interface</h4>
+<pre>
+    ✔ cannot create the object.
+    ✔ support abstarction.
+    ✔ supports polymorphism.
+    ✔ supports multiple inheritance.
+    ✔ Loose coupling.
+    ✔ Better testing. 
+</pre>
+<h4>Rules of Interface</h4>
+<pre>
+    Before java 8
+        Every variable (public static final)
+        Every method (public abstarct)
+    Compiler automatically adds them.
+</pre>
+<h4>Interface methods</h4>
+<pre>
+    Before java 8:
+        only abstarct methods.
+    After java 8:
+        default methods.
+        static methods.
+    Java 9:
+        primitive methods.
+    used only inside Interface.
+
+    Default Methods:
+        Suppose thousends of calsses impliments
+        interface Vehicle{
+            void start();
+        }
+        Later we add
+            void stop();
+        Now every implimetation breaks.
+        Solution 
+        default void stop(){}
+        Existing classes continue working.
+    Example:
+        interface Vehicle {
+            void start();   
+            default void stop() {
+                System.out.println("Stopped");
+            }
+        }
+    
+    Static Method:-
+        interface MathUtil{
+            static int add(int a, int b){
+                return a+b;
+            }
+        }
+        Usage: MathUtil.add(10,20);//30
+        Cannot call : object.add();
+    
+    Private Methods:
+        interface Logger{
+            default void info(){
+                print();
+            }
+            default void error(){
+                error();
+            }
+            private void print(){
+                sysout("Common Logic");
+            }
+        }
+</pre>
+<h4>Types of Interfaces</h4>
+<pre>
+    1. Normal Interface (Regular Interface):
+        A normal interface contains one or more abstract methods 
+        (and may also include default, static, or private methods in Java 8+).
+        Use Case
+            Define a contract for multiple implementations.
+            Achieve abstraction and polymorphism.
+
+    2. Functional Interface (SAM - Single Abstract Method):
+        A functional interface contains exactly one abstract method.
+        Introduced in Java 8 to support Lambda Expressions.
+        Example:
+            @FunctionalInterface
+            inteface Calculator{
+                int add(int a, int b);
+            }
+            Calculator cal = (a,b) ->a+b;
+            sysout(cal.add(10,20));//30
+        Common Functional Interfaces:
+            Runnable, Callable, Comparator, Consumer, Supplier, Function, Predicate
+        Use Case
+            Lambda expressions
+            Method references
+            Functional programming
+
+    3.Marker Interface:
+            A marker interface contains no methods and no fields. 
+            It simply marks a class with special metadata.
+            interface MyMarker{}
+            class Employee impliments MyMarker{}
+            Real Java Example:
+                Serializable, Cloneable, Remote
+        Why?
+            Frameworks or the JVM check whether a class implements the 
+                marker interface and enable special behavior.
+            class Employee implements Serializable{}
+                The JVM understands that Employee Object can be Serializable.
+
+    4.Sealed Interface(Java 17+):
+            A Sealed interface restricts which classes or interfaces are allowed to implement it.
+        Example:
+            public sealed interface Shape
+                permits Circle, Rectangle{
+            }
+            final class Circle implements Shape {}
+            final class Rectangle implements Shape {}
+    Use Case
+        Restrict implementations.
+        Create controlled hierarchies.
+        Improve maintainability and pattern matching.
+    
+    Quick Memory Trick
+        Normal Interface → Contract ("What should be done?")
+        Functional Interface → Lambda ("One abstract method")
+        Marker Interface → Metadata ("Marks a class")
+        Sealed Interface → Restriction ("Controls who can implement")
+    Key Points to Remember
+        Interface = Contract that defines what a class must do.
+        A class uses implements to implement an interface.
+        Interface methods are public abstract by default (unless default, static, or private).
+        Interface fields are always public static final.
+        A class can implement multiple interfaces.
+        Default methods (Java 8+) allow adding new behavior without breaking existing implementations.
+        Functional interfaces enable lambda expressions.
+        Frameworks like Spring Boot heavily rely on interfaces to achieve loose coupling, dependency injection, and testability.
+</pre>

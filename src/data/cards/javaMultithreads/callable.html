@@ -1,0 +1,83 @@
+<h4>Callable and Feature</h4>
+<pre>
+    Callable:
+        Callable&lt;V&gt; is an interface(like Runnable) that represents a task which can be 
+        executed by a thread - but with two key differences.
+        1.It returns a result(Runnable.run() returns void).
+        2. It can throw checked exceptions.
+        public interface Callable&lt;V&gt; {
+            V call() throws Exception;
+        }
+        Callable &lt;Integer&gt; task = () -> {
+            Thread.sleep(1000);
+            return 42;
+        };
+    
+    Feature:
+        Feature&lt;V&gt; represents the result of an asynchronous computation.
+        When you submit a Callable to an executer, you immediately get back a Feature
+        --a placeholder for a result that may not exist yet.
+        public interface Future&lt;V&gt; {
+            boolean cancel(boolean mayInterruptIfRunning);
+            boolean isCancelled();
+            boolean isDone();
+            V get() throws InterruptedException, ExecutionException;
+            V get(long timeout, TimeUnit unit) throws TimeoutException, ...;
+        }
+        1.get() blocks until the result is ready
+        2.get(timeout, unit) blocks only up to a timeout
+        3.isDone() lets you check without blocking
+    Runnable vs Callable:
+    | Feature           | Runnable            | Callable        |
+    | ----------------- | ------------------- | --------------- |
+    | Return Value      | ❌                  | ✅             |
+    | Checked Exception | ❌                  | ✅             |
+    | Method            | `run()`             | `call()`        |
+    | Used With         | `Thread` / Executor | ExecutorService |
+    | Generic           | ❌                  | ✅             |
+
+    Interview Answer
+        Use:
+        Runnable → fire-and-forget tasks.
+        Callable → tasks that produce a result or may throw checked exceptions.
+    Note:
+        Plain Future is somewhat limited - you can't attach a callback, chain computation, or
+        Combine multiple features easily; get() is your only way to retrive the value, and it blocks.
+        That's what CompatableFuture(Java 8+) improves on, letting you do things like:
+            CompletableFuture.supplyAsync(() -> 42)
+                    .thenApply(x -> x * 2)
+                    .thenAccept(System.out::println);
+
+</pre>
+<h4>Thread Naming</h4>
+<pre>
+    Every thread has a name.
+    Default names:
+        Thread-0, Thread-1, Thread-2,..
+    Custome Name:
+        Thread t = new Thread(task);
+        t.setName("payment-thread");
+        t.start();
+        or
+        Thread t = new Thread(task, "payment-thread");  
+    Retrive name:
+    sysout(Thread.currentThread().getName());
+    Why Name Threads?
+        Easier debugging
+        Better logging
+        Production monitoring
+</pre>
+<h4>Thread Priority</h4>
+<pre>
+    Priority Range:
+        1 -> MIN_PRIORITY
+        2 -> NORM_PRIORITY
+        3 -> MAX_PRIORITY
+    Example:
+        Thread t = new Thread(task);
+        t.setPriority(Thread.MAX_PRIORITY);
+    Important:
+        Priority is only a hint.
+        The OS decides the actual scheduling.
+        Do not relay on Priority for Program correctness.
+</pre>
