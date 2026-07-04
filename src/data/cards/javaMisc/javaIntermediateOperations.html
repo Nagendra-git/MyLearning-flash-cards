@@ -1,0 +1,154 @@
+<h4>Intermediate Operations</h4>
+<pre>Intermediate operations transform or filter the elements in a stream. 
+    They are lazy, meaning they do not execute until a terminal operation is called. 
+    Each intermediate operation returns another Stream, allowing method chaining.
+    Characteristics:
+        ✅ Return a new Stream
+        ✅ Lazy execution
+        ✅ Can be chained
+        ✅ Executed only when a terminal operation is invoked
+</pre>
+<h4>Common Intermediate Operations</h4>
+<pre>
+    | Operation                | Purpose                                  | Returns     |
+    | ------------------------ | ---------------------------------------- | ----------- |
+    | `filter()`               | Filter elements                          | `Stream&lt;T&gt;` |
+    | `map()`                  | Transform elements                       | `Stream&lt;R&gt;` |
+    | `flatMap()`              | Flatten nested streams                   | `Stream&lt;R&gt;` |
+    | `distinct()`             | Remove duplicates                        | `Stream&lt;T&gt;` |
+    | `sorted()`               | Sort elements                            | `Stream&lt;T&gt;` |
+    | `peek()`                 | Perform an action (mainly for debugging) | `Stream&lt;T&gt;` |
+    | `limit()`                | Limit the number of elements             | `Stream&lt;T&gt;` |
+    | `skip()`                 | Skip the first `n` elements              | `Stream&lt;T&gt;` |
+    | `takeWhile()` *(Java 9)* | Take elements while a condition is true  | `Stream&lt;T&gt;` |
+    | `dropWhile()` *(Java 9)* | Drop elements while a condition is true  | `Stream&lt;T&gt;` |
+
+    1.filter():
+        Keeps only elements that match a condition.
+        <code>
+List&lt;Integer&gt; list = List.of(10, 15, 20, 25);
+list.stream()
+    .filter(n -> n % 2 == 0)
+    .forEach(System.out::println);
+        </code>
+    2.map():
+        Transforms each element into another value.
+    <code>
+List&lt;String&gt; names = List.of("John", "Alice");
+names.stream()
+     .map(String::toUpperCase)
+     .forEach(System.out::println);
+    </code>
+    3.flatMap():
+        Flattens nested collections into a single stream.
+    <code>
+List&lt;List&lt;String&gt;&gt; list = List.of(
+    List.of("A", "B"),
+    List.of("C", "D")
+);
+list.stream()
+    .flatMap(List::stream)
+    .forEach(System.out::println);
+    </code>
+    Interview Tip:
+        map() → One input produces one output.
+        flatMap() → One input can produce zero, one, or many outputs and flattens them into a single stream.
+    4. distinct():
+        Removes duplicate elements.
+    <code>
+List&lt;Integer&gt; list = List.of(1, 2, 2, 3, 3, 4);
+list.stream()
+    .distinct()
+    .forEach(System.out::println);
+    </code>
+    5. sorted():
+        Natural sorting:
+        <code>
+List&lt;Integer&gt; list = List.of(4, 2, 1, 3);
+list.stream()
+    .sorted()
+    .forEach(System.out::println);
+        </code>
+        Custom sorting:
+        <code>
+employees.stream()
+        .sorted(Comparator.comparing(Employee::getName))
+         .forEach(System.out::println);
+        </code>
+    6. peek():
+        Used mainly for debugging.
+        Without the terminal operation (count()), peek() won't execute.
+        <code>
+List.of(1, 2, 3)
+    .stream()
+    .peek(System.out::println)
+    .count();
+        </code>
+    7.limit():
+        Returns only the first n elements.
+        <code>
+List.of(1,2,3,4,5)
+    .stream()
+    .limit(3)
+    .forEach(System.out::println);
+        </code>
+    8.skip():
+        Skips the first n elements.
+        <code>
+List.of(1,2,3,4,5)
+    .stream()
+    .skip(2)
+    .forEach(System.out::println);
+        </code>
+
+    9. takeWhile() (Java 9)
+        Takes elements until the condition becomes false.
+        <code>
+List.of(2,4,6,7,8)
+    .stream()
+    .takeWhile(n -> n % 2 == 0)
+    .forEach(System.out::println);
+        </code>
+    10. dropWhile() (Java 9):
+        Drops elements while the condition is true, then returns the rest.
+    <code>
+List.of(2,4,6,7,8)
+    .stream()
+    .dropWhile(n -> n % 2 == 0)
+    .forEach(System.out::println);
+    </code>
+</pre>
+<h4>Real-World Example</h4>
+<code>
+List&lt;String&gt; names = List.of(
+    "John", "Alice", "David", "John", "Bob"
+);
+
+List&lt;String&gt; result = names.stream()
+                           .filter(name -> name.length() > 3)
+                           .map(String::toUpperCase)
+                           .distinct()
+                           .sorted()
+                           .limit(3)
+                           .collect(Collectors.toList());
+
+System.out.println(result);
+</code>
+<h4>Execution Flow</h4>
+<pre>
+List
+  ↓
+stream()
+  ↓
+filter()
+  ↓
+map()
+  ↓
+distinct()
+  ↓
+sorted()
+  ↓
+limit()
+  ↓
+collect()   ← Terminal Operation (execution starts here)
+</pre>

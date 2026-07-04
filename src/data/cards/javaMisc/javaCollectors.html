@@ -1,0 +1,178 @@
+<h4>Java Collectors</h4>
+<pre>
+    In Java, the Stream API provides a modern way to process data.
+    But after filtering, mapping and transforming, we usually need to gather results into a collection,
+    a map or even a single value.
+    Thats where Collectors come in.
+        A Collector is an object that defines how to accumulate elements of a stream into a final result.   
+        The Collectors utility class provides ready-to-use static methods, so you rarely need to write your own collectors.
+</pre>
+<h4>Methods</h4>
+<pre>
+    1.toList():
+        Collect elements into a List.
+        return List&lt;T&gt;
+        <code>
+List&lt;String>&gt;list = names.stream().collect(Collectors.toList());
+        </code>
+    2. toSet():
+        Collect unique elements.
+        return Set&lt;T&gt;
+        <code>
+Set&lt;String&gt;set = names.stream().collect(Collectors.toSet());
+        </code>
+    3. toCollection():
+        Collect into a specific collection implementations.
+        return : Collection you specify.
+        <code>
+LinkedList&lt;String&gt; list =names.stream().collect(Collectors.toCollection(LinkedList::new));
+        </code>
+    4. joining():
+        Join Strings.
+        return : String
+        <code>
+String result =names.stream().collect(Collectors.joining(", ")); //o/p : John, David, Alice
+        </code>
+    5. counting():
+        count element.
+        return: Long
+        <code>
+Long count =names.stream().collect(Collectors.counting());
+        </code>
+    6. summingInt(): // summingLong() //summingDouble()
+        Sum  values.
+        return : Integer
+        <code>
+int total =employees.stream().collect(Collectors.summingInt(Employee::getSalary));
+        </code>
+    7. averagingInt()// averagingLong()//averagingDouble()
+        Calculate Average.
+        <code>
+double avg = employees.steam().collect(Collectors.averagingDouble(Employee::getSalary));
+        </code>
+    8. maxBy():
+        Find maximum Object.
+        return : Optional&le;T&gt;
+        <code>
+Optional&lt;Employee&gt; emp =employees.stream()
+.collect(Collectors.maxBy(Comparator.comparing(Employee::getSalary)));
+        </code>
+    9. minBy():
+        Find minimum Object.
+        return : Optional&le;T&gt;
+        <code>
+Optional&lt;Employee&gt; emp =employees.stream()
+.collect(Collectors.minBy(Comparator.comparing(Employee::getSalary)));
+        </code>
+    10. summarizingInt()//summarizingLong()//summarizingDouble():
+        Get statistics
+        Returns: IntSummaryStatistics
+        <code>
+IntSummaryStatistics stats =employees.stream().collect(Collectors.summarizingInt(Employee::getSalary));
+        </code>
+        Contains: count, sum, average, min, max
+    11. mapping():
+        Purpose: Transform elements before collecting.
+        Returns: Depends on downstream collector.
+        <code>
+List&lt;String&gt; names =employees.stream().collect(Collectors.mapping(Employee::getName,Collectors.toList()));
+        </code>
+    12. collectingAndThen():
+        Purpose: Perform a final transformation after collecting.
+        Returns: Depends on finisher function.
+        <code>
+List&lt;String&gt; list =stream.collect(Collectors.collectingAndThen(Collectors.toList(),Collections::unmodifiableList));
+        </code>
+        Returns an immutable list.
+    13. groupingBy():
+        Purpose: Group elements.
+        Returns: Map&lt;K,List&lt;T&gt;&gt;
+        <code>
+Map&lt;String,List&lt;Employee&gt;&gt; map =employees.stream().collect(Collectors.groupingBy(Employee::getDepartment));
+        </code>
+    14. groupingBy() with downstream:
+        Returns: Map&lt;String, Long&gt;
+        <code>
+Map&lt;String,Long&gt; map =employees.stream().collect(Collectors.groupingBy(Employee::getDepartment,Collectors.counting()));
+        </code>
+    15. partitioningBy():
+        Purpose: Divide into true/false groups.
+        Returns: Map&lt;Boolean,List&lt;T&gt;&gt;
+        <code>
+Map&lt;Boolean,List&lt;Employee&gt;&gt; map =employees.stream().collect(Collectors.partitioningBy(e -> e.getSalary() > 50000));
+        </code>
+    16 . partitioningBy() with downstream:
+        <code>
+Map&lt;Boolean,Long&gt; map =employees.stream().collect(Collectors.partitioningBy(e -> e.getSalary() > 50000,Collectors.counting()));
+        </code>
+    17. toMap:
+        Purpose: Convert to Map.
+        Returns: Map&lt;K,V&gt;
+        <code>
+Map&lt;Integer,String&gt; map =employees.stream().collect(Collectors.toMap(Employee::getId,Employee::getName));
+        </code>
+    18.toConcurrentMap():
+        Returns: ConcurrentMap&lt;K,V&gt;
+        Used in parallel streams.
+    19. reducing():
+        Purpose: Custom reduction.
+        Returns: Depends on overload (Optional&lt;T&gt; or T)
+        <code>
+int total = employees.stream().collect(Collectors.reducing(0,Employee::getSalary,Integer::sum));
+        </code>
+    20. filtering() (Java 9):
+        Purpose: Filter elements within a downstream collector.
+        Returns: Depends on downstream collector.
+        <code>
+Map&lt;String,List&lt;Employee&gt;&gt; map = employees.stream()
+.collect(Collectors.groupingBy(Employee::getDepartment,Collectors.filtering(
+e -> e.getSalary() > 50000,Collectors.toList())));
+        </code>
+    21. flatMapping() (Java 9):
+        Purpose: Flatten nested streams.
+        Returns: Depends on downstream collector.
+        <code>
+Map&lt;String,Set&lt;String&gt;&gt; map =employees.stream()
+.collect(Collectors.groupingBy(Employee::getDepartment,Collectors.flatMapping(
+    e -> e.getSkills().stream(),Collectors.toSet())));
+        </code>
+    22. teeing() (Java 12):
+        Purpose: Combine results of two collectors in a single pass.
+        Returns: Depends on merger function.
+        <code>
+double avg =employees.stream().collect(Collectors.teeing(Collectors.summingInt(Employee::getSalary),
+Collectors.counting(),(sum,count) -> (double) sum / count));
+        </code>
+</pre>
+<h4>Quick Interview Cheat Sheet</h4>
+<pre>
+    | Collector             | Purpose                            | Returns                                        |
+    | --------------------- | ---------------------------------- | ---------------------------------------------- |
+    | `toList()`            | Collect to List                    | `List&lt;T&gt;`                                      |
+    | `toSet()`             | Collect unique elements            | `Set&lt;T&gt;`                                       |
+    | `toCollection()`      | Custom collection                  | `Collection&lt;T&gt;`                                |
+    | `joining()`           | Join strings                       | `String`                                       |
+    | `counting()`          | Count elements                     | `Long`                                         |
+    | `summingInt()`        | Sum `int` values                   | `Integer`                                      |
+    | `summingLong()`       | Sum `long` values                  | `Long`                                         |
+    | `summingDouble()`     | Sum `double` values                | `Double`                                       |
+    | `averagingInt()`      | Average `int` values               | `Double`                                       |
+    | `averagingLong()`     | Average `long` values              | `Double`                                       |
+    | `averagingDouble()`   | Average `double` values            | `Double`                                       |
+    | `maxBy()`             | Maximum element                    | `Optional&lt;T&gt;`                                  |
+    | `minBy()`             | Minimum element                    | `Optional&lt;T&gt;`                                  |
+    | `summarizingInt()`    | Statistics for `int`               | `IntSummaryStatistics`                         |
+    | `summarizingLong()`   | Statistics for `long`              | `LongSummaryStatistics`                        |
+    | `summarizingDouble()` | Statistics for `double`            | `DoubleSummaryStatistics`                      |
+    | `mapping()`           | Transform before collecting        | Depends on downstream collector                |
+    | `collectingAndThen()` | Finish with transformation         | Depends on finisher                            |
+    | `groupingBy()`        | Group by key                       | `Map&lt;K, List&lt;T&gt;&gt;` (or downstream result)       |
+    | `partitioningBy()`    | Split into `true`/`false` groups   | `Map&lt;Boolean, List&lt;T&gt;&gt;` (or downstream result) |
+    | `toMap()`             | Convert to `Map`                   | `Map&lt;K, V&gt;`                                    |
+    | `toConcurrentMap()`   | Concurrent map                     | `ConcurrentMap&lt;K, V&gt;`                          |
+    | `reducing()`          | Custom reduction                   | `T` or `Optional&lt;T&gt;`                           |
+    | `filtering()`         | Filter within downstream collector | Depends on downstream collector                |
+    | `flatMapping()`       | Flatten nested streams             | Depends on downstream collector                |
+    | `teeing()`            | Combine two collectors             | Depends on merger function                     |
+
+</pre>

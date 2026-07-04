@@ -1,0 +1,84 @@
+<h4>Comaprable Vs Comparator</h4>
+<p>Comparable and Comparator are both used for sorting objects in java, but they
+    servefifferent purpouses.
+</p>
+<pre>
+    | Feature               | Comparable                                  | Comparator                             |
+    | --------------------- | ------------------------------------------- | -------------------------------------- |
+    | Package               | `java.lang`                                 | `java.util`                            |
+    | Purpose               | Defines the **natural ordering** of objects | Defines **custom ordering** of objects |
+    | Method                | `compareTo(T o)`                            | `compare(T o1, T o2)`                  |
+    | Modified Class        | The class itself implements it              | Separate class or lambda implements it |
+    | Number of Sort Orders | Only one natural order                      | Multiple different sort orders         |
+    | Used By               | `Collections.sort(list)`                    | `Collections.sort(list, comparator)`   |
+</pre>
+
+<h4>Comparable(Natural Sorting)</h4>
+<pre>
+    Use Comparable when the object has a default sorting order.
+    <code>
+class Employee implements Comparable&lt;Employee&gt; {
+
+    int id;
+    String name;
+
+    Employee(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    @Override
+    public int compareTo(Employee other) {
+        return this.id - other.id;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + name;
+    }
+}
+    </code>
+</pre>
+<h4>Comparator(Custome Sorting)</h4>
+<pre>
+    Suppose now you want to sort by name insted of ID.
+    <code>
+        class NameComparator implements Comparator&lt;Employee&gt; {
+
+    @Override
+    public int compare(Employee e1, Employee e2) {
+        return e1.name.compareTo(e2.name);
+    }
+}
+    </code>
+
+    Yes. Comparable can compare any field, including name. 
+    However, it defines only a single natural ordering for the class.
+    If I need multiple sorting criteria such as by ID, name, salary, 
+    or department, I would use Comparator because it allows multiple independent sorting strategies
+
+    Example:
+    <code>
+        public class Main {
+	
+	public static void main(String[] args) {
+		
+		List&lt;ComparableExample&gt; list = new ArrayList&lt;ComparableExample&gt;();
+		list.add( new ComparableExample(1, "Nagendra"));
+		list.add( new ComparableExample(3, "Janu"));
+		list.add( new ComparableExample(2, "venky"));
+		//Collections.sort(list); //need to implement the Comparable interface
+		
+		Comparator&lt;ComparableExample&gt; byId = Comparator.comparing(e -> e.id);
+		Comparator&lt;ComparableExample&gt; byName = Comparator.comparing(e -> e.name);
+		System.out.println(list);
+		list.sort(byId);
+		System.out.println(list);
+		list.sort(byName);
+		System.out.println(list);
+		
+	}
+
+}
+    </code>
+</pre>
