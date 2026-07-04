@@ -1,0 +1,116 @@
+<h4>Java Terminal Operations</h4>
+<p>
+    Terminal operations are the final operations in a Stream pipeline. 
+    They trigger the processing of all intermediate operations and produce a result or a side effect. 
+    After a terminal operation is executed, the stream is closed and cannot be reused.
+</p>
+<h4>All Common Terminal Operations</h4>
+<pre>
+    | Terminal Operation | Purpose                                            | Returns                |
+    | ------------------ | -------------------------------------------------- | ---------------------- |
+    | `forEach()`        | Perform an action for each element                 | `void`                 |
+    | `forEachOrdered()` | Ordered iteration (parallel streams)               | `void`                 |
+    | `collect()`        | Collect elements into a collection or other result | Depends on `Collector` |
+    | `toArray()`        | Convert stream to an array                         | `Object[]` or `T[]`    |
+    | `reduce()`         | Reduce elements to a single value                  | `Optional&lt;T&gt;` or `T`   |
+    | `count()`          | Count elements                                     | `long`                 |
+    | `min()`            | Find minimum element                               | `Optional&lt;T&gt;`          |
+    | `max()`            | Find maximum element                               | `Optional&lt;T&gt;`          |
+    | `findFirst()`      | Get the first element                              | `Optional&lt;T&gt;`          |
+    | `findAny()`        | Get any element (useful in parallel streams)       | `Optional&lt;T&gt;`          |
+    | `anyMatch()`       | Check if any element matches                       | `boolean`              |
+    | `allMatch()`       | Check if all elements match                        | `boolean`              |
+    | `noneMatch()`      | Check if no elements match                         | `boolean`              |
+</pre>
+<pre>
+    1.forEach():
+        return void.
+    <code>
+List.of(1,2,3).stream().forEach(System.out::println);
+    </code>
+    2.orEachOrdered():
+        Maintains encounter order, especially with parallel streams.
+        Returns: void
+        <code>
+numbers.parallelStream().forEachOrdered(System.out::println);
+        </code>
+    3.collect():
+        Most commonly used terminal operation.
+        Returns: Depends on the collector (List, Set, Map, String, etc.)
+        <code>
+List&lt;String&gt; list =names.stream().collect(Collectors.toList());
+        </code>
+    4.toArray():
+        Returns: Array
+        <code>
+Object[] arr = names.stream().toArray();
+String[] arr = names.stream().toArray(String[]::new);
+        </code>
+    5.reduce():
+        Combine all elements into one result.
+        Returns: T (with identity) or Optional&lt;T&gt; (without identity)
+        <code>
+int sum =List.of(10,20,30).stream().reduce(0, Integer::sum);
+        </code>
+    6.count():
+        Returns: long
+        <code>
+long count = names.stream().count();
+        </code>
+    7.min():
+        Returns: Optional&lt;T&gt;
+        <code>
+Optional&lt;Integer&gt; min =numbers.stream().min(Integer::compareTo);
+        </code>
+    8.max():
+    Returns: Optional&lt;T&gt;
+    <code>
+Optional&lt;Integer&gt; max =numbers.stream().max(Integer::compareTo);
+    </code>
+    9.findFirst():
+        Returns: Optional&lt;T&gt;
+        <code>
+Optional&lt;String&gt; first =names.stream().findFirst();
+        </code>
+    10.findAny():
+        Returns: Optional&lt;T&gt;
+        May return any matching element, especially in parallel streams.
+    <code>
+Optional&lt;String&gt; any =names.parallelStream().findAny();
+    </code>
+    11.anyMatch():
+        Returns: boolean
+    <code>
+boolean result =numbers.stream().anyMatch(n -> n > 50);
+    </code>
+    12.allMatch():
+        Returns: boolean
+    <code>
+boolean result =numbers.stream().allMatch(n -> n > 0);
+    </code>
+    13.noneMatch():
+        Returns: boolean
+    <code>
+boolean result =numbers.stream().noneMatch(n -> n < 0);
+    </code>
+</pre>
+<h4>Stream Lifecycle</h4>
+<pre>
+Collection
+    ↓
+stream()
+    ↓
+Intermediate Operations
+(filter → map → sorted → distinct → limit ...)
+    ↓
+Terminal Operation
+(collect, count, reduce, findFirst, anyMatch ...)
+    ↓
+Result (List, Set, Map, Optional, boolean, long, etc.)
+
+Interview Points:
+    Intermediate operations are lazy; they don't execute until a terminal operation is invoked.
+    Terminal operations trigger the execution of the entire stream pipeline.
+    A stream can have multiple intermediate operations but only one terminal operation.
+    After a terminal operation executes, the stream is consumed and cannot be reused.
+</pre>

@@ -1,0 +1,70 @@
+<h4>Stream Fundamentals</h4>
+<pre>
+    A pipeline describing a computation over a data source. It does NOT store data -
+    it's  not a data structure.
+    Properties:-
+        Lazy(intermediate ops don't run until terminal op)
+        Single-use(throws `IllegalStateException` if reused)
+        Doesn't mutate source, can be sequential or parallel.
+    Name 5 ways to create a Stream.
+        collection.stream(), 
+        Stream.of(...), 
+        Arrays.stream(array), 
+        Stream.iterate(seed, fn), 
+        Stream.generate(supplier), 
+        IntStream.range(a,b), 
+        Files.lines(path). 
+    Why use IntStream/LongStream/DoubleStream instead of Stream&lt;Integer&gt;?
+    Avoids autoboxing overhead — primitive streams work with raw int/long/double, 
+    which matters for performance in numeric-heavy pipelines.
+</pre>
+<h4>Intermediate Operations</h4>
+<pre>
+    It returns a Stream and is lazy — doesn't execute until a terminal operation is called.
+    common intermediate operations:
+        filter, map, flatMap, distinct, sorted, peek, limit, skip.
+
+    Difference between map and flatMap:
+        Map transforms each element 1-to-1. 
+        flatMap transforms each element into a stream, 
+        then flattens all those streams into one — 
+        used for nested collections (List&lt;List&lt;T&gt;&gt; → List&lt;T&gt;).
+    Example:
+     Flattening line items across multiple orders:
+     <code>
+        List&lt;LineItem&gt; allItems = orders.stream()
+            .flatMap(order -> order.getLineItems().stream())
+            .collect(Collectors.toList());
+     </code>
+    What does distinct() use to determine duplicates:
+        equals()/hashCode() of the elements.
+    Does distinct() preserve order:
+        Yes — for a stream with a defined encounter order (e.g., from a List or String), 
+        it keeps the FIRST occurrence and original position.
+    What is peek() meant for, and why avoid it for logic:
+        Debugging only. The JIT may optimize it away if the result isn't used, 
+        so behavior isn't guaranteed — never put business logic inside peek().
+</pre>
+<h4>Terminal Operations</h4>
+<pre>
+    It triggers execution of the whole pipeline and closes the stream. 
+    Only one terminal op allowed per stream.
+    common terminal operations:
+        forEach, collect, toList(), reduce, count, 
+        anyMatch/allMatch/noneMatch, findFirst/findAny, min/max, toArray
+    Difference between findFirst() and findAny()?
+        findFirst() always returns the first element in encounter order. 
+        findAny() may return any matching element — more efficient in parallel streams 
+        since it doesn't need to respect order.
+    Explain the 3-argument reduce() and when the combiner matters.
+        reduce(identity, accumulator, combiner). 
+        The combiner is used to merge partial results from different threads — only relevant in PARALLEL streams. 
+        In sequential streams it's effectively unused.
+        <code>
+            int totalChars = words.stream()
+                .reduce(0, (acc, w) -> acc + w.length(), Integer::sum);
+        </code>
+    What are "short-circuiting" operations? Give examples:
+    Operations that can stop processing before evaluating the entire stream: 
+    findFirst, findAny, anyMatch, allMatch, noneMatch, limit.
+</pre>
