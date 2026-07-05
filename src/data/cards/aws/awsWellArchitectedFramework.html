@@ -1,0 +1,96 @@
+<h4>AWS Well-Architected Framework</h4>
+<pre>
+    The AWS Well-Architected Framework is a collection of best practices for designing 
+    secure, reliable, efficient, and cost-effective cloud applications.
+    It helps architects and developers evaluate and improve their workloads.
+</pre>
+<h4>The Six Pillars</h4>
+<pre>
+    1. Operational Excellence
+        Focus:Run and monitor systems effectively and continuously improve processes.
+    Examples:
+        CI/CD pipelines
+        Infrastructure as Code
+        Automated deployments
+        Monitoring and incident response
+    
+    2. Security
+        Protect systems and data.
+        Examples:
+            IAM
+            Encryption
+            Least privilege access
+            Logging and monitoring
+            Secrets management
+    3. Reliability
+        Ensure workloads recover from failures and continue operating.
+    Examples:
+        Multi-AZ deployments
+        Backups
+        Auto Scaling
+        Disaster recovery planning
+    4. Performance Efficiency
+        Use resources efficiently and adapt as demand changes.
+    Examples:
+        Right-size EC2 instances
+        Caching
+        Load balancing
+        Selecting appropriate storage and databases
+    
+    5. Cost Optimization
+        Avoid unnecessary expenses while meeting business requirements.
+    Examples:
+        Stop unused EC2 instances
+        Choose appropriate pricing options
+        Use Auto Scaling
+        Monitor costs with billing tools
+
+    6. Sustainability
+        Reduce the environmental impact of cloud workloads by using resources efficiently.
+    Examples:
+        Eliminate idle resources
+        Optimize compute usage
+        Use managed services where appropriate
+</pre>
+<h4>Java Spring Boot Example</h4>
+<pre>
+    Suppose you're deploying an online shopping application.
+        Operational Excellence → Automated deployment using CI/CD.
+        Security → IAM roles, encrypted data, secure secrets management.
+        Reliability → Multi-AZ deployment with automated backups.
+        Performance Efficiency → Load Balancer, caching, optimized instance types.
+        Cost Optimization → Auto Scaling and turning off unused development environments.
+        Sustainability → Efficient resource utilization and removing unused infrastructure.
+</pre>
+
+<h4>Quick Revision</h4>
+<pre>AWS Global Infrastructure:
+    | Component           | Purpose                                     |
+    | ------------------- | ------------------------------------------- |
+    | Region              | Geographic deployment area                  |
+    | Availability Zone   | High availability within a Region           |
+    | Edge Location       | Fast content delivery                       |
+    | Regional Edge Cache | Additional caching layer                    |
+    | Local Zone          | Low-latency compute near users              |
+    | Outposts            | AWS infrastructure in customer data centers |
+
+Shared Responsibility:
+    | AWS               | Customer                           |
+    | ----------------- | ---------------------------------- |
+    | Data centers      | IAM users                          |
+    | Hardware          | Applications                       |
+    | Networking        | Customer data                      |
+    | Hypervisor        | Operating system (EC2)             |
+    | Physical security | Security Groups and configurations |
+
+Well-Architected Framework:
+    | Pillar                 | Goal                                            |
+    | ---------------------- | ----------------------------------------------- |
+    | Operational Excellence | Efficient operations and continuous improvement |
+    | Security               | Protect systems and data                        |
+    | Reliability            | Recover from failures                           |
+    | Performance Efficiency | Use resources effectively                       |
+    | Cost Optimization      | Minimize unnecessary costs                      |
+    | Sustainability         | Reduce environmental impact                     |
+
+</pre>

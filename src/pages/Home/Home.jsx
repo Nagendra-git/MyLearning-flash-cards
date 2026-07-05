@@ -10,6 +10,7 @@ import javaMiscCards from "../../data/javaMiscCards";
 import springBootTransactionalCards from "../../data/springBootTransactionalCards";
 import exceptionMiscCards from "../../data/exceptionMiscCards";
 import javaMultiThredingCards from "../../data/javaMultithreding";
+import awsCards from "../../data/awsCards";
 import "../../styles/Home.css";
 
 const topics = [
@@ -23,6 +24,7 @@ const topics = [
   { key: "algorithm", label: "Alagorithm Cards", data: AlgorithmCards},
   { key: "systemdesign", label: "System Design Cards", data: SystemDesignCards},
   { key: "springBootTransaction", label: "String Boot Transaction", data : springBootTransactionalCards},
+  { key: "aws", label: "AWS", data : awsCards},
 ];
 
 function Home() {
