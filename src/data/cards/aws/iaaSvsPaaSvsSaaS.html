@@ -1,0 +1,116 @@
+<h4>IaaS vs PaaS vs SaaS</h4>
+<pre>
+    Cloud services are mainly divided into three models:
+        Infrastructure as a Service (IaaS)  
+        Platform as a Service (PaaS)    
+        Software as a Service (SaaS)
+    The key difference is who is responsible for managing what.
+</pre>
+<h4>IaaS (Infrastructure as a Service)</h4>
+<pre>
+    IaaS provides the basic computing infrastructure over the internet, such as:
+        1.Vertual machines(VMs)
+        2.Storage
+        3.Networking
+        4.Laod Balancers.
+    The cloud provider manages the physical hardware, whileyou manage the operating
+    system, runtime, application, and data.
+
+    AWS Examples:
+        EC2 (Virtual Servers), EBS, VPC, Elastic Load Balancer
+
+    Real-Life Analogy
+        Imagine renting an empty apartment.
+        The owner provides:
+            Building, Electricity, Water
+        You bring:
+            Furniture, TV, Bed,Kitchen items
+    That's IaaS.
+
+    Advantages
+        Full control, Flexible, Easy to customize, Suitable for legacy applications
+
+    Disadvantages
+        More maintenance, Need system administration knowledge, OS patching is your responsibility
+</pre>
+<h4>PaaS (Platform as a Service)</h4>
+<pre>
+    PaaS provides a platform where you simply upload your code.
+
+    The cloud provider manages:
+            Operating System, Runtime, Middleware, Scaling,Infrastructure
+    You only focus on your application.
+
+    What You Manage
+        You manage: Application code, Business logic,Data
+    Everything else is handled by the provider.
+
+    AWS Examples
+        Elastic Beanstalk
+        App Runner
+
+    Real-Life Analogy
+        Imagine staying in a fully furnished apartment.
+        The owner provides:
+            Furniture, Internet, Appliances, Maintenance
+        You simply move in and use it.
+    That's PaaS.
+
+    Advantages:
+        Faster development
+        No infrastructure management
+        Automatic scaling
+        Easy deployment
+
+    Disadvantages
+        Less control
+        Limited customization
+        Platform restrictions
+</pre>
+<h4>SaaS (Software as a Service)</h4>
+<pre>
+    SaaS delivers a complete software application over the internet.
+    You simply use the software through a browser or app.
+    No installation or infrastructure management is required.
+
+    What You Manage: Almost nothing.
+    You only:
+        Create an account
+        Log in
+        Use the software
+    Examples
+        Gmail, Microsoft 365, Google Docs,Zoom,Slack,Salesforce,AWS Example
+
+    While AWS primarily provides cloud infrastructure and platforms, services like the AWS Management 
+    Console can be experienced in a SaaS-like way because you access them through a web browser without managing the underlying application.
+
+    Real-Life Analogy
+        Using a taxi service.
+        You don't own: The car, The engine, The driver
+    You simply ride to your destination.
+    That's SaaS.
+
+    Advantages
+        No installation
+        No maintenance
+        Accessible from anywhere
+        Automatic updates
+    Disadvantages
+        Limited customization
+        Dependency on the provider
+        Subscription costs
+</pre>
+<h4>AWS Service Examples</h4>
+<pre>
+    | Service Model | AWS Services                                                                    |
+    | ------------- | ------------------------------------------------------------------------------- |
+    | IaaS          | EC2, EBS, VPC, Elastic Load Balancer                                            |
+    | PaaS          | Elastic Beanstalk, App Runner                                                   |
+    | SaaS          | AWS Management Console (SaaS-like experience), Amazon WorkDocs, Amazon WorkMail |
+
+Memory Trick
+    Think of driving vs. taking a taxi:
+    IaaS → You rent a car. You drive it and maintain it while you have it.
+    PaaS → You rent a chauffeur-driven car. You decide where to go, but someone else handles the driving and maintenance.
+    SaaS → You take a taxi or ride-sharing service. You simply request the ride and use the service.
+</pre>

@@ -1,0 +1,98 @@
+<h4>AWS Global Infrastructure</h4>
+<pre>
+    AWS Global Infrastructure is the worldwide network of AWS data centers that allows customers to 
+    deploy applications close to their users.
+    It consists of:
+        Regions
+        Availability Zones (AZs)
+        Edge Locations
+        Regional Edge Caches
+        Local Zones (specialized infrastructure for low-latency workloads)
+        AWS Outposts (AWS infrastructure deployed in customer data centers)
+
+    Why does AWS have Global Infrastructure?
+    Imagine you're running an e-commerce website.
+    Customers are from:
+        India, USA, Japan, Australia
+    If your server is only in India:
+        Indian users → Fast
+        US users → Slow
+        Australian users → Slower
+    AWS lets you deploy applications in multiple regions to reduce latency and improve availability.
+</pre>
+<h4>Region</h4>
+<pre>
+    A Region is a separate geographical area where AWS has one or more data centers.
+    Each Region contains at least two Availability Zones.
+    Examples:
+        Asia Pacific (Mumbai)
+        Asia Pacific (Hyderabad)
+        US East (N. Virginia)
+        Europe (Frankfurt)
+    
+    Why Multiple Regions?
+        Suppose your customers are in Europe.
+        Instead of deploying in Mumbai, you deploy in Frankfurt.
+    Benefits:
+        Lower latency
+        Better user experience
+        Regional compliance (if required)
+
+    Region Characteristics
+        Geographically isolated
+        Independent power and networking
+        Contains multiple Availability Zones
+        Fault isolated from other Regions
+</pre>
+<h4>Availability Zone (AZ)</h4>
+<pre>
+    An Availability Zone (AZ) is one or more physically separate data centers within a Region.
+    Each AZ has:
+        Independent power
+        Independent cooling
+        Independent networking
+    AZs are connected with high-speed, low-latency private links.
+    Example
+        Mumbai Region
+        Mumbai Region
+            │
+            ├── AZ-A
+            ├── AZ-B
+            ├── AZ-C
+    Each AZ can continue operating even if another AZ experiences an outage.
+    Why Multiple AZs?
+        Your Spring Boot application runs only in AZ-A.
+        If AZ-A fails:
+        Application becomes unavailable.
+        If AZ-A fails, traffic can be directed to AZ-B.
+        This is known as High Availability.
+</pre>
+<h4>Edge Locations</h4>
+<pre>
+    Edge Locations are sites used by services like CloudFront and Route 53 
+    to deliver content closer to end users.
+    They cache frequently requested content.
+    Example
+        Suppose:
+        Your images are stored in Mumbai.
+        A user in Australia requests an image.
+        Without an Edge Location:
+        Australia → Mumbai
+        Every request travels to Mumbai.
+        With CloudFront:
+        Australia
+            │
+        Edge Location
+            │
+        Mumbai
+    The first request retrieves the image from Mumbai and stores it in the Edge Location. 
+    Future requests are served from the Edge Location, reducing latency.
+</pre>
+    <h4>Regional Edge Cache</h4>
+<pre>
+    A Regional Edge Cache sits between the AWS Region and Edge Locations.
+    Purpose:
+        Store larger or less frequently accessed content
+        Improve cache hit rates
+        Reduce load on the origin server
+</pre>

@@ -1,0 +1,49 @@
+<h4>AWS Shared Responsibility Model</h4>
+<pre>
+    AWS follows a Shared Responsibility Model.
+    Security responsibilities are divided between:
+        AWS
+        Customer
+    Think of it as:
+    AWS secures the cloud; you secure what you put in the cloud.
+</pre>
+<h4>AWS Responsibility (Security of the Cloud)</h4>
+<pre>
+    AWS manages:
+        Physical data centers
+        Servers
+        Networking
+        Storage hardware
+        Hypervisor
+        Managed service infrastructure
+    You don't need to patch physical servers or replace failed disks.
+</pre>
+<h4>Customer Responsibility (Security in the Cloud)</h4>
+<pre>
+    You manage:
+        IAM users and permissions
+        Application security
+        Customer data
+        Operating system patches (for EC2)
+        Firewalls and Security Groups
+        Database configuration
+        Encryption settings (where applicable)
+        API keys and secrets
+    
+    Example
+        You launch an EC2 instance.
+    AWS handles:
+        Hardware
+        Power
+        Networking
+        Hypervisor
+    You handle:
+        Installing Java
+        Updating the OS
+        Configuring the firewall
+        Deploying your Spring Boot application
+        Managing users and credentials
+    Memory Trick
+        Security of the Cloud → AWS
+        Security in the Cloud → Customer
+</pre>
