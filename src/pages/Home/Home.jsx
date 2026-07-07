@@ -13,6 +13,7 @@ import javaMultiThredingCards from "../../data/javaMultithreding";
 import awsCards from "../../data/awsCards";
 import javaCollectionCards from "../../data/javaCollectionCards";
 import goLangCards from "../../data/goLangCards";
+import sqlCards from "../../data/sqlCards";
 import "../../styles/Home.css";
 
 const topics = [
@@ -29,6 +30,7 @@ const topics = [
   { key: "springBootTransaction", label: "String Boot Transaction", data : springBootTransactionalCards},
   { key: "aws", label: "AWS", data : awsCards},
   { key: "golang", label: "Go Lang", data : goLangCards},
+  { key: "sql", label : "SQL", data : sqlCards},
 ];
 
 function Home() {
