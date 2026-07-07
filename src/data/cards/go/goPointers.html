@@ -1,0 +1,101 @@
+<h4>Go Pointers</h4>
+<pre>
+A pointer is a variable that stores the memory address of another variable.
+Memory Representation:
+    Address          Value
+    0x100       ->   25
+      ^
+      |
+      p
+    The pointer points to the variable.
+
+Why Do We Need Pointers?
+Suppose we have age := 25
+Now call update(age)
+Go copies the value.
+Original age = 25
+Function receives age = 25
+Two independent copies exist.
+Changing one does not affect the other.
+Pointers allow us to modify the original value instead of working on a copy.
+</pre>
+<h4>Address Operator (&)</h4>
+<pre>
+    The & operator returns the memory address of a variable.
+    Note: The actual address changes each time the program runs.
+
+    Declaring a Pointer
+        var p *int
+        Read it as:"p is a pointer to an int."
+        The * in the declaration means pointer to.
+        fmt.Println(p) //nil 
+        Pointers have a zero value of nil.
+    
+    Creating a pointer:
+        age := 25
+        p := &age
+    Memory:
+        age = 25
+        p -> age
+    Printing:
+        fmt.Println(age) //25
+        fmt.Println(p)//0xc0000120b0
+
+    Dereferencing (*);
+        The * operator retrieves the value stored at the address.
+
+    Difference Between * and &:
+    | Symbol | Meaning                             |
+    | ------ | ----------------------------------- |
+    | `&x`   | Get the address of `x`              |
+    | `*p`   | Get the value stored at address `p` |
+
+</pre>
+<h4>Pointer to Struct</h4>
+<pre>
+    <code>
+type Employee struct {
+    Name string
+    Age  int
+}
+emp := Employee{
+    Name: "Nagendra",
+    Age: 25,
+}
+p := &emp
+fmt.Println(p.Name)
+fmt.Println((*p).Name)
+    </code>
+Both are valid.
+Go automatically dereferences struct pointers, so p.Name is the idiomatic form.
+</pre>
+<h4>new() Function</h4>
+<pre>
+    <code>
+p := new(int)
+fmt.Println(*p)//0
+*p = 50 
+fmt.Println(*p)//50
+    </code>
+new() allocates memory and returns a pointer to the zero value of the specified type.
+
+When Should You Use Pointers?
+Use pointers when:
+        You want to modify the original value.
+        You're working with large structs and want to avoid copying.
+        Methods need to update the receiver.
+        You need shared access to the same data.
+Don't use pointers for small immutable values like simple integers or booleans unless there's a clear reason.
+</pre>
+<h4>Common Mistakes</h4>
+<pre>
+    Dereferencing a nil Pointer
+    var p *int
+    fmt.Println(*p)
+    Runtime panic:
+        panic: runtime error: invalid memory address
+    Always ensure a pointer is not nil before dereferencing it.
+
+    Forgetting to Pass the Address:
+        update(age) -> update(&age)
+</pre>

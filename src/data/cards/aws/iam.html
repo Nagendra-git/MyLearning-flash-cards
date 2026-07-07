@@ -1,0 +1,406 @@
+<h4>Identity and Access Management(IAM)</h4>
+<pre>
+One of the most important services within AWS is IAM.
+It controls who can access AWS resources and what actions they can perform.
+
+What is IAM?
+IAM allows you to:
+    Create users
+    Create groups
+    Create roles
+    Attach permissions
+    Secure AWS accounts
+    Enable MFA
+    Provide temporary credentials
+    Federate identities
+    Control access using policies
+
+It follows the Principle of Least Privilege
+    Give only the permissions that are absolutely necessary.
+</pre>
+<h4>IAM is Global</h4>
+<pre>
+IAM is a Global Service.
+Unlike EC2 or RDS, IAM does not belong to a specific region.
+AWS Account
+    |
+    |------ IAM (Global)
+               |
+               |---- Users
+               |---- Groups
+               |---- Roles
+               |---- Policies
+
+Create a user once.
+That user can access resources in any AWS Region (depending on permissions).
+</pre>
+<h4>IAM Components</h4>
+<pre>
+There are six major IAM components.
+IAM
+│
+├── Users
+├── Groups
+├── Roles
+├── Policies
+├── Identity Providers
+└── MFA
+Let's explore each one.
+</pre>
+<h4>1. IAM Users</h4>
+<pre>
+An IAM User represents a person or application.
+Example
+    John
+    Alice
+    Developer1
+    CI-CD-Bot
+    Terraform
+Each user has
+    Username
+    Password (Console)
+    Access Keys (CLI/API)
+    Permissions
+
+Example:
+Nagendra
+    |
+    |---- Password
+    |---- Access Key
+    |---- Policies
+
+Authentication Methods
+AWS Console
+Uses
+    Username
+    Password
+
+AWS CLI
+    Uses
+    Access Key ID
+    Secret Access Key
+    Example
+    AKIA****************
+    Secret: xasdjh87asdh87...
+
+SDK
+Applications use
+    Access Key
+    Secret Key
+Example :Java
+AmazonS3Client client = AmazonS3Client.builder()
+        .build();
+
+Credentials come from
+Environment variables
+EC2 Role
+ECS Role
+Profile
+Secret Manager
+Root User vs IAM User:
+| Root User                       | IAM User       |
+| ------------------------------- | -------------- |
+| Full access                     | Limited access |
+| Created during account creation | Created later  |
+| Cannot be deleted               | Can be deleted |
+| One per account                 | Unlimited      |
+| Should not be used daily        | Used daily     |
+
+Best Practice
+✅ Never use the Root User except for rare administrative tasks.
+</pre>
+<h4>IAM Groups</h4>
+<pre>
+Groups are collections of users.
+Instead of assigning permissions individually
+John, Alice, Bob
+Assign
+Developers
+
+Example
+Developers
+    |
+    |---- John
+    |---- Alice
+    |---- Bob
+Attach one policy.
+Everyone inherits it.
+
+Group Rules
+A user can belong to
+0 groups
+1 group
+Multiple groups
+
+Groups cannot contain other groups.
+Example: Developers, Admins, Finance, Support
+</pre>
+<h4>IAM Roles</h4>
+<pre>
+Roles are different from Users.
+A role has
+ No username, No password, No access key (permanent)
+Instead
+    Someone assumes the role.
+
+Example
+EC2 Instance
+↓
+Assume Role
+↓
+Access S3
+
+Roles are used by
+EC2
+Lambda
+ECS
+EKS
+IAM Users
+
+Cross Account Access
+Example
+EC2
+↓
+EC2 Role
+↓
+Read S3 Bucket
+Another example
+User A
+↓
+Assume Admin Role
+↓
+Temporary Credentials
+↓
+Access Production
+</pre>
+<h4>Temporary Credentials</h4>
+<pre>
+Roles provide
+Access Key
+Secret Key
+Session Token
+These expire.
+
+Example
+15 minutes
+1 hour
+12 hours
+</pre>
+<h4>IAM Policies</h4>
+<pre>
+Policies define permissions.
+Policies are JSON documents.
+Example
+{
+    "Version":"2012-10-17",
+    "Statement":[
+        {
+            "Effect":"Allow",
+            "Action":"s3:ListBucket",
+            "Resource":"*"
+        }
+    ]
+}
+</pre>
+<h4>Policy Structure</h4>
+<pre>
+Version -Current version(2012-10-17)
+Statement
+Effect - allow/Deny
+Action
+Resource
+Condition
+Example
+"Condition": {
+  "IpAddress": {
+      "aws:SourceIp":"10.10.0.0/16"
+  }
+}
+Only users from the office network can access.
+</pre>
+<h4>Types of IAM Policies</h4>
+<pre>
+1. AWS Managed Policies
+Created by AWS.
+Example
+    AdministratorAccess
+    ReadOnlyAccess
+    PowerUserAccess
+    AmazonS3FullAccess
+
+Advantages
+Ready-made
+Maintained by AWS
+
+2. Customer Managed Policies
+Created by your organization.
+Example
+    DeveloperPolicy
+    FinancePolicy
+    S3ReadOnly
+    Reusable.
+
+3. Inline Policies
+Attached directly to one user/role/group.
+Cannot be reused.
+John
+↓
+Inline Policy
+Policy Evaluation Logic
+AWS evaluates all applicable policies together.
+Default
+    Everything is Denied
+Need explicit
+    Allow
+
+Explicit Deny Always Wins:
+Example
+    Allow S3
+    Allow EC2
+    Deny Delete Bucket
+Delete bucket
+    ❌ Denied
+Even though another policy allows it.
+
+Evaluation Order
+Default Deny
+↓
+Explicit Alow
+↓
+Explicit Deny (Highest Priority)
+</pre>
+<h4>IAM Permissions Boundaries</h4>
+<pre>
+Permissions boundaries define the maximum permissions an IAM user or role can receive.
+Role
+↓
+Boundary
+↓
+Cannot exceed boundary
+Useful for delegating administration.
+</pre>
+<h4>IAM Access Analyzer</h4>
+<pre>
+Finds
+    Public access
+    Cross-account access
+    Unused permissions
+Example
+S3 Bucket
+↓
+Public
+↓
+Alert
+</pre>
+<h4>IAM Credential Report</h4>
+<pre>
+CSV report showing
+    Password enabled
+    MFA enabled
+    Access key age
+    Password last used
+    Key last rotated
+Useful for audits.
+</pre>
+<h4>IAM Access Advisor</h4>
+<pre>
+Shows
+    Which services were used?
+    When were they used?
+Useful for removing unused permissions.
+</pre>
+<h4>IAM Identity Center (formerly AWS SSO)</h4>
+<pre>
+Allows centralized access to multiple AWS accounts and applications.
+Features:
+    Single Sign-On (SSO)
+    Multi-account access
+    Integration with external identity providers (such as Active Directory or SAML providers)
+    Centralized permission management
+</pre>
+<h4>IAM Identity Providers (Federation)</h4>
+<pre>
+Instead of creating IAM users for everyone, organizations often use an external identity provider.
+Examples:
+    Corporate Active Directory
+    Microsoft Entra ID (Azure AD)
+    Okta
+    Google Workspace
+Flow:
+Employee
+↓
+Corporate Login
+↓
+Identity Provider
+↓
+AWS Temporary Credentials
+
+Benefits:
+    Centralized user management
+    No long-term AWS credentials
+    Better security and compliance
+</pre>
+
+<h4>Multi-Factor Authentication (MFA)</h4>
+<pre>
+Adds a second authentication factor beyond the password.
+Common methods:
+    Authenticator apps
+    Hardware security keys
+    FIDO2/WebAuthn devices
+Example:
+    Username
+    Password
+    +
+    6-digit OTP
+
+Best practice:
+    Enable MFA for the root user immediately.
+    Enable MFA for privileged IAM users.
+Access Keys
+    Used for programmatic access.
+Consist of:
+    Access Key ID
+    Secret Access Key
+Best practices:
+    Never hardcode keys in source code.
+    Rotate keys regularly.
+    Prefer IAM roles over long-term access keys when possible.
+</pre>
+<h4>ARN (Amazon Resource Name)</h4>
+<pre>
+Every AWS resource has a unique ARN.
+Example:
+    arn:aws:s3:::my-bucket
+    arn:aws:iam::123456789012:user/Nagendra
+    arn:aws:ec2:us-east-1:123456789012:instance/i-1234567890abcdef0
+General format:
+    arn:partition:service:region:account-id:resource
+</pre>
+<h4>Cross-Account Access</h4>
+<pre>
+IAM roles enable secure access between AWS accounts.
+Account A
+↓
+Assume Role
+↓
+Account B
+↓
+Temporary Credentials
+This avoids sharing long-term credentials.
+</pre>
+<h4>Security Best Practices</h4>
+<pre>
+1.Never use the root user for daily work.
+2.Enable MFA for the root user and administrators.
+3.Grant least privilege permissions.
+4.Prefer IAM roles over access keys.
+5.Rotate credentials regularly.
+6.Remove unused users and permissions.
+7.Use groups instead of assigning permissions individually.
+8.Use customer-managed policies for reusable permission sets.
+9.Review IAM Access Analyzer findings periodically.
+10.Audit accounts using IAM Credential Reports.
+11.Avoid using "Resource": "*" unless necessary.
+12.Avoid using "Action": "*" unless full administrative access is required.
+</pre>

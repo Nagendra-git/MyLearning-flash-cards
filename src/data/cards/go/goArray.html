@@ -1,0 +1,61 @@
+<h4>Go Array</h4>
+<pre>
+An array is a fixed-size collection of elements of the same type stored in contiguous memory.
+Index:
+0   1   2   3   4
+-------------------
+10  20  30  40  50
+-------------------
+Unlike Java, the array size is part of its type.
+var nums [5]int
+means:
+Array of 5 integers.
+
+Declaration:
+var nums [5]int
+Output :[0 0 0 0 0]
+Arrays get zero values.
+
+Initialization:
+nums := [5]int{10,20,30,40,50}
+
+Access
+fmt.Println(nums[2])
+Output: 30
+
+Update
+nums[2] = 100
+
+Length
+fmt.Println(len(nums))
+Output :5
+
+Iteration:
+Traditional loop
+for i := 0; i < len(nums); i++ {
+    fmt.Println(nums[i])
+}
+
+Range loop
+for index, value := range nums {
+    fmt.Println(index, value)
+}
+
+Arrays are Value Types:
+This surprises Java developers.
+a := [3]int{1,2,3}
+b := a
+b[0] = 100
+fmt.Println(a)
+fmt.Println(b)
+Output
+[1 2 3]
+[100 2 3]
+The array is copied.
+
+Why Arrays Are Rarely Used?
+Arrays have fixed size.
+var nums [5]int
+You cannot append another element.
+Instead Go developers use Slices.
+</pre>

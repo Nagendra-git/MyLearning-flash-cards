@@ -1,0 +1,94 @@
+<h4>Iota</h4>
+<pre>
+    iota is one of the most unique features in Go.
+    It is mainly used to create auto-incrementing constants.
+
+    without iota:
+        <code>
+            const(
+                Monday = 1
+                Tuesday = 2
+                Wednesday = 2
+            )
+        </code>
+    with iota:
+        <code>
+            const(
+                Monday = iota
+                Tuesday
+                Wednesday
+            )
+        </code>
+    Each new line inside a const block increments iota by 1.
+
+    Start form Zero:
+        Every const block resets iota.
+        <code>
+        const (
+            A = iota        // A =0
+            B               // B =1
+            )
+        const ( 
+            X = iota        //X = 0
+            Y               //Y = 1
+        )
+        </code>
+        
+    Skipping Values:
+        <code>
+            const (
+            A = iota        // A =1
+            _
+            C               //C =2
+            )
+        </code>
+        _ ignores the value.
+    
+    Enums Using iota:
+        Go doesn't have an enum keyword like Java.
+        Instead, iota is commonly used.
+        <code>
+            type Status int
+            const (
+            Pending Status = iota //0
+            Processing //1
+            Completed//2
+            Failed//3
+            )
+        </code>
+</pre>
+<h4>Type Conversion</h4>
+<pre>
+    Type conversion means converting a value from one type to another.
+    Syntax:Where T is the target type.
+    Example:
+        a is int.
+        float64(a) converts it to float64.
+        b becomes 10.0.
+    
+    Why Explicit Conversion?
+        Consider:Compile error:
+            cannot use a (type int) as type float64
+        Go forces you to be explicit:
+            This prevents accidental data loss and makes code easier to understand
+
+</pre>
+<h4>Summary</h4>
+<pre>
+Operation                       Syntax
+int → float64                   float64(i)
+float64 → int                   int(f)
+int32 → int64                   int64(v)
+string → int                    strconv.Atoi(s)
+int → string                    strconv.Itoa(i)
+string → float64                strconv.ParseFloat(s, 64)
+float64 → string                strconv.FormatFloat(...)
+string → []byte                 []byte(s)
+[]byte → string                 string(b)
+string → []rune                 []rune(s)
+
+🎯 Interview Takeaway:
+        Go performs very few implicit conversions. If two values have different types, 
+        you almost always need an explicit conversion such as float64(x). 
+        For textual conversions, prefer the strconv package instead of simple casts.
+</pre>

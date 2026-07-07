@@ -1,0 +1,140 @@
+<h4>Go Intro</h4>
+<h4>Go varibles</h4>
+<pre>
+    A variable is a named memory location used to store data that can change during program execution.
+    Why Go Has Multiple Ways to Declare Variables?
+        Go was designed to reduce boilerplate.
+        Go gives multiple options depending on the situation.
+    
+    1.Full Variable Declaration:
+        var variableName dataType = value
+    2.Type Inference:
+        Go compiler is smart enough to infer the type.
+            var age = 20 // go will type infer automatically
+        Go performs type inference automatically.
+    3.Short Variable Declaration:
+        variable := value
+        age := 25 
+        := works only inside functions.
+        if you provide outside it will give //non-declaration statement outside function body
+    4.Declare Without Initializing:
+        var age int // 0
+        Why?
+        Every Go variable gets a zero value.
+        Unlike Java, where object fields get defaults but local variables must be initialized before use, 
+        Go initializes all variables.
+    
+    Default Values:
+    | Data Type | Zero Value |
+    | --------- | ---------- |
+    | int       | 0          |
+    | float64   | 0.0        |
+    | bool      | false      |
+    | string    | ""         |
+    | pointer   | nil        |
+    | slice     | nil        |
+    | map       | nil        |
+    | channel   | nil        |
+    | interface | nil        |
+
+    Multiple Variable Declaration:
+    <code>
+        var a, b int = 10, 20 // 10 20
+    </code>
+    Group Declaration: Cleaner and commonly used for package-level variables.
+        <code>
+            var (
+        name string = "Nagendra"
+        age int = 25
+        city string = "Bangalore"
+        )
+        </code>
+    
+    Multiple Assignment: Go supports assigning multiple values at once.
+    <code>
+        a := 10
+        b := 20
+        a, b = b, a 
+        fmt.println(a)// 20
+        fmt.println(b)// 10 
+    </code>
+
+    Ignoring Values:
+        <code>
+            func getData() (string, int) {
+                return "Nagendra", 25
+            }
+
+            func main() {
+                name, _ := getData()
+                fmt.Println(name)
+            }
+        </code>
+        The second returned value is ignored.
+</pre>
+<h4>Constants</h4>
+<pre>
+    If a value never changes, use const.
+    <code>
+        const pi = 3.14;
+    </code>
+    Unlike variables, constants cannot be reassigned.
+    Compile-time error: cannot assign to Pi
+</pre>
+<h4>Scope of Variables</h4>
+<pre>
+    1.Local Variables:
+        Declared inside a function.
+        <code>
+            func main(){
+                age := 25
+            }
+        </code>
+        Accessible only within that function.
+    2.Global variable:
+        Declared outside all functions.
+        <code>
+            package main
+            import "fmt"
+            var company = "OpenAI"
+
+            func main() {
+                fmt.Println(company)
+            }
+        </code>
+        Accessible throughout the package.
+</pre>
+<h4>Variable Shadowing</h4>
+<pre>
+    A local variable can hide a variable with the same name in an outer scope.
+    <code>
+        package main
+        import "fmt"
+
+        var name = "Global"
+
+        func main() {
+            name := "Local"
+            fmt.Println(name)//local
+        }
+    </code>
+    The local name shadows the global one.
+    Best Practices
+        Use := for local variables when the type is obvious.
+        Use var for package-level (global) variables.
+        Use descriptive variable names.
+        Use const for values that never change.
+        Avoid unnecessary explicit types when Go can infer them.
+</pre>
+<h4>Complex Numbers</h4>
+<pre>
+    Many languages require external libraries for complex numbers.
+    Go provides built-in support.
+    A complex number has two parts:
+    Real + Imaginary
+    Example: 3 + 4i
+
+    Declaration:
+        var c complex64 / var c complex128
+
+</pre>

@@ -4,6 +4,7 @@ import publicCloudvsPrivateCloudvsHybridCloudHtml from "./cards/aws/publicCloudv
 import awsGlobalInfrastructureHtml from "./cards/aws/awsGlobalInfrastructure.html?raw";
 import awsSharedResponsibilityModelHtml from "./cards/aws/awsSharedResponsibilityModel.html?raw";
 import awsWellArchitectedFrameworkHtml from "./cards/aws/awsWellArchitectedFramework.html?raw";
+import iamHtml from "./cards/aws/iam.html?raw";
 
 const awsCards = [
         {
@@ -29,6 +30,10 @@ const awsCards = [
         {
             question : "AWS Well-Architected Framework",
             answerHtml : awsWellArchitectedFrameworkHtml
+        },
+        {
+            question : "IAM(Identity and Access Management)",
+            answerHtml : iamHtml
         }
 ]
 

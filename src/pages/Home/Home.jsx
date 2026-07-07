@@ -12,6 +12,7 @@ import exceptionMiscCards from "../../data/exceptionMiscCards";
 import javaMultiThredingCards from "../../data/javaMultithreding";
 import awsCards from "../../data/awsCards";
 import javaCollectionCards from "../../data/javaCollectionCards";
+import goLangCards from "../../data/goLangCards";
 import "../../styles/Home.css";
 
 const topics = [
@@ -27,6 +28,7 @@ const topics = [
   { key: "systemdesign", label: "System Design Cards", data: SystemDesignCards},
   { key: "springBootTransaction", label: "String Boot Transaction", data : springBootTransactionalCards},
   { key: "aws", label: "AWS", data : awsCards},
+  { key: "golang", label: "Go Lang", data : goLangCards},
 ];
 
 function Home() {

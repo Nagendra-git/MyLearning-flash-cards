@@ -1,0 +1,46 @@
+<h4>Go Slices</h4>
+<pre>
+A slice is a dynamic, flexible view over an array.
+Declaration:
+    var nums []int
+    Output: []
+
+Initialization:
+    nums := []int{10,20,30}
+    Append
+    nums = append(nums,40)
+    Output: [10 20 30 40]
+
+Length and Capacity:
+    nums := []int{10,20,30}
+    fmt.Println(len(nums))
+    fmt.Println(cap(nums))
+    Output : 3 3
+
+Remove an Element
+    Remove index 2:
+    nums = append(nums[:2], nums[3:]...)
+    Copy
+    copy(dest, src)
+    Make
+    nums := make([]int,5)
+    Creates :[0 0 0 0 0]
+
+Slice Internals:
+    A slice has three parts:
+    Pointer
+    Length
+    Capacity
+    Example:Array
+        10 20 30 40 50
+    Slice
+    Pointer -> 20
+    Length = 3
+    Capacity = 4
+    A slice does not own the data. It references an underlying array.
+
+Slicing:
+nums := []int{10,20,30,40,50}
+sub := nums[1:4]
+Result:[20 30 40]
+</pre>
