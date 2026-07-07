@@ -1,0 +1,63 @@
+<h4>Go Map</h4>
+<pre>
+Maps store key-value pairs.
+Equivalent to Java's HashMap.
+
+Declaration:
+var student map[string]int
+Using make:
+student := make(map[string]int)
+Add
+student["John"] = 90
+Read
+fmt.Println(student["John"])
+Delete
+delete(student,"John")
+Check Existence
+marks, found := student["John"]
+If
+    found = true
+The key exists.
+
+Iterate
+for key, value := range student {
+    fmt.Println(key, value)
+}
+Remember: iteration order is random.
+</pre>
+<h4>Go Structs</h4>
+<pre>
+Structs group related data together.
+Equivalent to Java classes without inheritance.
+type Employee struct{
+    Id int
+    Name string
+    Salary float64
+}
+
+Create
+emp := Employee{
+    Id:1,
+    Name:"Nagendra",
+    Salary:50000,
+}
+Access
+fmt.Println(emp.Name)
+</pre>
+<h4>Struct Tags</h4>
+<pre>
+Used by packages like encoding/json.
+type Employee struct{
+    Name string `json:"name"`
+}
+JSON:
+{
+   "name":"Nagendra"
+}
+
+Best Practices:
+✅ Use Slices instead of arrays for most applications.
+✅ Use Maps for fast lookups.
+✅ Use Structs to model entities.
+✅ Use make() for slices and maps when you know the initial size or need to initialize them.
+</pre>

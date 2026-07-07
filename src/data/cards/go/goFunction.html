@@ -1,0 +1,121 @@
+<h4>Go Functions</h4>
+<pre>
+    A function is a reusable block of code that performs a specific task.
+    Syntax:
+            func functionName(parameters) returnType {
+                // function body
+            }
+
+    Parameter Type Shortening:
+    func add(a int, b int) int -> func add(a, b int) int
+
+    Function Without Return Value:
+            func functionName(parameters) {
+                // function body
+            }
+    
+    Function With One Return Value:
+            func functionName(parameters) returnType {
+                // function body
+            }
+    
+    Multiple Return Values (Unique Feature):
+            func functionName(parameters) (returnType1, returnType2) {
+                // function body
+            }
+    
+    Returning Error:
+        <code>
+func divide(a, b int) (int, error) {
+    if b == 0 {
+        return 0, fmt.Errorf("division by zero")
+    }
+    return a / b, nil
+}
+        </code>
+    This replaces Java's exception-based approach.
+    
+    Named Return Values:
+    <code>
+func rectangle(length, width int) (area int) {
+    area = length * width
+    return area
+}
+    </code>
+    The variable area is declared in the function signature.
+
+    Naked Return:
+    <code>
+func add(a, b int) (sum int) {
+    sum = a + b
+    return
+}
+    </code>
+    The return statement returns the named variables.
+
+    Variadic Functions: You can pass a slice using ...:
+        Accept any number of arguments.
+
+    Passing by Value: Everything in Go is passed by value.
+
+    Passing Pointer: The function modifies the original value through the pointer.
+
+    Anonymous Function: Functions without a name.
+                The trailing () immediately invokes the function.
+    
+    Function Assigned to Variable:
+    <code>
+greet := func(name string) {
+    fmt.Println("Hello", name)
+}
+greet("Nagendra")
+    </code>
+
+    Higher-Order Functions:
+        Functions can accept other functions as parameters.
+        <code>
+func calculate(a, b int, operation func(int, int) int) int {
+    return operation(a, b)
+}
+        </code>
+
+    Closure: A closure captures variables from its surrounding scope.
+    <code>
+func counter() func() int {
+    count := 0
+    return func() int {
+        count++
+        return count
+    }
+}
+    </code>
+    The inner function remembers the value of count between calls.
+
+    Recursive Function:
+        <code>
+func factorial(n int) int {
+    if n == 1 {
+        return 1
+    }
+    return n * factorial(n-1)
+}
+        </code>
+
+    init() Function: Runs automatically before main().
+    A package can have multiple init() functions, and they are commonly 
+    used for initialization such as loading configuration or registering drivers.
+
+    main() Function:Every executable Go program starts here.
+            Without main(), the program won't run as an executable.
+
+    Best Practices
+        Keep functions small and focused on one task.
+        Prefer explicit return values over naked returns unless the function is very short.
+        Return (value, error) for operations that can fail.
+        Use variadic functions only when the number of arguments is genuinely variable.
+        Pass pointers only when you need to modify the original value or avoid copying large structs.
+
+    Note: Named return values define names for the values returned by a function. 
+          Naked return is a shorthand that omits the return values and automatically returns those named variables. 
+          Naked returns only work when the function uses named return values.
+</pre>

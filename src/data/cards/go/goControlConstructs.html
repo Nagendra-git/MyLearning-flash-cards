@@ -1,0 +1,205 @@
+<h4>Go Control Constructs</h4>
+<pre>
+    1. if Statement: The if statement executes a block of code only when a condition evaluates to true.
+        <code>
+if condition {
+    // statements
+}
+        </code>
+    
+    2. if-else: When we have two decesion makings
+    <code>
+if condition {
+    // statements
+}else{
+    // statements
+}     
+    </code>
+    3. if-else if Ladder: Multiple decesion makings.
+    <code>
+if condition {
+    // statements
+}else if condition{
+    // statements
+    .....
+}else {
+    // statements
+}
+    </code>
+    4. Nested if:
+    <code>
+if condition {
+    // outer statements
+    if condition {
+        // innner statements
+    }
+}   
+    </code>
+    
+    5. if with Short Statement (Go Feature):
+        <code>
+if variable := expression; condition {
+}
+if num := 10; num%2 == 0 {
+    fmt.Println("Even")
+}
+        </code>
+</pre>
+
+<h4>switch Statement</h4>
+<pre>
+<code>
+switch expression{
+    case 1: 
+        //statement
+    .
+    .
+    case n :
+        //statements
+    default:
+        //statements
+}
+</code>
+    Multiple Values in a Case:
+    <code>
+switch expression{
+    case 1: 
+        //statement
+    case 2,3,4,5:
+        //statement
+}
+    </code>
+    Expression-less switch: Acts like an if-else if ladder.
+    <code>
+switch{
+    case 1: 
+        //statement
+    .
+    .
+    case n :
+        //statements
+    default:
+        //statements
+}
+    </code>
+
+    fallthrough: unlike java, Go does not automatically fall through to the next case.
+    <code>
+switch expression{
+    case 1: 
+        //statement
+        fallthrough
+    case 2,3,4,5:
+        //statement
+}
+    </code>
+    Type switch:
+        <code>
+var value interface{} = "Go"
+
+switch v := value.(type) {
+case int:
+    fmt.Println("Integer", v)
+case string:
+    fmt.Println("String", v)
+default:
+    fmt.Println("Unknown")
+}
+        </code>
+</pre>
+
+<h4>For Loop</h4>
+<pre>
+    Go has only one looping keyword: for.
+    Traditional loop:
+    <code>
+for i := 1; i <= 5; i++ {
+    fmt.Println(i)
+}
+    </code>
+
+    for as while:
+    <code>
+i := 1
+for i <= 5 {
+    fmt.Println(i)
+    i++
+}
+    </code>
+
+    Infinite Loop: Use break to exit.
+    <code>
+for {
+    fmt.Println("Running...")
+}
+    </code>
+
+    range Loop: range iterates over collections.
+    <code>
+nums := []int{10, 20, 30}
+
+for index, value := range nums {
+    fmt.Println(index, value)
+}
+    </code>
+
+    Ignore Index: The blank identifier (_) ignores the index.
+    <code>
+for _, value := range nums {
+    fmt.Println(value)
+}
+    </code>
+
+    Map:
+    <code>
+student := map[string]int{
+    "John": 90,
+    "Alice": 95,
+}
+
+for key, value := range student {
+    fmt.Println(key, value)
+}
+    </code>
+    Note: Map iteration order in Go is not guaranteed. Don't rely on it being the same each run.
+
+    String:
+    <code>
+name := "Go"
+
+for index, ch := range name {
+    fmt.Println(index, string(ch))
+}
+    </code>
+
+    break : it will brake the Loop
+    continue: it will skip the current itration.
+    Labels: Useful when breaking out of nested loops.
+    <code>
+Outer:
+for i := 1; i <= 3; i++ {
+    for j := 1; j <= 3; j++ {
+        if i == 2 && j == 2 {
+            break Outer
+        }
+        fmt.Println(i, j)
+    }
+}
+    </code>
+
+    goto : (Rarely Used)
+        Avoid goto unless there's a compelling reason; it can make code harder to follow.
+    <code>
+i := 1
+
+Loop:
+fmt.Println(i)
+
+i++
+
+if i <= 5 {
+    goto Loop
+}
+    </code>
+
+</pre>

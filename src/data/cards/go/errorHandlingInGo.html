@@ -1,0 +1,33 @@
+<h4>Error Handling in Go</h4>
+<p>
+   Go encourages developers to return and handle errors explicitly instead of throwing exceptions.
+</p>
+<h4>Go Error Handling Flow</h4>
+<pre>
+Function
+   │
+   ▼
+Returns (value, error)
+   │
+   ▼
+Check if err != nil
+   │
+   ├── Yes → Handle error
+   │
+   └── No → Continue execution
+</pre>
+<h4>Errors</h4>
+<pre>
+An error represents something that went wrong during program execution.
+In Go, an error is simply a value that implements the built-in error interface.
+<code>
+type error interface {
+    Error() string
+}
+</code>
+Any type that implements Error() string satisfies the error interface.
+Why Return nil?
+When no error occurs:
+return result, nil
+nil means: No error occurred.
+</pre>
