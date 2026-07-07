@@ -1,0 +1,114 @@
+<h4>Collection Interface</h4>
+<pre>
+    1.Root interface of Java Collection Framework.
+    2.Represents a group of objects(elements).
+    3.Used to store and manipulate multiple objects.
+    4.Implimented by List, Set, and Queue.
+        Collection = Group of Objects
+    
+    Hierarchy:
+                Iterable
+                    │
+              Collection
+        ┌────────┼────────┐
+      List      Set      Queue
+    
+    Declaration:
+        public interface Collection&lt;E&gt; extends Iterable&lt;E&gt;
+        1.E -> Generic Type.
+        2.Extends Iterable -> Supports for-each loop.
+    
+    Why?
+        ✅ Store multiple objects
+        ✅ Perform CRUD operations
+        ✅ Iterate through elements
+        ✅ Search elements
+</pre>
+<h4>Collection methods</h4>
+<pre>
+    1.add(): Add one element
+        collection.add("java");
+        return : boolean
+    
+    2. addAll(): Add all elements from another collection.
+        list1.addAll(list2);
+        return : boolean
+    
+    3.remove(): remove one element.
+        list.remove("Java");
+        return : boolean
+    
+    4.removeAll(): Removes all matching elements.
+        list.removeAll(list2);
+        return : boolean
+    
+    5.returnAll(): Keeps only common elements.( retainAll = Intersection).
+        list.reatinAll(list1);
+        return : boolean
+    
+    6.clear() : Remove everthing.
+        collection.clear();
+        return : void
+    
+    7.contains(): Checks if element exists.
+        list.contains("Java");
+        return : boolean
+    
+    8.containsAll(): Checks whether all element exists.
+        list.containsAll(list2);
+        return : boolean
+    
+    9.size(): 
+        list.size() 
+        return : int
+    
+    10.isEmpty():
+        list.isEmpty()
+        return : boolean
+    
+    11. iterator() : Used to traverse collections.
+
+    12. toArray(): Converts Collection -> Array
+        Object[] arr = list.toArray();
+
+    13.removeIf() :Removes elements matching a condition.
+        list.removeIf(n -> n%2 ==0)
+    
+    14.equals(): Checks whether two collections are equal.
+        list1.equals(list2)
+    
+    15. hashCode(): return hash value of collection.
+        Mostly used internally in hashing.
+
+    16.spliterator(): 
+        Used for
+            Parallel Processing
+            Streams
+            Efficient Traversal
+
+</pre>
+<h4>One-Line Revision Table</h4>
+<pre>
+| Method          | Purpose                  |
+| --------------- | ------------------------ |
+| `add()`         | Add one element          |
+| `addAll()`      | Add another collection   |
+| `remove()`      | Remove one element       |
+| `removeAll()`   | Remove matching elements |
+| `retainAll()`   | Keep common elements     |
+| `clear()`       | Remove everything        |
+| `contains()`    | Check one element        |
+| `containsAll()` | Check all elements       |
+| `size()`        | Number of elements       |
+| `isEmpty()`     | Collection empty?        |
+| `iterator()`    | Traverse elements        |
+| `toArray()`     | Convert to array         |
+| `removeIf()`    | Remove by condition      |
+| `equals()`      | Compare collections      |
+| `hashCode()`    | Hash value               |
+| `spliterator()` | Parallel traversal       |
+
+🎯 Interview Takeaway:
+        No. Collection is an interface, so it cannot be instantiated directly. 
+        You must use an implementing class such as ArrayList, HashSet, or LinkedList.
+</pre>
