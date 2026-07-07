@@ -1,0 +1,76 @@
+<h4>Java Collection</h4>
+<pre>
+    Why needed?
+        Suppose you want to store employee IDs.
+        int emp1 = 101; int emp2 = 102; int emp3 = 103;
+                (or)
+        int[] ids = new int[3];
+    Problem with arrays:
+        1. Fixed size.
+        2. Cannot grow dynamically.
+        3. Few built-in utility methods.
+        4. Only stores one type of data.
+    
+    Collection solve these problems by providing:
+        Dynamic resizing, Rich APIs, Searching, Sorting,
+        Filtering, Thread-safe Implimentations, Better algorithms.
+</pre>
+<h4>Java Collection Framework (JCF)</h4>
+<pre>
+    The Java Collection Framework is a set of interfaces and classes that provide
+    ready-made data stuctures and algorithms.
+    Framework Components:
+        1.Interfaces.
+        2.Implimentations(classes).
+        3.Algorithms(Sorting, Searching, etc,..)
+    
+        Hierarchy:
+                    Iterable
+                        |
+                   Collection
+       ┌──────────┬──────────┬──────────┐
+       |          |          |          |
+      List       Set       Queue      Deque
+       |
+ ArrayList
+ LinkedList
+ Vector
+ Stack
+
+Map (Separate Hierarchy)
+ HashMap
+ LinkedHashMap
+ TreeMap
+ Hashtable
+ ConcurrentHashMap
+
+Why doesn't Map extend Collection?
+    Because a Collection stores individual elements, whereas a Map stores key-value pairs. 
+    Their operations and contracts are fundamentally different.
+</pre>
+<h4>Iterable Interface</h4>
+<pre>
+    Every collection can be traversed because it implements Iterable.
+    <code>
+        public interface Iterable&lt;T&gt; {
+        Iterator&lt;T&gt; iterator();
+        }
+    </code>
+    Example:
+    <code>
+        List&lt;String&gt; names = List.of("Java", "Spring", "AWS");
+        for (String name : names) {
+            System.out.println(name);
+        }
+    </code>
+    Enhanced for loop internally uses an Iterator.
+    Equivalent code:
+    <code>
+        Iterator&lt;String&gt; itr = names.iterator();
+        while (itr.hasNext()) {
+            System.out.println(itr.next());
+        }
+    </code>
+    Why does the enhanced for loop work on collections?
+    Because collections implement Iterable, which provides an iterator() method.
+</pre>
