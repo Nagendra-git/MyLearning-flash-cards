@@ -30,4 +30,64 @@ Why Return nil?
 When no error occurs:
 return result, nil
 nil means: No error occurred.
+
+Creating Errors:
+   Using errors.New()
+   <code>
+import "errors"
+err := errors.New("Invalid username")
+   </code>
+   Using fmt.Errorf(): 
+   <code>
+err := fmt.Errorf("employee %d not found", id)
+   </code>
+   Use fmt.Errorf() when you need formatted error messages.
+
+   Custom Errors:
+   <code>
+type ValidationError struct{
+   Message string
+}
+func (e ValidationError) Error() string{
+   return e.Message
+}
+   </code>
+   Now:
+   <code>
+return ValidationError{
+   Message : "Salary cannot be negative";
+}
+   </code>
+   Since it implements Error() string, it satisfies the error interface.
+
+   Error Wrapping:
+      Introduced in Go 1.13.
+      Instead of:
+      <code>
+return fmt.Errorf("database error")
+      </code>
+      Wrap the original error:
+      <code>
+return fmt.Errorf("saving employee: %w", err)
+      </code>
+      %w preserves the original error while adding more context.
+
+   errors.Is():
+      Checks whether an error matches another error, even if it's wrapped.
+      <code>
+if errors.Is(err, sql.ErrNoRows) {
+   fmt.Println("Employee not found")
+}
+      </code>
+      This is the preferred way to compare wrapped errors.
+
+   errors.As():
+      Used when you need to extract a specific custom error type.
+      <code>
+var validationErr ValidationError
+if errors.As(err, &validationErr){
+   fmt.Println(validationErr.Message)
+}
+      </code>
+      Use errors.As() for types, and errors.Is() for specific error values.
 </pre>
