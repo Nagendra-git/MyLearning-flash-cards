@@ -7,6 +7,7 @@ import goArrayHtml from "./cards/go/goArray.html?raw";
 import goSlicesHtml from "./cards/go/goSlices.html?raw";
 import goMapHtml from "./cards/go/goMap.html?raw";
 import errorHandlingInGoHtml from "./cards/go/errorHandlingInGo.html?raw";
+import deferAndPanicHtml from "./cards/go/deferAndPanic.html?raw";
 const goLangCards = [
         {
             question: "Go Intro",
@@ -43,6 +44,10 @@ const goLangCards = [
         {
             question :"Error Handling in Go",
             answerHtml : errorHandlingInGoHtml
+        },
+        {
+            question : "Defer and Panic",
+            answerHtml : deferAndPanicHtml
         }
 ];
 

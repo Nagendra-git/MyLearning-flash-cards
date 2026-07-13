@@ -1,0 +1,109 @@
+<h4>Defer and Panic</h4>
+<p>
+defer delays the execution of a function until the surrounding function returns. <br>
+Think of it as Go's equivalent to code that should always run at the end of a function (similar to a finally block in Java).
+</p>
+<pre>
+Example:
+    <code>
+func main() {
+defer fmt.Println("Third")
+fmt.Println("First")
+fmt.Println("Second")
+}
+    </code>
+    o/p:
+        First
+        Second
+        Third
+    The deferred call executes just before the function exits.
+
+Multiple Deferred Calls:
+    <code>
+defer fmt.Println("One")
+defer fmt.Println("Two")
+defer fmt.Println("Three")
+    </code>
+    o/p:
+        Three
+        Two
+        One
+    Deferred functions execute in Last-In, First-Out (LIFO) order.
+
+Common Uses:
+    Close files
+    Unlock mutexes
+    Close database rows.
+</pre>
+<h4>Panic</h4>
+<pre>
+panic immediately stops normal program execution and begins unwinding the call stack.
+Use it only for unexpected, unrecoverable programming errors, not normal business logic.
+    <code>
+panic("Something wrong")
+    </code>
+    o/p : 
+        Something wrong
+
+    Call Stack Unwinding:
+    main()
+     ↓
+    service()
+     ↓
+    repository()
+     ↓
+    panic
+    All deferred functions execute while the stack unwinds.
+</pre>
+<h4>recover</h4>
+<pre>
+recover() can stop a panic, but only when called from a deferred function.
+Example:
+    <code>
+func main(){
+    defer func(){
+        if( r := recover(); r != nil){
+            fmt.Println("recover", r)
+        }
+    }()
+    panic("Server Crashed.")
+}
+    </code>
+    op: 
+        Server Crashed.
+    The program continues instead of terminating.
+
+    Typical Flow:
+    panic
+     │
+     ▼
+    Deferred functions execute
+     │
+     ▼
+    recover()
+     │
+     ▼
+    Program continues   
+
+    Java vs Go:
+    | Java               | Go                                      |
+    | ------------------ | --------------------------------------- |
+    | `try`              | Explicit error checks (`if err != nil`) |
+    | `catch`            | Handle returned `error` values          |
+    | `finally`          | `defer`                                 |
+    | `throw`            | `panic` (for unrecoverable situations)  |
+    | Custom Exceptions  | Custom types implementing `error`       |
+    | Exception chaining | Error wrapping (`%w`)                   |
+
+    Best Practices:
+    ✅ Treat error as part of your function's API.
+    ✅ Always check err != nil.
+    ✅ Use defer for cleanup (files, locks, database rows).
+    ✅ Wrap errors with %w to preserve context.
+    ✅ Use errors.Is() and errors.As() instead of comparing wrapped errors directly.
+    ❌ Don't use panic for expected business errors.
+    ❌ Don't ignore returned errors with _ unless you're certain they're irrelevant.
+    ❌ Don't use recover() to hide bugs; it's mainly useful at application boundaries 
+    (e.g., HTTP middleware) to prevent a server from crashing.
+
+</pre>
