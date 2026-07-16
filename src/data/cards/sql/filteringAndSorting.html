@@ -1,0 +1,101 @@
+<h4>Filtering and sorting</h4>
+<p>
+GROUP BY is used to group rows that have the same values in one or more columns into a single group. 
+It is almost always used with aggregate functions such as COUNT(), SUM(), AVG(), MAX(), and MIN()
+</p>
+<div class="code-block">
+  <div class="code-header">Syntax</div>
+  <pre><code>SELECT  column_name,
+        aggregate_function(column_name)
+FROM table_name
+GROUP BY column_name;</code></pre>
+</div>
+<h4>HAVING</h4>
+<pre>
+HAVING filters groups, whereas WHERE filters individual rows.
+It is evaluated after GROUP BY.
+Use HAVING whenever your condition depends on an aggregate function.
+</pre>
+<div class="code-block">
+  <div class="code-header">Syntax</div>
+  <pre><code>SELECT column_name,
+      aggregate_function(column_name)
+FROM table_name
+GROUP BY column_name
+HAVING condition;</code></pre>
+</div>
+<h4>ORDER BY</h4>
+<pre>
+ORDER BY sorts the final result set in either ascending or descending order.
+Without ORDER BY, SQL does not guarantee the order of returned rows.
+</pre>
+<div class="code-block">
+  <div class="code-header">Syntax</div>
+  <pre><code>SELECT *
+FROM table
+ORDER BY column_name;</code></pre>
+</div>
+<pre>
+Assecnding:
+  ORDER BY Salary ASC;
+
+Desending:
+  ORDER BY Salary DESC;
+
+Sort by Multiple Columns:
+  ORDER BY Department,
+         Salary DESC;
+
+Sort by Aggregate Values:
+SELECT Department,
+       AVG(Salary)
+FROM Employees
+GROUP BY Department
+ORDER BY AVG(Salary) DESC;
+
+Sort by Alias:
+SELECT Department,
+       AVG(Salary) AS AvgSalary
+FROM Employees
+GROUP BY Department
+ORDER BY AvgSalary DESC;
+</pre>
+
+<h4>LIMIT / TOP</h4>
+<pre>
+LIMIT (MySQL, PostgreSQL, SQLite) and TOP (SQL Server) restrict the number of rows returned.
+This is especially useful for:
+      Pagination
+      Top N records
+      Sampling data
+      Performance optimization
+</pre>
+<div class="code-block">
+  <div class="code-header">Syntax</div>
+  <pre><code>SELECT column, another_column, …
+FROM mytable
+WHERE condition(s)
+ORDER BY column ASC/DESC
+LIMIT num_limit OFFSET num_offset;</code></pre>
+</div>
+<pre>
+Note:
+| Question                                       | Answer                                                                                                                                               |
+| ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Difference between `WHERE` and `HAVING`?       | `WHERE` filters rows before grouping; `HAVING` filters groups after grouping.                                                                        |
+| Can `HAVING` be used without `GROUP BY`?       | Yes. It can filter the single implicit group created by aggregate queries, though it's uncommon.                                                     |
+| Can you use `ORDER BY` without `GROUP BY`?     | Yes. `ORDER BY` works on any result set.                                                                                                             |
+| Does `GROUP BY` automatically sort data?       | No. Some databases may appear to return grouped data in order, but SQL does not guarantee it. Use `ORDER BY` if you need a specific order.           |
+| Can `ORDER BY` use aliases?                    | Yes, most databases allow sorting by a column alias defined in the `SELECT` clause.                                                                  |
+| Why is `LIMIT` usually paired with `ORDER BY`? | To ensure you consistently retrieve the "top N" rows according to a defined sort order. Without `ORDER BY`, the returned rows are not deterministic. |
+
+🎯 Interview Answer:
+A good interview trick is to explain each stage in one sentence:
+    ✅FROM: Choose the source table(s).
+    ✅WHERE: Filter individual rows.
+    ✅GROUP BY: Form groups of rows sharing the same values.
+    ✅HAVING: Filter those groups using aggregate conditions.
+    ✅SELECT: Return the requested columns and aggregate values.
+    ✅ORDER BY: Sort the final result set.
+    ✅LIMIT/TOP: Return only the required number of rows.
+</pre>

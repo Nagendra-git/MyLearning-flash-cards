@@ -48,3 +48,28 @@ FUNCTION recursiveBinarySearch(low, high)
         return recursiveBinarySearch(low, mid-1)
 </code></pre>
 </div>
+<h4>Rotated Binary Search</h4>
+<pre>
+A Rotated Binary Search is used to search an element in a sorted array that has been rotated.
+Original: [1,2,3,4,5,6,7]
+Rotated:  [4,5,6,7,1,2,3]
+Instead of O(n) linear search, we can still find the element in O(log n) using binary search.
+</pre>
+<div class="code-block">
+  <div class="code-header">Pseudo Code</div>
+  <pre><code>low = 0
+high = n - 1
+while(low &lt;= high):
+    mid = low + (high+low)/2
+    if(arr[mid] == target)
+        return mid
+    if(left half is sorted )
+        check whether target lies in left half
+        yes -> high = mid -1;
+        no -> low = mid+1
+    elsw(right half is sorted)
+        check whether target lies in right half
+        yes -> low = mid+1
+        no -> hig = mid-1
+</code></pre>
+</div>
