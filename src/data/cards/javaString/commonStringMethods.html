@@ -1,0 +1,53 @@
+<h4>Common String methods</h4>
+<pre>
+| Method                            | Description                                                      | Example                                      |
+| --------------------------------- | ---------------------------------------------------------------- | -------------------------------------------- |
+| `length()`                        | Returns the length of the string                                 | `"Java".length()` → `4`                      |
+| `charAt(index)`                   | Returns the character at the given index                         | `"Java".charAt(1)` → `'a'`                   |
+| `substring(beginIndex)`           | Returns substring from the given index                           | `"Java".substring(1)` → `"ava"`              |
+| `substring(beginIndex, endIndex)` | Returns substring between two indexes                            | `"Java".substring(1,3)` → `"av"`             |
+| `indexOf(char)`                   | Returns first occurrence index                                   | `"Java".indexOf('a')` → `1`                  |
+| `indexOf(String)`                 | Returns first occurrence of substring                            | `"Java".indexOf("va")` → `2`                 |
+| `lastIndexOf(char)`               | Returns last occurrence index                                    | `"Java".lastIndexOf('a')` → `3`              |
+| `contains()`                      | Checks whether substring exists                                  | `"Java".contains("av")` → `true`             |
+| `startsWith()`                    | Checks prefix                                                    | `"Java".startsWith("Ja")` → `true`           |
+| `endsWith()`                      | Checks suffix                                                    | `"Java".endsWith("va")` → `true`             |
+| `replace(old, new)`               | Replaces all occurrences of a character or sequence              | `"Java".replace('a','o')` → `"Jovo"`         |
+| `replaceAll(regex, replacement)`  | Replaces using a regular expression                              | `"a1b2c3".replaceAll("\\d","")` → `"abc"`    |
+| `split(regex)`                    | Splits string into an array                                      | `"A,B,C".split(",")` → `["A","B","C"]`       |
+| `trim()`                          | Removes leading and trailing whitespace (ASCII whitespace)       | `" Java ".trim()` → `"Java"`                 |
+| `strip()`                         | Removes leading and trailing Unicode whitespace (Java 11+)       | `" Java ".strip()` → `"Java"`                |
+| `toUpperCase()`                   | Converts to uppercase                                            | `"java".toUpperCase()` → `"JAVA"`            |
+| `toLowerCase()`                   | Converts to lowercase                                            | `"JAVA".toLowerCase()` → `"java"`            |
+| `isEmpty()`                       | Checks if string length is 0                                     | `"".isEmpty()` → `true`                      |
+| `isBlank()`                       | Checks if string is empty or contains only whitespace (Java 11+) | `"   ".isBlank()` → `true`                   |
+| `repeat(n)`                       | Repeats the string `n` times (Java 11+)                          | `"Hi".repeat(3)` → `"HiHiHi"`                |
+| `join(delimiter, elements...)`    | Joins multiple strings                                           | `String.join("-", "A","B","C")` → `"A-B-C"`  |
+| `format()`                        | Formats a string using placeholders                              | `String.format("Age: %d", 25)` → `"Age: 25"` |
+| `matches(regex)`                  | Checks if the entire string matches a regex                      | `"abc123".matches("[a-z]+\\d+")` → `true`    |
+</pre>
+<h4>StringBuilder / StringBuffer Methods</h4>
+<pre>
+| Method                     | Description                             | Example                                                                   |
+| -------------------------- | --------------------------------------- | ------------------------------------------------------------------------- |
+| `append()`                 | Appends data to the end                 | `new StringBuilder("Java").append(" Programming")` → `"Java Programming"` |
+| `insert(index, value)`     | Inserts value at specified index        | `new StringBuilder("Jva").insert(1,"a")` → `"Java"`                       |
+| `delete(start, end)`       | Deletes characters between indexes      | `new StringBuilder("Java").delete(1,3)` → `"Ja"`                          |
+| `reverse()`                | Reverses the string                     | `new StringBuilder("Java").reverse()` → `"avaJ"`                          |
+| `replace(start, end, str)` | Replaces characters in a range          | `new StringBuilder("Jxva").replace(1,2,"a")` → `"Java"`                   |
+| `capacity()`               | Returns current buffer capacity         | `new StringBuilder().capacity()` → `16`                                   |
+| `ensureCapacity(min)`      | Ensures at least the specified capacity | `new StringBuilder().ensureCapacity(50)` → Capacity becomes at least `50` |
+</pre>
+<h4>Time Complexity</h4>c
+<pre>
+| Operation                | Complexity                         |
+| ------------------------ | ---------------------------------- |
+| `length()`               | O(1)                               |
+| `charAt()`               | O(1)                               |
+| `equals()`               | O(n)                               |
+| `substring()`            | O(n) (modern JDKs copy characters) |
+| `contains()`             | O(n × m) worst case                |
+| `replace()`              | O(n)                               |
+| `concat()`               | O(n)                               |
+| `StringBuilder.append()` | Amortized O(1)                     |
+</pre>
