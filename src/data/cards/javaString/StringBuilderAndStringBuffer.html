@@ -1,0 +1,48 @@
+<h4>StringBuilder And StringBuffer</h4>
+<p>Both StringBuilder and StringBuffer are mutable classes used to modify strings efficiently. 
+    Unlike String, they do not create a new object for every modification.</p>
+<h4>StringBuilder</h4>
+<pre>
+    Mutable
+    Faster
+    Not thread-safe
+    Introduced in Java 5
+
+    Why is StringBuilder faster?
+    Its methods are not synchronized.
+    public StringBuilder append(String str)
+    No locking overhead.
+    Internal Capacity:-16
+    Capacity with Initial String
+        StringBuilder sb = new StringBuilder("Java");
+        16 + length("Java")
+        16 + 4 = 20
+    How Capacity Grows
+        (newCapacity = oldCapacity × 2) + 2
+        Append more than 16 characters.
+        16 × 2 + 2 = 34
+</pre>
+<h4>StringBuffer</h4>
+<pre>
+    Mutable
+    Thread-safe
+    Slower than StringBuilder
+    Introduced in Java 1.0
+
+    Why is StringBuffer thread-safe?
+    All its methods are synchronized.
+    Example
+    public synchronized StringBuffer append(String str)
+    Only one thread can modify the object at a time.
+</pre>
+<h4>Comparison</h4>
+<pre>
+| Feature         | String                    | StringBuilder | StringBuffer |
+| --------------- | ------------------------- | ------------- | ------------ |
+| Mutable         | ❌ No                     | ✅ Yes       | ✅ Yes       |
+| Thread-safe     | Yes (immutable)           | ❌ No         | ✅ Yes      |
+| Performance     | Slow (many modifications) | Fast          | Moderate     |
+| Introduced      | Java 1.0                  | Java 5        | Java 1.0     |
+| Synchronization | Not needed                | No            | Yes          |
+
+</pre>

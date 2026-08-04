@@ -1,13 +1,59 @@
 <h4>== vs equals()</h4>
+<p>== -> Checks Reference</p>
+    
+<div class="code-block">
+    <div class="code-header">Pseudo Code</div>
+    <pre><Code>String s1 = "java";
+String s2 = "java";
+sysout(s1==s2); //true
+    </Code></pre>
+</div>
+<p>equals() -> Checks Content.</p>
+<div class="code-block">
+    <div class="code-header">Pseudo Code</div>
+    <pre><Code>String s1 = new String("java");
+String s2 = new String("java");
+sysout(s1.equals(s2));//true (content is same)
+sysout(s1 == s2 ); //false (Diffrent objects)
+    </Code></pre>
+</div>
+<p>equalsIgnoreCase() :- Ignores uppercase/lowercase differences.</p>
+<div class="code-block">
+    <div class="code-header">Pseudo Code</div>
+    <pre><code>String s1 = "JAVA";
+String s2 = "java";
+System.out.println(s1.equals(s2)); //false
+System.out.println(s1.equalsIgnoreCase(s2)); // true
+    </code></pre>
+</div>
+<p>compareTo() :- Compares strings lexicographically (dictionary order)</p>
 <pre>
-    == -> Checks Reference
-    String s1 = "java";
-    String s2 = "java";
-    sysout(s1==s2); //true
-
-    equals() -> Checks Content.
-    String s1 = new String("java");
-    String s2 = new String("java");
-    sysout(s1.equals(s2));//true (content is same)
-    sysout(s1 == s2 ); //false (Diffrent objects)
+Returns:
+0 → Strings are equal
+Positive number → First string is greater
+Negative number → First string is smaller
+</pre>
+<div class="code-block">
+    <div class="code-header">Pseudo Code</div>
+    <pre><code>System.out.println("Apple".compareTo("Apple"));//0
+        System.out.println("Banana".compareTo("Apple"));//(B)66 - (A)65 = 1
+        System.out.println("Apple".compareTo("Banana"));//(A)65 - (B)66 = -1
+    </code></pre>
+</div>
+<p>compareToIgnoreCase():- Works exactly like compareTo(), but ignores case.</p>
+<div class="code-block">
+    <div class="code-header">Pseudo Code</div>
+    <pre><code>String s1 = "JAVA";
+String s2 = "java";
+System.out.println(s1.compareTo(s2)); //J(74) - j(106) = -32
+System.out.println(s1.compareToIgnoreCase(s2));//0
+</code></pre>
+</div>
+<pre>
+🎯 Interview Takeaway: When to use each
+    ==:Use only when you intentionally want to know whether two references point to the same object.
+    equals():Use to compare the actual text of strings. This is the most common choice in application code.
+    equalsIgnoreCase(): Use for case-insensitive equality checks, such as comparing usernames or commands.
+    compareTo(): Use for sorting or determining alphabetical order.
+    compareToIgnoreCase(): Use for case-insensitive sorting or ordering.
 </pre>
