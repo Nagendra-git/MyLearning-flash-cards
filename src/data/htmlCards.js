@@ -1,4 +1,4 @@
-import htmlBasics from "./cards/html/Basics.html?raw"
+import htmlBasics from "./cards/html/basics.html?raw"
 
 const htmlCards =[
     {
