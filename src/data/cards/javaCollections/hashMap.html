@@ -1,0 +1,107 @@
+<h4>Hash Map</h4>
+<pre>
+Stores data as key -> Value pairs.
+Part of the Java Collection Framework.
+Implements the Map interface.
+Located in java.utils package.
+Declaration:
+    Map&lt;String, Integer&gt; map = new Hashmap&lt;&gt;();
+</pre>
+<h4>Important Methods</h4>
+<pre>
+| Method                            | Purpose                 |
+| --------------------------------- | ----------------------- |
+| `put(key, value)`                 | Insert/Update           |
+| `get(key)`                        | Retrieve value          |
+| `getOrDefault(key, defaultValue)` | Return value or default |
+| `containsKey(key)`                | Check key               |
+| `containsValue(value)`            | Check value             |
+| `remove(key)`                     | Remove entry            |
+| `replace(key, value)`             | Replace value           |
+| `size()`                          | Number of entries       |
+| `isEmpty()`                       | Check empty             |
+| `clear()`                         | Remove all entries      |
+| `keySet()`                        | Returns all keys        |
+| `values()`                        | Returns all values      |
+| `entrySet()`                      | Returns key-value pairs |
+</pre>
+<h4>Iteration</h4>
+<pre>
+for(Map.Entry&lt;String, Integer&gt; entry : map.entrySet()){
+    System.out.println(entry.getkey() + " "+ entry.getValue());
+}
+</pre>
+<h4>Time Complexity</h4>
+<pre>
+| Operation     | Average | Worst            |
+| ------------- | ------- | ---------------- |
+| put()         | O(1)    | O(n) / O(log n)* |
+| get()         | O(1)    | O(n) / O(log n)* |
+| remove()      | O(1)    | O(n) / O(log n)* |
+| containsKey() | O(1)    | O(n) / O(log n)* |
+* In Java 8+, buckets with many collisions can become balanced trees, making lookups in those buckets O(log n) instead of O(n).
+</pre>
+<h4>Null Rules</h4>
+<pre>
+| Feature              | Allowed |
+| -------------------- | ------- |
+| One null key         | ✅       |
+| Multiple null values | ✅       |
+
+Ordering :HashMap does NOT maintain insertion order.
+
+Never depend on iteration order.
+
+Internal Working
+Key
+ ↓
+hashCode()
+ ↓
+Bucket Index
+ ↓
+Store Entry
+
+Formula :Bucket = hashCode % Capacity
+(Conceptually. The actual JDK implementation uses a bitwise calculation based on the table size.)
+
+Collision : Two different keys may go to the same bucket.
+Bucket 5
+Java → 100
+Spring → 200
+This is called a collision.
+
+Collision Handling
+Java 7
+Bucket
+↓
+Linked List
+Java 8+
+Bucket
+↓
+Linked List
+↓
+Red-Black Tree
+when the number of entries in a bucket becomes large.
+
+Initial Capacity
+16
+Default Load Factor
+0.75
+
+Resize happens when
+size > capacity × loadFactor
+Example
+16 × 0.75 = 12
+After 12 entries,
+Capacity becomes
+32
+
+HashMap Uses:-
+    Frequency counting
+    Caching
+    Database indexing
+    Fast searching
+    Grouping data
+    Counting occurrences
+    Memoization
+</pre>
