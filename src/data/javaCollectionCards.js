@@ -2,6 +2,7 @@ import javaCollectionsHtml from "./cards/javaCollections/javaCollections.html?ra
 import collectionInterfaceHtml from "./cards/javaCollections/collectionInterface.html?raw";
 import listInterfaceHtml from "./cards/javaCollections/listInterface.html?raw";
 import arrayListHtml from "./cards/javaCollections/arrayList.html?raw";
+import hashMaphtml from  "./cards/javaCollections/hashMap.html?raw";
 
 const javaCollectionCards = [
     {
@@ -19,6 +20,10 @@ const javaCollectionCards = [
     {
         question : "ArrayList",
         answerHtml : arrayListHtml
+    },
+    {
+        question : "HashMap",
+        answerHtml : hashMaphtml
     }
 ];
 

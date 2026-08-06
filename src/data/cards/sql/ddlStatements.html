@@ -1,0 +1,66 @@
+<h4>DDL Statements</h4>
+<p>DDL is used to construct an object in the database and deals with the structure of the object.</p>
+<pre>
+It has five Statements:
+1.CREATE
+2.RENAME
+3.ALTER
+4.TRUNCATE
+5.DROP
+</pre>
+<h4>CREATE Statement</h4>
+ <div class="code-block">
+    <div class="code-header">SQL code</div>
+        <pre><code>CREATE TABLE Table_Name
+(
+    comumn_name1 datatype constraint_type,
+    comumn_name2 datatype constraint_type,
+    ..
+    comumn_namen datatype constraint_type,
+);
+            
+        </code></pre>
+</div>
+<h4>RENAME Statement</h4>
+ <div class="code-block">
+    <div class="code-header">SQL code</div>
+        <pre><code>RENAME Table_Name TO New_Table_name;
+        </code></pre>
+</div>
+<h4>ALTER Statement</h4>
+ <div class="code-block">
+    <div class="code-header">SQL code</div>
+        <pre><code>ALTER TABLE Table_Name ADD COLUMN column_name;
+ALTER TABLE Table_Name DROP COLUMN column_name;
+ALTER TEABLE Table_Name RENAME COLUMN column_name To new_column_name;
+ALTER TEABLE Table_Name MODIFY column_name new_data_type;
+ALTER TABLE Table_Name MODIFY column_name Existing_datatype [NULL]/NOT NULL; 
+        </code></pre>
+</div>
+<h4>TRUNCATE Statement</h4>
+ <div class="code-block">
+    <div class="code-header">SQL code</div>
+        <pre><code>TRUNCATE TABLE Table_Name;
+        </code></pre>
+</div>
+<h4>DROP Statement</h4>
+ <div class="code-block">
+    <div class="code-header">SQL code</div>
+        <pre><code>DROP TABLE Table_Name;
+        </code></pre>
+</div>
+<pre>
+To Recover the table(oracle)
+</pre>
+ <div class="code-block">
+    <div class="code-header">SQL code</div>
+        <pre><code>FLASHBACK TABLE Table_Name TO BEFORE DROP;
+        </code></pre>
+</div>
+<h4>To DELETE the table form BIN Folder</h4>
+ <div class="code-block">
+    <div class="code-header">SQL code</div>
+        <pre><code>PURGE TABLE Table_Name;
+        </code></pre>
+</div>
+<pre>Note: ALL DDL Statements are auto commit Statements</pre>
