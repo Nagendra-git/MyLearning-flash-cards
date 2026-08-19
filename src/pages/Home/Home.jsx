@@ -15,6 +15,8 @@ import javaCollectionCards from "../../data/javaCollectionCards";
 import goLangCards from "../../data/goLangCards";
 import sqlCards from "../../data/sqlCards";
 import htmlCards from "../../data/htmlCards";
+import javaScriptCards from"../../data/javaScriptCards";
+import codingPatterCards from "../../data/codingPatterCards";
 import "../../styles/Home.css";
 
 const topics = [
@@ -32,7 +34,9 @@ const topics = [
   { key: "aws", label: "AWS", data : awsCards},
   { key: "golang", label: "Go Lang", data : goLangCards},
   { key: "sql", label : "SQL", data : sqlCards},
-  { key: "HTML", label: "HTML", data : htmlCards}
+  { key: "HTML", label: "HTML", data : htmlCards},
+  { key: "javaScript", label: "Java Script", data: javaScriptCards},
+  { key: "codingPatterns", label : "Coding patterns", data: codingPatterCards},
 ];
 
 function Home() {

@@ -1,0 +1,219 @@
+<h4>Java Script Functions</h4>
+<pre>
+A function is a reusable block of code.
+1. Function Declaration
+function greet(name) {
+    console.log("Hello " + name);
+}
+greet("Nagendra");
+
+Major difference
+JavaScript doesn't require you to declare:
+return type
+parameter types
+This is because JavaScript is dynamically typed.
+
+function add(a, b)
+            ↑  ↑
+        parameters
+
+add(10, 20)
+    ↑   ↑
+ arguments
+</pre>
+<h4>JavaScript Can Return Anything</h4>
+<pre>
+This is more flexible than Java's primitive/reference type distinction.
+A function can return:
+Number
+function getAge() {
+    return 25;
+}
+String
+function getName() {
+    return "Nagendra";
+}
+Boolean
+function isAdult(age) {
+    return age >= 18;
+}
+Object
+function getUser() {
+    return {
+        name: "Nagendra",
+        age: 25
+    };
+}
+Array
+function getNumbers() {
+    return [10, 20, 30];
+}
+Another function 🤯
+function outer() {
+    return function inner() {
+        console.log("Hello");
+    };
+}
+This last concept becomes very important later when you study callbacks, higher-order functions, and closures.
+</pre>
+<h4>Functions Are Values ⭐</h4>
+<pre>
+This is one of the biggest JavaScript concepts.
+In Java, you generally think of methods as behavior attached to classes/objects.
+In JavaScript:
+A function is itself a value.
+You can store it in a variable.
+const greet = function () {
+    console.log("Hello");
+};
+greet();
+
+You can even pass it to another function.
+function greet() {
+    console.log("Hello");
+}
+function execute(fn) {
+    fn();
+}
+execute(greet);
+This concept is fundamental to modern JavaScript.
+
+</pre>
+<h4>Function Expression</h4>
+<pre>
+Function Declaration
+function greet() {
+    console.log("Hello");
+}
+Function Expression
+const greet = function () {
+    console.log("Hello");
+};
+This distinction becomes important when you reach Hoisting.
+</pre>
+<h4>Anonymous Function</h4>
+<pre>
+A function without a name:
+function () {
+    console.log("Hello");
+}
+By itself, this isn't normally useful.
+But you can assign it:
+const greet = function () {
+    console.log("Hello");
+};
+The function itself has no name, so it's called an anonymous function.
+You'll see these frequently in callbacks.
+</pre>
+<h4>Arrow Functions ⭐</h4>
+<pre>
+This is extremely important in modern JavaScript.
+
+Instead of:
+const add = function (a, b) {
+    return a + b;
+};
+you can write:
+const add = (a, b) => {
+    return a + b;
+};
+And if it's a single expression:
+const add = (a, b) => a + b;
+
+Arrow Function Shortcuts:
+One parameter
+You can omit parentheses:
+const square = x => x * x;
+instead of:
+const square = (x) => x * x;
+Multiple parameters
+Parentheses required:
+const add = (a, b) => a + b;
+No parameters
+Empty parentheses:
+const greet = () => {
+    console.log("Hello");
+};
+
+</pre>
+<h4>Implicit Return</h4>
+<pre>
+This is important.
+
+Normal:
+const square = (x) => {
+    return x * x;
+};
+Arrow function:
+const square = x => x * x;
+The second version has an implicit return.
+So:
+x => x * x
+means approximately:
+x => {
+    return x * x;
+}
+But only when you omit {}.
+</pre>
+<h4>Default Parameters</h4> 
+<pre>
+JavaScript allows default parameter values.
+function greet(name = "Guest") {
+    console.log("Hello " + name);
+}
+greet();
+Output:Hello Guest
+But:
+greet("Nagendra");
+outputs:Hello Nagendra
+This is useful because JavaScript allows arguments to be omitted.
+</pre>
+<h4>Missing Arguments</h4>
+<pre>
+Consider:
+function add(a, b) {
+    return a + b;
+}
+console.log(add(10));
+What happens?
+a:10
+b:undefined
+So:10 + undefined
+results in:NaN
+This is another difference from strongly typed Java-style thinking.
+</pre>
+<h4>Extra Arguments</h4>
+<pre>
+What happens here?
+function greet(name) {
+    console.log(name);
+}
+greet("Nagendra", 25, "India");
+JavaScript allows this.
+The function simply doesn't use the extra arguments.
+Later you'll learn how JavaScript can capture them using:
+...rest
+
+For example:
+function sum(...numbers) {
+    // ...
+}
+We'll cover that properly in Spread / Rest.  
+</pre>
+<h4>Functions Inside Functions</h4>
+<pre>
+JavaScript allows:
+function outer() {
+    function inner() {
+        console.log("Inner");
+    }
+    inner();
+}
+outer();
+This becomes extremely important for:
+Scope
+   ↓
+Lexical Scope
+   ↓
+Closures
+</pre>
