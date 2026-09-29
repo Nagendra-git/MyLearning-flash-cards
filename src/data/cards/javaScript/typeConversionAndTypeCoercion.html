@@ -1,0 +1,65 @@
+<h4>Type Conversion & Type Coercion</h4>
+<h4>Type Conversion</h4>
+<pre>
+Type conversion means you explicitly convert a value from one type to another.
+Common conversion functions:
+Number()
+String()
+Boolean()
+
+1.String → Number:
+let value = "100";
+let result = Number(value);
+console.log(result);//100
+Number("hello")// NAN
+
+2.Number → String:
+let age = 25;
+let value = String(age);
+console.log(typeof value);//string
+
+3.Boolean Conversion:
+Boolean(1);        // true
+Boolean(0);        // false
+Boolean("hello");  // true
+Boolean("");       // false
+</pre>
+<h4>Type Coercion</h4>
+<pre>
+Type coercion happens when JavaScript automatically converts a value from one type to another.
+You didn't explicitly request the conversion.
++ -> concatination ("10"+5) => 105//string
+- -> ("10"-5) => 5
+* -> ("10" * 5) => 50
+/ -> ("10"/5) =>2
+</pre>
+<h4>== vs ===</h4>
+<pre>
+== : Loose Equality
+JavaScript can perform type coercion.
+5 == "5"
+Result:true
+
+===:Strict Equality
+No type coercion.
+5 === "5"
+Result:false
+Because:
+5       → number
+"5"     → string
+Different types :false
+
+JavaScript Type Handling
+          │
+          ├── Explicit Conversion
+          │       ↓
+          │    Number()
+          │    String()
+          │    Boolean()
+          │
+          └── Automatic Coercion
+                  ↓
+             JavaScript
+             converts types
+             automatically
+</pre>

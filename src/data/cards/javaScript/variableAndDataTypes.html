@@ -1,0 +1,107 @@
+<h4>Variables & Data Types</h4>
+<pre>
+A variable is a named location used to store a value.
+let age = 25;
+let name = "Nagendra";
+JavaScript provides three ways to declare variables:
+var : var is the older way of declaring variables.
+let : let is used when the value of a variable can change.
+const : const is used when the variable should not be reassigned.
+| Feature                      | let  | const | var           |
+| ---------------------------- | ---- | ----- | ------------- |
+| Can reassign?                | Yes  | No    | Yes           |
+| Can redeclare in same scope? | No   | No    | Yes           |
+| Block scoped?                | Yes  | Yes   | No            |
+| Modern JavaScript            | Yes  | Yes   | Usually avoid |
+| Hoisting behavior            | Yes* | Yes*  | Yes           |
+
+</pre>
+<h4>Data Types</h4>
+<pre>
+A variable can contain different kinds of values.
+JavaScript has primitive and non-primitive/reference types.
+JavaScript Data Types
+│
+├── Primitive
+│   ├── String
+│   ├── Number
+│   ├── BigInt
+│   ├── Boolean
+│   ├── Undefined
+│   ├── Null
+│   └── Symbol
+│
+└── Non-Primitive
+    └── Object
+        ├── Object
+        ├── Array
+        ├── Function
+        └── ...
+</pre>
+<h4>String</h4>
+<pre>
+Used to represent text.
+"Hello"
+'Hello'
+`Hello`
+Backticks become especially useful with template literals, which we'll cover later.
+</pre>
+<h4>Number</h4>
+<pre>
+JavaScript uses Number for both integers and floating-point numbers.
+let age = 25;
+let price = 99.99;
+let temperature = -10;
+</pre>
+<h4>Boolean</h4>
+<pre>
+true
+false
+</pre>
+<h4>Undefined</h4>
+<pre>
+undefined means a variable exists but currently doesn't have a value.
+let name;
+console.log(name);
+</pre>
+<h4>Null</h4>
+<pre>
+null represents an intentional absence of a value.
+let selectedUser = null;
+</pre>
+<h4>BigInt</h4>
+<pre>
+Used for very large integers.
+let number = 123456789012345678901234567890n;
+Notice the:
+n
+at the end.
+typeof number
+returns:
+bigint
+You won't use this frequently in normal backend/frontend development, but you should know it exists.
+</pre>
+<h4>Symbol</h4>
+<pre>
+Symbol creates a unique value.
+const id = Symbol("id");
+Two symbols with the same description are still different:
+const a = Symbol("id");
+const b = Symbol("id");
+
+console.log(a === b);
+Output:
+false
+This is an advanced/specialized type and we'll revisit it later.
+</pre>
+<h4>Object</h4>
+<pre>
+Objects allow us to store related data together.
+const user = {
+    name: "Nagendra",
+    age: 25,
+    city: "Bangalore"
+};
+Objects become one of the most important concepts in JavaScript because arrays, functions, classes, dates, maps, etc. 
+are all closely related to JavaScript's object model.
+</pre>

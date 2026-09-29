@@ -1,0 +1,57 @@
+<h4>var, let, and const</h4>
+<pre>
+var, let, and const are used to create variables in JavaScript. 
+The main difference between them is how they behave with scope, reassignment, redeclaration, and hoisting. 
+var is function-scoped, while let and const are block-scoped. 
+let can be reassigned, but const cannot be reassigned.
+Remember:
+var → function scope
+let → block scope + can change
+const → block scope + cannot reassign
+</pre>
+<h4>Hoisting</h4>
+<pre>
+Hoisting is a JavaScript behavior where declarations are processed 
+before the code actually starts executing. 
+Because of this, we can sometimes access a variable or function before its declaration, 
+but the behavior depends on how it was declared.
+Simple example:
+console.log(x);//undefined
+var x = 10;
+Easy way to remember:
+    JavaScript knows about the declaration before it reaches that line during execution.
+</pre>
+<h4>Temporal Dead Zone — TDZ</h4>
+<pre>
+The Temporal Dead Zone is the time between entering a scope and reaching the declaration of a let or const variable. 
+During that time, the variable cannot be accessed, and trying to access it gives a ReferenceError.
+Example:
+console.log(age);
+let age = 25;
+Easy way:
+    The variable exists, but I cannot use it until JavaScript reaches its declaration.
+</pre>
+<h4>Scope</h4>
+<pre>
+Scope basically tells us where a variable can be accessed in our code. 
+JavaScript mainly has global scope, function scope, and block scope.
+Easy way:
+    Scope defines where a variable is available.
+</pre>
+<h4>Closure</h4>
+<pre>
+A closure happens when an inner function remembers and can still access variables from the outer function, 
+even after the outer function has finished executing.
+Example:
+<div class="code-block"><div class="code-header">Pseudo code</div><pre><code>Closure:
+        function counter() {
+            let count = 0;
+            return function () {
+                count++;
+                console.log(count);
+            };
+        }
+</code></pre></div>
+Easy way:
+A closure allows a function to remember variables from where it was created.
+</pre>

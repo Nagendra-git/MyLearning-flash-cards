@@ -7,6 +7,7 @@ import javaArrayCards from "../../data/javaArrayCards";
 import javaStringCards from "../../data/javaStringCards";
 import javaObjectCards from "../../data/javaObjectCards";
 import javaMiscCards from "../../data/javaMiscCards";
+import javaMemoryModelCards from "../../data/javaMemoryModelCards"
 import springBootTransactionalCards from "../../data/springBootTransactionalCards";
 import exceptionMiscCards from "../../data/exceptionMiscCards";
 import javaMultiThredingCards from "../../data/javaMultithreding";
@@ -15,6 +16,8 @@ import javaCollectionCards from "../../data/javaCollectionCards";
 import goLangCards from "../../data/goLangCards";
 import sqlCards from "../../data/sqlCards";
 import htmlCards from "../../data/htmlCards";
+import javaScriptCards from"../../data/javaScriptCards";
+import codingPatterCards from "../../data/codingPatterCards";
 import "../../styles/Home.css";
 
 const topics = [
@@ -26,13 +29,16 @@ const topics = [
   { key: "javaCollection", label: "Java Collections", data : javaCollectionCards},
   { key: "javaMultithreding", label: "Java Multithreding", data: javaMultiThredingCards},
   { key: "exceptionMisc", label: "Exception Misc", data : exceptionMiscCards},
+  { key: "javaMemoryModel", label: "Java Memory Model", data : javaMemoryModelCards },
   { key: "algorithm", label: "Alagorithm Cards", data: AlgorithmCards},
   { key: "systemdesign", label: "System Design Cards", data: SystemDesignCards},
   { key: "springBootTransaction", label: "String Boot Transaction", data : springBootTransactionalCards},
   { key: "aws", label: "AWS", data : awsCards},
   { key: "golang", label: "Go Lang", data : goLangCards},
   { key: "sql", label : "SQL", data : sqlCards},
-  { key: "HTML", label: "HTML", data : htmlCards}
+  { key: "HTML", label: "HTML", data : htmlCards},
+  { key: "javaScript", label: "Java Script", data: javaScriptCards},
+  { key: "codingPatterns", label : "Coding patterns", data: codingPatterCards}
 ];
 
 function Home() {

@@ -1,0 +1,110 @@
+<h4>Java Script</h4>
+<p>JavaScript is a programming language used to add logic and behavior to applications.</p>
+<pre>
+JavaScript needs an environment that can execute it.
+The two environments you should understand first are:
+Browser
+   ↓
+JavaScript runs inside the browser
+
+Node.js
+   ↓
+JavaScript runs outside the browser
+</pre>
+<h4>JavaScript Engine</h4>
+<pre>
+A JavaScript engine is the component that executes JavaScript code.
+For example:   
+JavaScript Code
+       ↓
+JavaScript Engine
+       ↓
+Machine Instructions
+       ↓
+      CPU
+
+Popular engines:
+Chrome       → V8(V8 is Google's JavaScript engine.)
+Firefox      → SpiderMonkey
+Safari       → JavaScriptCore
+Node.js      → V8
+The important one for us initially is V8.
+</pre>
+<h4>JavaScript Runtime</h4>
+<pre>
+A runtime environment provides everything needed to execute JavaScript in a particular environment.
+JavaScript Runtime
+│
+├── JavaScript Engine
+├── APIs
+├── Event Loop
+├── Queues
+└── Other environment features
+</pre>
+<h4>Browser Runtime</h4>
+<pre>
+When JavaScript runs inside Chrome, the environment looks roughly like:
+Chrome
+│
+├── V8
+│
+├── DOM APIs
+├── Web APIs
+├── Storage APIs
+├── Fetch APIs
+└── Event System
+</pre>
+<h4>Browser vs Node.js</h4>
+<pre>
+document.querySelector("h1");
+Browser: Works because the browser provides document.
+Node.js: ormally doesn't work because Node.js doesn't provide the browser DOM.
+
+const fs = require("fs");
+Node.js provides the filesystem API.
+The browser doesn't give normal webpage JavaScript unrestricted filesystem access.
+</pre>
+<h4>ECMAScript</h4>
+<pre>
+You will see the term ECMAScript frequently.
+ECMAScript is the standard/specification for the JavaScript language.
+ECMAScript
+     ↓
+Language specification
+     ↓
+JavaScript implementations
+</pre>
+<h4>JavaScript Execution — Basic Picture</h4>
+<pre>
+For now, remember this simplified model:
+
+          JavaScript Code
+                 ↓
+        JavaScript Runtime
+                 ↓
+        JavaScript Engine
+                 ↓
+             Execution
+
+For Chrome:
+
+JavaScript
+    ↓
+Chrome
+    ↓
+V8
+    ↓
+Execution
+
+For Node.js:
+
+JavaScript
+    ↓
+Node.js
+    ↓
+V8
+    ↓
+Execution
+
+The runtime provides additional functionality around the engine.
+</pre>
