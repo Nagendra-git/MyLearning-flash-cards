@@ -1,0 +1,84 @@
+<h4>JVM Memory Areas</h4>
+<p>
+Java Memory Model (JMM) has two related but different meanings in Java discussions:<br>
+JVM runtime memory areas — Heap, Stack, Method Area/Metaspace, PC Register, Native Method Stack.<br>
+Java Memory Model in concurrency — visibility, atomicity, ordering, volatile, synchronized, happens-before, etc.
+</p>
+<h4>Heap</h4>
+<pre>
+The Heap is the runtime memory area from which memory for objects 
+and arrays is generally allocated.
+Person p = new Person();
+Thread Stack              Heap
+p ────────────────────► Person object
+p       → reference
+Person  → object
+Heap characteristics:
+    Shared between threads.
+    Objects are generally allocated here.
+    Arrays are allocated here.
+    Garbage collection primarily manages heap objects.
+    Heap exhaustion can result in OutOfMemoryError.
+</pre>
+<h4>Stack</h4>
+<pre>
+Each Java thread has its own JVM stack.
+Every method invocation creates a frame.
+</pre>
+<h4>Stack Frame</h4>
+<pre>
+A frame is created whenever a method is invoked.
+A frame contains information needed for that method invocation.
+Important components include:
+Stack Frame
+│
+├── Local variable array
+├── Operand stack
+├── Reference to runtime constant pool
+└── Execution/return information
+</pre>
+<h4>Local Variables</h4>
+<pre>
+If primitive(local) variable are declared inside the method ->stack frame(stack memory) -> method lives in stack
+If primitive variable are declared inside the calss outside of any method -> Stored in Heap-> as part of object
+If a primitive variable declare as stactic -> lives in heap memory -> as part of permanant/ metaspace area.
+</pre>
+<h4>Method Area / Metaspace</h4>
+<pre>
+The JVM also maintains an area for class-level metadata.
+In HotSpot JVMs, Metaspace is used for class metadata.
+It contains information such as:
+Class metadata
+Method metadata
+Field metadata
+Runtime constant-pool-related information
+Static fields are associated with classes, but their exact runtime 
+representation/storage is JVM implementation dependent.
+</pre>
+<h4>Runtime Constant Pool</h4>
+<pre>
+Every class/interface has a runtime constant pool associated with it.
+It contains symbolic and constant information needed by the JVM.
+For example, compiled bytecode can contain references to:
+class names, method names, field names, string constants, numeric constants
+</pre>
+<h4>PC Register</h4>
+<pre>
+Each JVM thread has its own Program Counter (PC) register.
+It tracks the address/instruction position of the JVM instruction currently being executed by that thread.
+Conceptually:
+Thread
+  │
+  ├── Stack
+  └── PC Register
+Because each thread executes independently, each thread needs its own PC.
+</pre>
+<h4>Native Method Stack</h4>
+<pre>
+Java can call native code through mechanisms such as JNI.
+The JVM specification defines a separate native method stack for supporting native methods.
+You don't usually need implementation-level detail for entry-level interviews.
+Remember:
+Java Stack → JVM method execution
+Native Method Stack → native method execution
+</pre>
